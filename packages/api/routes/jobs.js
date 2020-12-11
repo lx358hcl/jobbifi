@@ -3,10 +3,10 @@ var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
 var allowedKeys = ["search", "tekno", "type", "frist"];
-var cors = require("cors");
 
 //Jobs-route dirigent
-router.get("/api/jobs", cors(), function (request, response){
+router.get("/api/jobs", function (request, response){
+    console.log("hello");
     if(Object.keys(request.query).length == 0) sendAll(request, response);
     else if(Object.keys(request.query).every(e => allowedKeys.includes(e))) searchHandler(request, response);
     else response.send("Ugyldig API-call. Sjekk query-parametrene dine. Feilen har opphav i query-stringen.")
