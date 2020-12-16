@@ -2,11 +2,10 @@
 var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
-var allowedKeys = ["search", "tekno", "type", "frist"];
+var allowedKeys = ["search", "tekno", "type", "frist", "sort"];
 
 //Jobs-route dirigent
 router.get("/api/jobs", function (request, response){
-    console.log("hello");
     if(Object.keys(request.query).length == 0) sendAll(request, response);
     else if(Object.keys(request.query).every(e => allowedKeys.includes(e))) searchHandler(request, response);
     else response.send("Ugyldig API-call. Sjekk query-parametrene dine. Feilen har opphav i query-stringen.")
@@ -65,6 +64,33 @@ var allFunctions = {
             if(differanse < params) temp.push(e);
         });
         return temp;
+    },
+    sort(request, result){
+        if(request == "down"){
+            return result.sort((a, b) => {
+                var [dag1, måned1, år1] = a.date.split(".");
+                var [dag2, måned2, år2] = b.date.split(".");
+                var dato1 = parseInt(`${år1}${måned1}${dag1}`);
+                var dato2 = parseInt(`${år2}${måned2}${dag2}`);
+                if(dato1 < dato2) return 1;
+                else if(dato1 > dato2) return -1;
+                else return 0;
+            });
+        }
+        else if(request == "up"){
+            return result.sort((a, b) => {
+                var [dag1, måned1, år1] = a.date.split(".");
+                var [dag2, måned2, år2] = b.date.split(".");
+                var dato1 = parseInt(`${år1}${måned1}${dag1}`);
+                var dato2 = parseInt(`${år2}${måned2}${dag2}`);
+                if(dato1 > dato2) return 1;
+                else if(dato1 < dato2) return -1;
+                else return 0;
+            });
+        }
+        else{
+            return "Den sorteringsmekanismen der finnes ikke.";
+        }
     }
 }
 

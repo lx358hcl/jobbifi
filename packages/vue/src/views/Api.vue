@@ -141,13 +141,8 @@
 </template>
 
 <script>
-  const axios = require('axios').default;
-
   export default {
     setup() {
-      axios
-        .get('http://localhost:3000/api/jobs')
-        .then(response => console.log(response));
       return {
 
       }

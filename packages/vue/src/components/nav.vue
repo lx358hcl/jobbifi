@@ -1,12 +1,12 @@
 <template>
-  <nav class="navbar sticky-top navbar-light bg-light navbar-expand-xl">
+  <nav style = "margin-bottom: 0 !important;" class="navbar sticky-top navbar-light bg-light navbar-expand-xl mb-0">
     <div class="container">
 
       <a id="logo" class="navbar-brand" href="/">&</a>
 
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2 search" type="search" style="font-family: FontAwesome;"
-          placeholder="&#xF002;  Søk" aria-label="Search">
+          placeholder="&#xF002; Søk" aria-label="Search">
       </form>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

@@ -22,6 +22,8 @@
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
+    "heroku": "^7.47.5",
+    "netlify-cli": "^2.69.6",
     "nodemon": "^2.0.6",
     "routes": "^2.1.0",
     "vue": "^3.0.0",

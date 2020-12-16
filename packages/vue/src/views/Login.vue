@@ -1,6 +1,6 @@
 <template>
-    <main class = "container hjem">
-        <div style = "height: 500px;" class="boks login p-3">
+    <main class = "container hjem d-flex justify-content-center align-items-center">
+        <div style = "min-width:400px; height: 450px;" class="boks login p-3">
           <form>
             <h1 class = "loginheader">&</h1> 
             <h2 class = "loginheader m-0 p-0">NEVET</h2>
@@ -18,9 +18,6 @@
               <button type="submit" class="loginbtn btn btn-primary loginbutton">Login</button>
               <a class="glemtp p-3" href="#">Glemt passordet?</a>
             </div>
-
-            <h4 class = "eller">eller</h4>
-
           </form>
         </div>
     </main>
