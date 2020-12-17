@@ -1,6 +1,5 @@
 * {
     font-family: 'Lato', sans-serif;
-    user-select:none;
 }
 
 body {
@@ -594,6 +593,6 @@ label {
     color: #4e4e4e;
 }
 
-.gjørTilClickable{
+.sortering{
     cursor:pointer;
 }

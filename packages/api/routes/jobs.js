@@ -31,6 +31,7 @@ function functions(request, response){
 //All functions used in the API
 var allFunctions = {
     search(request, result){
+        if(!request) return result;
         var params = request.toLowerCase().split(" ");
         var regex = new RegExp(`${params.join("|")}`, "gi");
         var fullText = "";
@@ -45,14 +46,17 @@ var allFunctions = {
         return temp;
     },
     type(request, result){
+        if(!request) return result;
         var params = request.toLowerCase().split(" ");
         return result.filter(job => params.some(jobType => jobType == job.position));
     },
     tekno(request, result){
+        if(!request) return result;
         var params = request.toLowerCase().split(" ");
         return result.filter(job => job.teknologier.some(teknologi => params.includes(teknologi)));
     },
     frist(request, result){
+        if(!request) return result;
         var params =  Number(request) * 86400000;
         var currentDate = new Date();
         var date = undefined;
@@ -66,6 +70,7 @@ var allFunctions = {
         return temp;
     },
     sort(request, result){
+        if(!request) return result;
         if(request == "down"){
             return result.sort((a, b) => {
                 var [dag1, måned1, år1] = a.date.split(".");

@@ -6,6 +6,11 @@
   export default {
     setup() {
       var usersAPIquery = router.currentRoute.value.href;
+      console.log(router);
+      console.log(router.currentRoute);
+      console.log(router.currentRoute.value);
+      console.log(router.currentRoute.value.href);
+      console.log(usersAPIquery);
       window.location.href = `http://localhost:3000${usersAPIquery}`;
 
       //     router.push({ name: 'user', params: { userId: 123 }})

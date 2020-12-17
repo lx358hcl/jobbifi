@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "vue-cli-service lint",
     "run": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build && serve -s dist"
   },
   "eslintConfig": {
     "root": true,

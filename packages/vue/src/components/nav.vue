@@ -6,7 +6,7 @@
 
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2 search" type="search" style="font-family: FontAwesome;"
-          placeholder="&#xF002; Søk" aria-label="Search">
+          placeholder=" &#xF002;  Søk" aria-label="Search">
       </form>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -23,14 +23,14 @@
 
           <li class="nav-item titles">
             <a class="nav-link" href="/stillinger" v-bind:class="{'active': $route.path == '/stillinger'}">STILLINGER
-              <span class="badge badge-danger">394</span>
+              <span style = "position:relative; bottom:10px; padding-top:4px; padding-right:5px; right:3px; padding-left:6px; border-radius:20px;" class="badge badge-danger">{{ hovedData.jobs.length }}</span>
             </a>
           </li>
 
           <li class="nav-item titles">
             <a class="nav-link" href="/arrangementer"
               v-bind:class="{'active': $route.path == '/arrangementer'}">ARRANGEMENTER
-              <span class="badge badge-success">394</span>
+              <span style = "position:relative; bottom:10px; padding-top:4px; padding-bottom:4px; padding-right:4px; right:3px; padding-left:6px; border-radius:20px;" class="badge badge-danger">{{ hovedData.ifievents.length + hovedData.tekna.length }}</span>
             </a>
           </li>
 
@@ -47,3 +47,16 @@
     </div>
   </nav>
 </template>
+
+<script>
+  var hovedData = require("../../../api/data/data.json");
+
+  export default{
+    setup(){
+      return{
+        hovedData,
+      }
+    }
+  }
+
+</script>

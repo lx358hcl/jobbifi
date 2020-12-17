@@ -1,7 +1,6 @@
 <template>
-  <main class="container-fluid m-0 p-0 pt-4">
-    
-    <!-- <nav class="navbar navbar-expand søkeNav navbar-light m-0 p-0 ">
+  <main class="container-fluid m-0 p-0">
+    <nav class="navbar navbar-expand søkeNav navbar-light m-0 p-0 ">
       <div class="collapse navbar-collapse" id="navbarNav">
         <div style="max-width:1400px;" class="container">
           <ul class="navbar-nav">
@@ -33,44 +32,76 @@
           </ul>
         </div>
       </div>
-    </nav> -->
 
+    </nav>
     <div style="max-width:1400px; margin-bottom:100px;" class="container">
       <div class="row">
         <div class="col-3 pr-0">
-          <h4 class="card-title filterTittel pt-4 pb-2 mb-0">Filtrer resultatene:</h4>
+          <h4 class="card-title filterTittel pt-4 pb-0 mb-0">Filtrer resultatene:</h4>
           <div class="jobbtype">
-            <p class="card-title filtertypeTittel mb-2 mt-3">Fulltid/deltid</p>
+            <p class="card-title filtertypeTittel mb-2 mt-3">Heltid/deltid</p>
             <ul class="list-group list-group-flush">
               <li class="list-group-item border-0 filter p-0 ml-1">
-                <input class="gjørTilClickable" v-bind:checked = "settings.type.includes('deltid')" @click="changeType(['type', 'deltid', $event.target.checked])" type="checkbox" id="deltid">
-                <label class="gjørTilClickable pl-2 mb-1" for="deltid">Deltid <span class="filterAntall">({{ antall["deltid"] }})</span></label>
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Deltid <span class="filterAntall">(960)</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
-                <input class="gjørTilClickable" v-bind:checked = "settings.type.includes('internship')" @click="changeType(['type', 'internship', $event.target.checked])" type="checkbox" id="internship">
-                <label class="gjørTilClickable pl-2 mb-1" for="internship">Internship <span class="filterAntall">({{ antall["internship"]}})</span></label>
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Internship <span class="filterAntall">(1029)</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
-                <input class="gjørTilClickable" v-bind:checked = "settings.type.includes('fulltid')" @click="changeType(['type', 'fulltid', $event.target.checked])" type="checkbox" id="fulltid">
-                <label class="gjørTilClickable pl-2 mb-1" for="fulltid">Fulltid <span class="filterAntall">({{ antall["fulltid"]}})</span></label>
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Heltid <span class="filterAntall">(401)</span></label>
               </li>
             </ul>
           </div>
-          <!-- <div class="firma">
+          <div class="firma">
             <p class="card-title filtertypeTittel mb-2 mt-3">Firma</p>
             <ul class="list-group list-group-flush">
-              <li v-for="job in data" :key="job.id" class="list-group-item border-0 filter p-0 ml-1">
+              <li class="list-group-item border-0 filter p-0 ml-1">
                 <input type="checkbox" id="deltid">
-                <label class="pl-2 mb-1" for="deltid">{{ job.companyName }} <span class="filterAntall">(96)</span></label>
+                <label class="pl-2 mb-1" for="deltid">NRK <span class="filterAntall">(96)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Netcompany <span class="filterAntall">(1029)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Knowit <span class="filterAntall">(148)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Iterate <span class="filterAntall">(1923)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Skatteetaten <span class="filterAntall">(19)</span></label>
               </li>
             </ul>
-          </div> -->
+          </div>
           <div class="ferdigheter">
             <p class="card-title filtertypeTittel mb-2 mt-3">Ferdigheter</p>
             <ul class="list-group list-group-flush">
-              <li v-for="teknologi in alleTeknologierInfo.unikeTeknologier" v-bind:key="teknologi" class="list-group-item border-0 filter p-0 ml-1">
-                <input type="checkbox" id>
-                <label class="pl-2 mb-1" for>{{ teknologi[0].toUpperCase() + teknologi.slice(1) }}<span class="filterAntall"> ({{ alleTeknologierInfo.antallStillingerPerTeknologi[teknologi] }})</span></label>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">React <span class="filterAntall">(18)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Vue <span class="filterAntall">(102)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">JavaScript <span class="filterAntall">(32)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Python <span class="filterAntall">(32)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Java <span class="filterAntall">(32)</span></label>
               </li>
             </ul>
           </div>
@@ -91,6 +122,41 @@
               </li>
             </ul>
           </div>
+          <div class="Fagområder">
+            <p class="card-title filtertypeTittel mb-2 mt-3">Fagområder</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Bygg, anlegg og eiendom <span
+                    class="filterAntall">(18)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Forskning og innovasjon <span
+                    class="filterAntall">(102)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">IT-utvikling <span class="filterAntall">(32)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Energi og klima <span class="filterAntall">(32)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">Maritimteknologi <span class="filterAntall">(32)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">IT og tele <span class="filterAntall">(32)</span></label>
+              </li>
+              <li class="list-group-item border-0 filter p-0 ml-1">
+                <input type="checkbox" id="deltid">
+                <label class="pl-2 mb-1" for="deltid">IT-verktøy <span class="filterAntall">(32)</span></label>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-9">
           <div class="container mt-4 p-0">
@@ -98,8 +164,8 @@
               <div class="card-body py-0 pr-2">
                 <div class="row">
                   <div class="col-8">
-                    <p class="font-weight-bold mb-0 mt-2">Fant {{ data.length }} resultater </p>
-                    <p class="mt-2 mb-2">Du søkte etter: ... </p>
+                    <p class="font-weight-bold mb-0 mt-2">Fant 6 resultater for NRK</p>
+                    <p class="mt-2 mb-2">Du søkte etter: NRK med filtrene: deltid</p>
                   </div>
                   <div class="col-4 d-flex align-items-center pr-0 justify-content-end">
                     <div style="" class="btn-group w-100 d-flex align-items-center pr-3 justify-content-end">
@@ -111,16 +177,16 @@
                       <div style="max-width: 100px;" class="dropdown-menu w-100">
                         <ul class="pl-4 ml-2 my-auto">
                           <li>
-                            <input @click="sorter(['sort', 'down', $event.currentTarget.checked])" class="form-check-input" type="radio"
+                            <input @click="axiosMe('down')" class="form-check-input" type="radio"
                               name="sorteringAvStillinger" id="nyesteFørst" value="nyesteFørst" checked>
-                            <label class="form-check-label gjørTilClickable" for="nyesteFørst">
+                            <label class="form-check-label sortering" for="nyesteFørst">
                               Nyeste først
                             </label>
                           </li>
                           <li>
-                            <input @click="sorter(['sort', 'up', $event.currentTarget.checked])" class="form-check-input" type="radio"
+                            <input @click="axiosMe('up')" class="form-check-input" type="radio"
                               name="sorteringAvStillinger" id="eldsteFørst" value="eldsteFørst">
-                            <label class="form-check-label gjørTilClickable" for="eldsteFørst">
+                            <label class="form-check-label sortering" for="eldsteFørst">
                               Eldste først
                             </label>
                           </li>
@@ -134,7 +200,7 @@
           </div>
           <div class="container my-0 p-2 d-flex justify-content-center">
             <div class="row">
-              <div v-for="job in data" :key="job.id" class="col-sm-6 col-lg-4 p-2">
+              <div v-for="job in data.jobs" :key="job.id" class="col-sm-6 col-lg-4 p-2">
                 <div style="min-height:480px;" class="boksen card">
                   <div style="width:100%; height:180px;" class="d-flex align-items-center card-img my-auto mx-auto">
                     <img style="width:60%; max-height:120px; " class="my-auto mx-auto card-img-top"
@@ -173,72 +239,26 @@
 </template>
 
 <script>
-  import { ref, reactive } from "vue";
-  var axios = require("axios");
+  import { ref } from "vue";
+  var data = require("../../../api/data/data.json");
+  data = ref(data);
+  const axios = require("axios");
 
   export default {
     setup() {
-      var hovedData = require("../../../api/data/data.json");
-      var data = ref("");
-      var antall = ref({});
-      var alleTeknologierInfo = {
-        "unikeTeknologier": [...new Set(hovedData.jobs.reduce((a,c) => a.concat(c.teknologier), []))],
-        "antallStillingerPerTeknologi": {
-
-        },
-        "alleTeknologier": hovedData.jobs.reduce((a,c) => a.concat(c.teknologier), []),
-      }
-      for(let el of alleTeknologierInfo.alleTeknologier){
-        alleTeknologierInfo.antallStillingerPerTeknologi[el] = alleTeknologierInfo.antallStillingerPerTeknologi[el] ? alleTeknologierInfo.antallStillingerPerTeknologi[el] + 1 : 1;
-      }
-      var settings = {
-          "type": ["fulltid", "deltid", "internship"],
-          "search": [],
-          "tekno": [],
-          "frist":"",
-          "sort": "down",
-        }
-      function sorter(message){
-        var [type, query, state] = message;
-        console.log(query);
-        settings.sort = query;
-        console.log(settings);
-        axiosMe();
-      }
-      function changeType(message){
-        var [type, query, state] = message;
-        if(state) settings.type.push(query);
-        else settings.type.splice(settings.type.indexOf(query), 1);
-        axiosMe();
-      }
-      function axiosMe() {
-        axios.get(`http://localhost:3000/api/jobs?type=${settings.type.join("+")}&sort=${settings.sort}`)
+      function axiosMe(message) {
+        axios.get(`http://localhost:3000/api/jobs?sort=${message}`)
           .then(function (response) {
-            data.value = response.data;
+            data.value.jobs = response.data;
           })
           .catch(function (error) {
             return error;
           });
       }
-      axiosMe();
-
-      function finnAntall(){
-        console.log(hovedData.jobs)
-        antall.value["fulltid"] = hovedData.jobs.reduce((a,c) => c.position == "fulltid" ? 1 + a : 0 + a, 0);
-        console.log(antall.value);
-        antall.value["deltid"] = hovedData.jobs.reduce((a,c) => c.position == "deltid" ? 1 + a : 0 + a, 0);
-        antall.value["internship"] = hovedData.jobs.reduce((a,c) => c.position == "internship" ? 1 + a : 0 + a, 0);
-      }
-      finnAntall();
-
+      axiosMe("down");
       return {
         data,
         axiosMe,
-        settings,
-        changeType,
-        antall,
-        sorter,
-        alleTeknologierInfo,
       }
     }
   }
