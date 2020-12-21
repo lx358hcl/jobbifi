@@ -57,15 +57,14 @@ var allFunctions = {
     },
     frist(request, result){
         if(!request) return result;
-        var params =  Number(request) * 86400000;
-        var currentDate = new Date();
-        var date = undefined;
-        var differanse = undefined;
         var temp = [];
+        var dagensDato = new Date();
         result.forEach(e => {
-            date = new Date(e.dateType);
-            differanse = (date - currentDate) / 86400000;
-            if(differanse < params) temp.push(e);
+            var frist = new Date(e.americanDate);
+            var differanse = (frist - dagensDato) / 86400000;
+            if(differanse < request){
+                temp.push(e);
+            }
         });
         return temp;
     },

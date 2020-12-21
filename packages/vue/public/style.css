@@ -555,10 +555,6 @@ label {
     font-size: 12px;
 }
 
-.ok {
-    margin: 3px;
-}
-
 .søkeButton {
     background: #fff;
     border-radius: 2px;
@@ -573,7 +569,7 @@ label {
 
 .card-1 {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 2px 3px rgba(77, 77, 77, 0.74);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    transition: all 0.1s cubic-bezier(.25, .8, .25, 1);
     font-family: 'Lato', sans-serif;
     font-weight: 800;
     color: #4e4e4e;
@@ -583,6 +579,9 @@ label {
 
 .card-1:active {
     box-shadow: 0 0 0 rgba(231, 231, 231, 0.25), 0 0px 1px #4e4e4e;
+}
+
+.card-title{
 }
 
 .frist{
@@ -596,4 +595,21 @@ label {
 
 .gjørTilClickable{
     cursor:pointer;
+}
+
+.stilling{
+    min-height:200px !important;
+    height:200px !important;
+    overflow:hidden;
+}
+
+.ok {
+    position:absolute; 
+    bottom:60px;
+    max-width:300px !important;
+    overflow:scroll;
+}
+
+.ok::-webkit-scrollbar{
+    background: transparent; /* make scrollbar transparent */
 }
