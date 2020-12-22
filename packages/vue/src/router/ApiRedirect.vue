@@ -11,7 +11,7 @@
       console.log(router.currentRoute.value);
       console.log(router.currentRoute.value.href);
       console.log(usersAPIquery);
-      window.location.href = `http://localhost:3000${usersAPIquery}`;
+      window.location.href = `http://localhost:4100${usersAPIquery}`;
 
       //     router.push({ name: 'user', params: { userId: 123 }})
       //     router.go("http://localhost:3000${usersAPIquery}")

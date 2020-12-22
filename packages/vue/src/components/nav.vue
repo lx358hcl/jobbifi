@@ -54,15 +54,12 @@
 
 <script>
   import { ref, reactive } from "vue";
-  import { settings, axiosMe } from "../views/Stillinger.vue";
+  import { settings, data, axiosMe } from "../views/Stillinger.vue";
   var hovedData = require("../../../api/data/data.json");
   
   function changeSettings(e){
-    console.log(e.target.value);
     var temp = e.target.value.split(" ").filter(e => e);
-    console.log(temp.join("+"));
     settings.value.search = temp.join("+");
-    axiosMe();
   }
 
   export default {

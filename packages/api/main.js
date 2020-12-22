@@ -1,7 +1,7 @@
 //Instantiate
 var express = require("express");
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4100;
 var fs = require("fs");
 var cors = require('cors');
 app.use(cors());

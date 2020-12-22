@@ -48,49 +48,52 @@
                     class="filterAntall">({{  }})</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
-                <input class="gjørTilClickable"
-                  type="checkbox" id="internship">
+                <input class="gjørTilClickable" type="checkbox" id="internship">
                 <label class="gjørTilClickable pl-2 mb-1" for="internship">Internship <span
                     class="filterAntall">({{  }})</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
-                <input class="gjørTilClickable"
-                  type="checkbox" id="fulltid">
+                <input class="gjørTilClickable" type="checkbox" id="fulltid">
                 <label class="gjørTilClickable pl-2 mb-1" for="fulltid">Fulltid <span
                     class="filterAntall">({{  }})</span></label>
               </li>
             </ul>
           </div>
-            <div class="søknadsfrist">
+          <div class="søknadsfrist">
             <p class="card-title filtertypeTittel mb-2 mt-3">Søknadsfrist</p>
             <ul class="list-group list-group-flush">
               <li class="list-group-item border-0 filter p-0 ml-1">
                 <input id="frist1" class="gjørTilClickable" type="radio" name="frist">
-                <label for="frist1" class="pl-2 mb-1 gjørTilClickable">Under en uke <span class="filterAntall">({{ }})</span></label>
+                <label for="frist1" class="pl-2 mb-1 gjørTilClickable">Under en uke <span
+                    class="filterAntall">({{ }})</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
                 <input id="frist3" class="gjørTilClickable" type="radio" name="frist">
-                <label for="frist3" class="pl-2 mb-1 gjørTilClickable">Under 1 måned <span class="filterAntall">({{  }})</span></label>
+                <label for="frist3" class="pl-2 mb-1 gjørTilClickable">Under 1 måned <span
+                    class="filterAntall">({{  }})</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
                 <input id="frist7" class="gjørTilClickable" type="radio" name="frist">
-                <label for="frist7" class="pl-2 mb-1 gjørTilClickable">Under 3 måneder <span class="filterAntall">({{  }})</span></label>
+                <label for="frist7" class="pl-2 mb-1 gjørTilClickable">Under 3 måneder <span
+                    class="filterAntall">({{  }})</span></label>
               </li>
               <li class="list-group-item border-0 filter p-0 ml-1">
                 <input id="fristIngen" class="gjørTilClickable" type="radio" name="frist" checked>
-                <label for="fristIngen" class="pl-2 mb-1 gjørTilClickable">Under 12 måneder <span class="filterAntall">({{  }})</span></label>
+                <label for="fristIngen" class="pl-2 mb-1 gjørTilClickable">Under 12 måneder <span
+                    class="filterAntall">({{  }})</span></label>
               </li>
             </ul>
           </div>
-          <!-- <div class="firma">
+          <div class="firma">
             <p class="card-title filtertypeTittel mb-2 mt-3">Firma</p>
             <ul class="list-group list-group-flush">
               <li v-for="job in data" :key="job.id" class="list-group-item border-0 filter p-0 ml-1">
                 <input type="checkbox" id="deltid">
-                <label class="pl-2 mb-1" for="deltid">{{ job.companyName }} <span class="filterAntall">(96)</span></label>
+                <label class="pl-2 mb-1" for="deltid">{{ job.companyName }} <span
+                    class="filterAntall">(96)</span></label>
               </li>
             </ul>
-          </div> -->
+          </div>
         </div>
         <div class="col-9">
           <div class="container mt-4 p-0">
@@ -111,17 +114,15 @@
                       <div style="max-width: 100px;" class="dropdown-menu w-100">
                         <ul class="pl-4 ml-2 my-auto">
                           <li>
-                            <input
-                              class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger" id="nyesteFørst"
-                              value="nyesteFørst" checked>
+                            <input class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger"
+                              id="nyesteFørst" value="nyesteFørst" checked>
                             <label class="form-check-label gjørTilClickable" for="nyesteFørst">
                               Nyeste først
                             </label>
                           </li>
                           <li>
-                            <input
-                              class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger" id="eldsteFørst"
-                              value="eldsteFørst">
+                            <input class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger"
+                              id="eldsteFørst" value="eldsteFørst">
                             <label class="form-check-label gjørTilClickable" for="eldsteFørst">
                               Eldste først
                             </label>
@@ -144,7 +145,7 @@
                   </div>
                   <div style="min-height:360px; max-height:360px;" class="card-body">
                     <hr class="mt-0">
-                    <div class = "stilling">
+                    <div class="stilling">
                       <h5 class="card-title font-weight-bold">{{  }}</h5>
                       <div style="min-height: 170px; max-height:150px;" class="card-text">
                         {{  }}</div>
@@ -177,13 +178,14 @@
 
 <script>
   import { ref, reactive } from "vue";
-  
+
+  var data = ref("");
+
   export default {
-  props: {
-    "title": String,
-  },
-  setup(props) {
-    console.log(props.title)
+    setup() {
+      return{
+
+      }
+    }
   }
-}
 </script>
