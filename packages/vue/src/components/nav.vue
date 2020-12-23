@@ -5,8 +5,8 @@
       <a id="logo" class="navbar-brand" href="/">&</a>
 
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2 search" v-on:input="changeSettings($event);" style="font-family: FontAwesome;"
-          placeholder="&#xF002; Søk" aria-label="Search">
+        <input class="form-control mr-sm-2 search" v-on:input="changeSettings($event);"
+          style="font-family: FontAwesome;" placeholder="&#xF002; Søk" aria-label="Search">
       </form>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -53,20 +53,41 @@
 </template>
 
 <script>
-  import { ref, reactive } from "vue";
-  import { settings, data, axiosMe } from "../views/Stillinger.vue";
+  import {
+    settings,
+    data
+  } from "../views/Stillinger.vue";
+  var axios = require("axios");
+
   var hovedData = require("../../../api/data/data.json");
-  
-  function changeSettings(e){
-    var temp = e.target.value.split(" ").filter(e => e);
-    settings.value.search = temp.join("+");
-  }
 
   export default {
     setup() {
+
+      function axiosMe() {
+        console.log("axiosing");
+        console.log(settings.value);
+        axios.get(
+            `http://localhost:3000/api/jobs?type=${settings.value.type.join("+")}&sort=${settings.value.sort}&tekno=${settings.value.tekno.join("+")}&frist=${settings.value.frist}&search=${settings.value.search}`
+          )
+          .then(function (response) {
+            console.log(response.data);
+            data.value = response.data;
+          })
+          .catch(function (error) {
+            return error;
+          });
+      }
+
+      function changeSettings(e) {
+        console.log("OK");
+        var temp = e.target.value.split(" ").filter(e => e);
+        settings.value.search = temp.join("+");
+        axiosMe();
+      }
+
       return {
         hovedData,
-        axiosMe,
         changeSettings,
       }
     }

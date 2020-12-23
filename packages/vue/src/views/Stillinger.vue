@@ -160,7 +160,6 @@
 
 <script>
   import { ref, reactive } from "vue";
-  import { promises } from 'fs';
   var settings = require("../settings.js").settings;
   var axios = require("axios");
   var data = ref("");
@@ -168,8 +167,8 @@
   export default {
     setup() {
       //Noen variabler og innholdstrackere
-        var antall = ref({});
-        var hovedData = require("../../../api/data/data.json");
+      var antall = ref({});
+      var hovedData = require("../../../api/data/data.json");
       var alleTeknologierInfo = {
         "unikeTeknologier": [...new Set(hovedData.jobs.reduce((a, c) => a.concat(c.teknologier), []))],
         "antallStillingerPerTeknologi": {},
@@ -242,7 +241,7 @@
       //API-call basert på settings
       function axiosMe() {
         axios.get(
-            `http://localhost:4100/api/jobs?type=${settings.value.type.join("+")}&sort=${settings.value.sort}&tekno=${settings.value.tekno.join("+")}&frist=${settings.value.frist}&search=${settings.value.search}`
+            `http://localhost:3000/api/jobs?type=${settings.value.type.join("+")}&sort=${settings.value.sort}&tekno=${settings.value.tekno.join("+")}&frist=${settings.value.frist}&search=${settings.value.search}`
           )
           .then(function (response) {
             console.log(response.data);
