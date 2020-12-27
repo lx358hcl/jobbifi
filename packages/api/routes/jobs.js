@@ -2,7 +2,7 @@
 var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
-var allowedKeys = ["search", "tekno", "type", "frist", "sort"];
+var allowedKeys = ["search", "tekno", "type", "frist", "sort", "id"];
 
 //Jobs-route dirigent
 router.get("/api/jobs", function (request, response){
@@ -30,6 +30,11 @@ function functions(request, response){
 
 //All functions used in the API
 var allFunctions = {
+    id(request, result){
+        if(!request) return result;
+        console.log(request);
+        return result.find(e => e.id == request);
+    },
     search(request, result){
         if(!request) return result;
         var params = request.toLowerCase().split(" ");

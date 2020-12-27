@@ -127,7 +127,7 @@
                   <div style="min-height:360px; max-height:360px;" class="card-body">
                     <hr class="mt-0">
                     <div class="stilling">
-                      <h5 class="card-title font-weight-bold">{{ job.title }}</h5>
+                      <a v-bind:href="`http://localhost:8080/stilling/${job.id}`"><h5 class="card-title font-weight-bold">{{ job.title }}</h5></a>
                       <div style="min-height: 170px; max-height:150px;" class="card-text">
                         {{ job.teaser.length > 0 ? job.teaser : job.about.slice(0, 170) + "..." }}</div>
                       <div class="ok d-flex align-items-center">

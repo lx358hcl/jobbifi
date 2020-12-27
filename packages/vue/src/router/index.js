@@ -11,6 +11,7 @@ import Api from "@/views/Api.vue";
 import Arrangementer from "@/views/Arrangementer.vue";
 import Retningslinjer from "@/views/Retningslinjer.vue";
 import ApiRedirect from "./ApiRedirect.vue";
+import Stilling from "@/views/Stilling.vue";
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
     path: "/api/:query",
     name: "Api-en",
     component: ApiRedirect,
+  },
+  {
+    path: "/stilling/:id",
+    name: "Stilling",
+    component: Stilling,
   },
   {
     path: "/:pathMatch(.*)",

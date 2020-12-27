@@ -1,7 +1,7 @@
 <template>
-    <main class = "homepage container">
-      Bedrifter er kule
-    </main>
+  <main class = "homepage container">
+    Bedrifter er kule
+  </main>
 </template>
 
 <script>
