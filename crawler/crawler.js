@@ -92,6 +92,7 @@ function switcharoo(a, e1, e2){
       var price = document.querySelector(".event__data") ? document.querySelector(".event__data").textContent.match(/[A-Åa-å0-9:,.]+/gi, "").join(" ") : "Gratis";
       var date = document.querySelector(".icon-calendar") ? document.querySelector(".icon-calendar").parentElement.textContent.trim() : "nope";
       var status = document.querySelector(".js-signup-url.button.button--alt.expand.button-special") && document.querySelector(".js-signup-url.button.button--alt.expand.button-special").textContent == "Meld meg på" ? true : false;
+      var bilde = document.querySelector("figure.topimage img") ? document.querySelector("figure.topimage img").src : "https://www.dinengros.no/laravel/public/images/dinengros/P8UgWmJ8UMoHwSOkKGJc2pm28F2IVhxfdnqnUc8U.jpeg";
       class event {
         constructor(heading, date, placeName, googlePlace, price, description, status, url, id){
             this.heading = heading;
@@ -103,6 +104,7 @@ function switcharoo(a, e1, e2){
             this.status = status;
             this.url = url;
             this.id = id;
+            this.bilde = bilde;
         }
       }
       return new event(heading, date, placeName, googlePlace, price, description, status, args1, heading.toLowerCase().split(" ").join("-"));

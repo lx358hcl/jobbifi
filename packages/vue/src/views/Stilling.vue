@@ -5,7 +5,7 @@
             <div class="stackedit__html">
                 <br>
                 <h2 class="boldyh2">{{ stilling.title }}</h2>
-                {{ stilling.companyImage }}
+                <br><br>
                 <img width="600" height="150" v-bind:src="stilling['companyImage']">
                 <hr>
                 <a :href="stilling.url"><button type="button" class="btn btn-primary">Søk stilling</button></a>
