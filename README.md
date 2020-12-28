@@ -6,7 +6,7 @@ http://206.189.115.36:8080/
 
 
 TODO:
-(Du lager strek gjennom teksten ved å plasser 2 sånne her symboler ~ foran og etter teksten)
+(Du lager strek gjennom teksten ved å plassere 2 sånne her symboler ~ foran og etter teksten)
 - Finne ny logo og fikse logo
 - Skrive ferdig API
 - Fikse søkeknappen sånn at den redirecter
