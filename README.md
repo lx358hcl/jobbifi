@@ -6,7 +6,8 @@ http://206.189.115.36:8080/
 
 
 TODO:
-- ~~Finne ny logo og fikse logo~~
+(Du lager strek gjennom teksten ved å plasser 2 sånne her symboler ~ foran og etter teksten)
+- Finne ny logo og fikse logo
 - Skrive ferdig API
 - Fikse søkeknappen sånn at den redirecter
 - Koble sammen igor sin firebase med medlem og login
