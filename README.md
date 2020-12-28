@@ -6,7 +6,7 @@ http://206.189.115.36:8080/
 
 
 TODO:
-- Finne ny logo og fikse logo
+- ~~Finne ny logo og fikse logo~~
 - Skrive ferdig API
 - Fikse søkeknappen sånn at den redirecter
 - Koble sammen igor sin firebase med medlem og login
