@@ -10,7 +10,7 @@ http://206.189.115.36:8080/
 - Skrive ferdig API
 - Fikse søkeknappen sånn at den redirecter
 - Koble sammen med medlem og login
-- Crawle finn og nav og arbeidsplassen
+- ~~~Crawle finn og nav og arbeidsplassen~~
 - Fikse knappdesignet
 - Lage mobildesign
 - Fikse kontaktskjema mtp få kopi
@@ -19,7 +19,7 @@ http://206.189.115.36:8080/
 - Fikse hjem-siden
 - Legge til sosiale knapper
 - Skrive om retningslinjene
-- Legge til profilbilde
+- Legge til profilbilde for hver bruker
 - Legge til telefonnummer som påloggingsmetode
 - Legge til redis-caching for API-en
 - Legge til pagination + limit og page-query i API-en
