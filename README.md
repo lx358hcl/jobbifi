@@ -21,3 +21,5 @@ http://206.189.115.36:8080/
 - Skrive om retningslinjene
 - Legge til profilbilde
 - Legge til telefonnummer som påloggingsmetode
+- Legge til redis-caching for API-en
+- Legge til pagination + limit og page-query i API-en
