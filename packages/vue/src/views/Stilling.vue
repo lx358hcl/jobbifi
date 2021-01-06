@@ -6,7 +6,7 @@
                 <br>
                 <h2 class="boldyh2">{{ stilling.title }}</h2>
                 <br><br>
-                <img width="600" height="150" v-bind:src="stilling['companyImage']">
+                <img width="600" height="220" v-bind:src="stilling['companyImage']">
                 <hr>
                 <a :href="stilling.url"><button type="button" class="btn btn-primary">Søk stilling</button></a>
                 <br><br>
@@ -15,13 +15,19 @@
                     <a style="font-size:20px;" class="link">{{ stilling.teknologier }}</a>
                 </h3>
                 <hr>
-                <pre><code>Søkefrist: {{ stilling.date }}</code></pre>
+                <pre><code>Søkefrist: {{ stilling.frist }}</code></pre>
+                <hr>
+                <pre><code>OriginalURL: <a v-bind:href="stilling.originalURL">Hello</a></code></pre>
+                <hr>
+                <pre><code>Publiseringsdato: {{ stilling.date }}</code></pre>
+                <hr>
+                <pre><code>Stillingstype: {{ stilling.position }}</code></pre>
+                <hr>
+                <pre><code>Opprinnelsessted: {{ stilling.opprinnelse }}</code></pre>
                 <hr>
                 <h3 id="for-jobber">Jobbeskrivelse</h3>
                 <hr>
-                <p>
-                    {{ stilling.about }}
-                </p>
+                <p v-html="stilling.about"></p>
             </div>
             <br>
             <br>
@@ -33,9 +39,9 @@
 
 <script>
     var axios = require("axios");
+    var stilling = ref("");
     import route from "../router/index.js";
     import { ref } from "vue";
-    var stilling = ref("");
     export default {
         setup() {
             console.log(route.currentRoute.value.params.id);

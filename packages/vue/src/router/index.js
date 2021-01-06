@@ -17,7 +17,7 @@ const routes = [
   {
     path: "/",
     name: "Hjem",
-    component: Stillinger,
+    component: Hjem,
   },
   {
     path: "/kontakt",
