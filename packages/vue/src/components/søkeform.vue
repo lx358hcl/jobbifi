@@ -1,28 +1,31 @@
 <template>
   <div class="s013 m-0 p-0">
-    <form>
+    <form v-on:submit.prevent="changeSettings();">
       <div style="margin-top: -350px" class="inner-form">
-        <div class="left">
+        <div style="margin-right: -0px;" class="left rounded">
           <div class="input-wrap first">
             <div class="input-field first">
               <label>HVA</label>
               <input
                 type="text"
                 placeholder="E.g. sommerjobb, vue, design, python, machine learning, haskell"
+								aria-label="Search"
+								v-bind:value="searchQuery"
+								v-on:input="searchQuery = $event.target.value"
               />
             </div>
           </div>
-          <div class="input-wrap second">
+          <!-- <div class="input-wrap second">
             <div class="input-field second">
               <label>HVOR</label>
               <input placeholder="E.g. Oslo" type="input" />
               <div class="input-select"></div>
             </div>
-          </div>
+          </div> -->
         </div>
         <button
           class="btn-search d-flex justify-content-center align-items-center"
-          type="button"
+          type="submit"
         >
           <svg
             viewBox="0 0 32 32"
@@ -57,7 +60,34 @@
   </div>
 </template>
 
+<script>
+  import { searchQuery, axiosMe } from "../views/Stillinger.vue";
+  import { settings } from "../settings.js";
+
+  //Søkefunksjon
+	function changeSettings() {
+    var søk = searchQuery.value.split(" ").filter(e => e).map(e => e.trim()).join("+");
+		settings.value.search = søk;
+    settings.value.page = 1;
+    axiosMe();
+    window.location = window.location.origin + "/stillinger";
+  }
+  
+  export default{
+  setup(){
+    return{
+      changeSettings,
+      searchQuery,
+    }
+  }
+}
+
+</script>
+
 <style>
+html {
+  overflow: scroll;
+}
 .s013 {
   box-shadow: inset 0px 5px 50px 10px black !important;
   width: 100vw;
@@ -111,12 +141,13 @@
 .left {
   -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.55);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.55);
-  border-radius: 40px;
+  border-radius: 40px !important;
 }
 
 .input-wrap.first {
-  border-bottom-left-radius: 40px !important;
-  border-top-left-radius: 40px !important;
+  /* border-bottom-left-radius: 40px !important;
+  border-top-left-radius: 40px !important; */
+  border-radius:40px !important;
 }
 
 .input-wrap.second {

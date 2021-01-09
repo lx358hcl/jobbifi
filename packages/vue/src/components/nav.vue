@@ -97,50 +97,13 @@
 </template>
 
 <script>
-import { settings, data } from "../views/Stillinger.vue";
-var axios = require("axios");
 var hovedData = require("../../../api/data/data.json");
-
-function onEnter(e) {
-  console.log(e);
-  alert("OK");
-  window.location = "http://www.youtube.com";
-  console.log("OK");
-}
 
 export default {
   setup() {
-    function axiosMe() {
-      console.log("axiosing");
-      console.log(settings.value);
-      axios
-        .get(
-          `http://localhost:3000/api/jobs?type=${settings.value.type.join("+")}&sort=${
-            settings.value.sort
-          }&tekno=${settings.value.tekno.join("+")}&frist=${
-            settings.value.frist
-          }&search=${settings.value.search}`
-        )
-        .then(function (response) {
-          console.log(response.data);
-          data.value = response.data;
-        })
-        .catch(function (error) {
-          return error;
-        });
-    }
-
-    function changeSettings(e) {
-      console.log("OK");
-      var temp = e.target.value.split(" ").filter((e) => e);
-      settings.value.search = temp.join("+");
-      axiosMe();
-    }
 
     return {
       hovedData,
-      changeSettings,
-      onEnter,
     };
   },
 };
