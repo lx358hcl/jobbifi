@@ -8,7 +8,7 @@ var settings = ref({
     "tekno": [],
     "frist": "",
     "sort": "down",
-    "page": 1,
+    "page": "1",
     "limit": "100",
     "loading": true,
     "data": "",

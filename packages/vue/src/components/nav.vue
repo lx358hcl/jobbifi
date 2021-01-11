@@ -33,7 +33,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item d-flex align-items-center">
             <a
               class="nav-link titles"
               href="/"
@@ -42,7 +42,7 @@
             >
           </li>
 
-          <li class="nav-item titles">
+          <li class="nav-item titles d-flex align-items-center">
             <a
               class="nav-link"
               href="/stillinger"
@@ -63,15 +63,34 @@
               >
             </a>
           </li>
-
-          <!-- <li class="nav-item titles">
-            <a class="nav-link" href="/arrangementer"
-              v-bind:class="{'active': $route.path == '/arrangementer'}">ARRANGEMENTER
+          <li class="nav-item titles">
+            <a
+              class="nav-link"
+              href="/om"
+              v-bind:class="{ active: $route.path == '/om' }"
+              >HVA ER DETTE?
               <span
-                style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 20px;"
-                class="badge badge-danger">{{ hovedData.ifievents.length + hovedData.tekna.length }}</span>
+                style="
+                  position: relative;
+                  bottom: 10px;
+                  padding-top: 3px;
+                  padding-right: 3px;
+                  right: 3px;
+                  padding-left: 5px;
+                  border-radius: 20px;
+                "
+                class="badge badge-danger"
+                >{{  }}</span
+              >
             </a>
-          </li> -->
+          </li>
+
+          <li class="nav-item titles">
+            <a class="nav-link" href="/kontakt"
+              v-bind:class="{'active': $route.path == '/arrangementer'}">OM OSS
+           
+            </a>
+          </li>
 
           <li class="nav-item titles">
             <a
@@ -82,13 +101,15 @@
             >
           </li>
 
-          <li class="nav-item titles">
-            <a
+
+          <li class="nav-item titles d-flex align-items-center">
+            <account />
+            <!-- <a
               class="nav-link"
               href="/login"
               v-bind:class="{ active: $route.path == '/login' }"
               >LOGIN</a
-            >
+            > -->
           </li>
         </ul>
       </div>
@@ -98,12 +119,12 @@
 
 <script>
 var hovedData = require("../../../api/data/data.json");
-
+import account from "./account.vue";
 export default {
   setup() {
-
     return {
       hovedData,
+      account
     };
   },
 };

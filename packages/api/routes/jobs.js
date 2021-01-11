@@ -31,9 +31,9 @@ function functions(request, response){
         }
     }
     var alleTeknologierInfo = {
-        "unikeTeknologier": [...new Set(results.data.reduce((a, c) => a.concat(c.teknologier), []))],
+        "unikeTeknologier": [...new Set(results.data.reduce((a, c) => a.concat(c.teknologier.map(e => e.toLowerCase())), []))],
         "antallStillingerPerTeknologi": {},
-        "alleTeknologier": results.data.reduce((a, c) => a.concat(c.teknologier), []),
+        "alleTeknologier": results.data.reduce((a, c) => a.concat([...new Set(c.teknologier.map(e => e.toLowerCase()))]), []),
         "antallStillingerPerFrist": {
             "7": 0,
             "30": 0,

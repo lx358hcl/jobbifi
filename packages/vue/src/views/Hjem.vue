@@ -1,6 +1,6 @@
-<template>
+<template style>
   <div class="container hjem d-flex justify-content-center">
-    <div style="margin-bottom:150px !important;" class="row p-0 m-0 d-flex justify-content-center">
+    <div style="margin-bottom:0px !important;" class="row p-0 m-0 d-flex justify-content-center">
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

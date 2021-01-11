@@ -1,7 +1,7 @@
 <template>
   <main>
     <Nav />
-    <router-view style = "margin-top:70px !important;" />
+    <router-view />
     <Footer />
   </main>
 </template>

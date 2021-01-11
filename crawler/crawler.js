@@ -99,6 +99,9 @@ var dato = `${dag}.${måned}.${år}`;
       if(linker[i]) await page.goto(`${linker[j]}`);
       else continue;
 
+    //Vent litt for å unngå null-buggen
+    // await page.waitFor(1500);
+
       //Injiser scriptet nedenfor inn i siden
       var stilling = await page.evaluate((steder, j, dato, technologies) => {
         //Stillingsobjektet der alt lagres
@@ -272,13 +275,13 @@ var dato = `${dag}.${måned}.${år}`;
       else {
         obj["position"] = "NoeAnnet";
       }
-
+      var søkeKnapp = "";
       //Søkeknapp
       if (document.querySelector("#job-apply-button") && document.querySelector("#job-apply-button").href){
-        var søkeKnapp = document.querySelector("#job-apply-button").href;
+        søkeKnapp = document.querySelector("#job-apply-button").href;
       }
       else {
-        var søkeKnapp = `${alleStillinger[i]["link"]}`;
+        søkeKnapp = `${alleStillinger[i]["link"]}`;
       }
       obj["url"] = søkeKnapp;
 
@@ -302,9 +305,7 @@ var dato = `${dag}.${måned}.${år}`;
 
   //Gi alle stillingene en ID og gjør typen jobb mer ensformig
   jobs = jobs.filter(e => e);
-  jobs.forEach((e, i) => {
-    e["id"] = i;
-  });
+  jobs.forEach((e, i) =>  e["id"] = i);
   jobs.forEach(e => {
     if(!e.position) console.log(e);
     e.originalPosition = e.position.toLowerCase();

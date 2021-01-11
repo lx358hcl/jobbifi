@@ -1,17 +1,18 @@
 <template>
   <div class="s013 m-0 p-0">
-    <form v-on:submit.prevent="changeSettings();">
-      <div style="margin-top: -350px" class="inner-form">
+    <form class="col-6" v-on:submit.prevent="changeSettings();">
+      <div class="inner-form">
         <div style="margin-right: -0px;" class="left rounded">
           <div class="input-wrap first">
             <div class="input-field first">
-              <label>HVA</label>
+              <label class="col-10">DEN SOM LETER, HAN FINNER - <i>Matteus 7:7-11</i></label>
               <input
                 type="text"
                 placeholder="E.g. sommerjobb, vue, design, python, machine learning, haskell"
 								aria-label="Search"
 								v-bind:value="searchQuery"
 								v-on:input="searchQuery = $event.target.value"
+                class="col-10"
               />
             </div>
           </div>
@@ -26,8 +27,10 @@
         <button
           class="btn-search d-flex justify-content-center align-items-center"
           type="submit"
+          style="width:50px;"
         >
-          <svg
+          <spinner class="p-0 m-0" style="width:20px; height:20px;" v-if="settings.loading == true"></spinner>
+          <svg v-if="settings.loading == false"
             viewBox="0 0 32 32"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
@@ -50,19 +53,16 @@
             </g>
           </svg>
         </button>
+        
       </div>
     </form>
-  </div>
-
-  <div class="fog-container">
-    <div class="fog-img fog-img-first"></div>
-    <div class="fog-img fog-img-second"></div>
   </div>
 </template>
 
 <script>
   import { searchQuery, axiosMe } from "../views/Stillinger.vue";
   import { settings } from "../settings.js";
+  import spinner from "./spinner.vue";
 
   //Søkefunksjon
 	function changeSettings() {
@@ -70,14 +70,16 @@
 		settings.value.search = søk;
     settings.value.page = 1;
     axiosMe();
-    window.location = window.location.origin + "/stillinger";
   }
   
   export default{
   setup(){
+    settings.value.loading = false;
     return{
       changeSettings,
       searchQuery,
+      settings,
+      spinner,
     }
   }
 }
@@ -89,7 +91,7 @@ html {
   overflow: scroll;
 }
 .s013 {
-  box-shadow: inset 0px 5px 50px 10px black !important;
+  box-shadow: inset 10px 10px 50px 5px black !important;
   width: 100vw;
   height: 100vh;
   min-height: 100vh;
@@ -99,9 +101,9 @@ html {
   justify-content: center;
   -ms-flex-align: center;
   align-items: center;
-  background: url("https://a0.muscache.com/im/pictures/cf39f4c4-e860-43d4-85be-deddd7b2da90.jpg");
+  background: url("../../public/12.jpg");
   background-size: cover;
-  background-position: center center;
+  background-position: center bottom;
   font-family: "Poppins", sans-serif;
 }
 
@@ -139,8 +141,7 @@ html {
 }
 
 .left {
-  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.55);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.55);
+  box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.35);
   border-radius: 40px !important;
 }
 

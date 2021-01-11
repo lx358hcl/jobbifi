@@ -40,12 +40,14 @@ export default {
   setup(props){
 
 function neste(){
-  if(settings.value.page == props.totalt) return null;
+  if(!props.totalt) return null;
+  else if(settings.value.page == props.totalt) return null;
   settings.value.page = settings.value.page + 1;
   axiosMe();
 }
 function forrige(){
-  if(settings.value.page == 1) return null;
+  if(!props.totalt) return null;
+  else if(settings.value.page == 1) return null;
   settings.value.page = settings.value.page - 1;
   axiosMe();
 }
