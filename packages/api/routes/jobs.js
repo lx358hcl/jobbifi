@@ -4,7 +4,7 @@ const { info } = require("console");
 var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
-var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "sortFrist", "id", "limit", "page"];
+var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "ingenRare", "sortFrist", "id", "limit", "page"];
 //Jobs-route dirigent
 router.get("/api/jobs", function (request, response){
     if(Object.keys(request.query).length == 0) sendAll(request, response);
@@ -23,7 +23,9 @@ function functions(request, response){
     var limit = request.query.limit;
     var page = request.query.page;
     var antall = {};
-    results = {
+    console.log("we are inside here");
+    console.log(data.jobs.length);
+    var results = {
         "data": data.jobs,
         "info": {
             "antall": "",
@@ -69,7 +71,7 @@ function functions(request, response){
     results.info.antall = antall;
     results.info.alleTeknologierInfo = alleTeknologierInfo;
 
-    for(e of Object.entries(request.query)){
+    for(let e of Object.entries(request.query)){
         if(e[0] == "limit" || e[0] == "page") continue;   
         var [query, parameter] = e;
         results.data = allFunctions[query](parameter, results.data);
@@ -119,6 +121,8 @@ var allFunctions = {
         }
     },
     sortFrist(request, result){
+        if(!request) return result;
+
         var deUtenFrist = [];
         var deMedFrist = [];
         result.forEach(e => {
@@ -128,7 +132,6 @@ var allFunctions = {
         })
         result = deMedFrist;
         
-        if(!request) return result;
         if(request == "down"){
             result = result.sort((a, b) => {
                 var [dag1, måned1, år1] = a.frist.split(".");
@@ -214,6 +217,28 @@ var allFunctions = {
             }
         });
         return temp;
+    },
+    ingenRare(request, result){
+        console.log("no");
+        console.log(request);
+        console.log(result.length);
+        if(!request) return result;
+        else if(request == "false") return result;
+        else if(request == "true"){
+            console.log("we are inside");
+            var deUtenFrist = [];
+            var deMedFrist = [];
+            result.forEach(e => {
+                var num = parseInt(e.frist);
+                if(isNaN(num)) deUtenFrist.push(e);
+                else deMedFrist.push(e);
+            })
+            result = deMedFrist;
+            return result;
+        }
+        else{
+            throw Error("Det der funker ikke brusjan. 'ingenRare' kan kun ta i bruk 'true' u little dipshit \n");
+        }
     }
 }
 

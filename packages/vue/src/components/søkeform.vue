@@ -103,7 +103,7 @@ html {
   align-items: center;
   background: url("../../public/12.jpg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: center top   ;
   font-family: "Poppins", sans-serif;
 }
 

@@ -7,6 +7,8 @@ var settings = ref({
     "search": "",
     "tekno": [],
     "frist": "",
+    "sortFrist":"",
+    "ingenRare": false,
     "sort": "down",
     "page": "1",
     "limit": "100",

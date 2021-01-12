@@ -1,5 +1,5 @@
 <template>
-  <nav class="ekteNav navbar sticky-top navbar-light navbar-expand-xl mt-2">
+  <nav class="ekteNav navbar sticky-top navbar-light navbar-expand-xl d-flex align-items-center">
     <div style="max-width: 1400px" class="container">
       <a id="logo" class="mt-0 navbar-brand" href="/"
         >&

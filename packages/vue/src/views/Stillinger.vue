@@ -1,5 +1,5 @@
 <template>
-	<main tyle="overflow-y: scroll;" class="container-fluid mt-5 p-0 pt-4">
+	<main tyle="overflow-y: scroll;" class="container-fluid">
 		<div style="max-width: 1400px; margin-bottom: 100px" class="container">
 			<div class="row">
 				<div class="col-3 pr-0">
@@ -187,9 +187,9 @@
 											<p class="font-weight-bold mb-0 mt-2">
 												Fant {{ settings.entireResponse.totalt }} resultater av {{ hovedData.jobs.length }} totalt indekserte stillinger
 											</p>
-											<li class="list-group-item border-0 filter p-0 ml-1">
-												<input class="gjørTilClickable" type="checkbox" id="" />
-												<label class="gjørTilClickable pl-2 mb-1" for="deltid"
+											<li class="list-group-item border-0 filter p-0 mt-3">
+												<input class="gjørTilClickable" id="ingenRare" name="ingenRare" :checked="true" type="checkbox" @click="rarifiser($event.target.checked);" />
+												<label class="gjørTilClickable pl-2 mb-1" for="ingenRare"
 													>Ikke vis stillinger uten spesifisert frist
 													<span class="filterAntall"></span
 												></label>
@@ -209,7 +209,7 @@
 													" class="border-0 bg-light rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													Vis {{ settings.limit }} per side
 												</button>
-							<div style="max-width: 100px" class="dropdown-menu w-100">
+							<div style="min-width: 150px" class="dropdown-menu w-100">
 								<ul class="pl-4 ml-2 my-auto">
 									<li>
 										<input @click="
@@ -244,59 +244,61 @@
 						</div>
 						<div style="" class="btn-group w-100 d-flex align-items-center pr-3 justify-content-end">
 							<button style="
-														min-width: 150px;
+														min-width: 200px;
 														border: 1px solid #dfdfdf !important;
 													" class="border-0 bg-light rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Sortering
+													Viser {{ settings.sort == "down" ? "Nye stillinger øverst" : settings.sort == "up" ? "Gamle stillinger øverst" : settings.sortFrist == "down" ? "Stillinger med kort frist" : "Stillinger med frist om lenge" }}
 												</button>
-							<div style="max-width: 100px" class="dropdown-menu w-100">
+							<div style="min-width: 340px" class="dropdown-menu w-100">
 								<ul class="pl-4 ml-2 my-auto">
 									<li>
 										<input @click="
 																	sorter([
-																		'sort',
+																		'sortFrist',
 																		'down',
 																		$event.currentTarget.checked,
 																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger" id="nyesteFørst" value="nyesteFørst" />
-										<label class="form-check-label gjørTilClickable" for="nyesteFørst">
-																Nyeste frist først
+																" class="form-check-input gjørTilClickable" type="radio" name="nyesteFristFørst" id="nyesteFristFørst" value="nyesteFristFørst"
+																:checked="settings.sortFrist == 'down'" />
+										<label class="form-check-label gjørTilClickable" for="nyesteFristFørst">
+																 Søknadsfrist <i class="fas fa-sort-numeric-up"></i>
 															</label>
 									</li>
 									<li>
 										<input @click="
 																	sorter([
-																		'sort',
+																		'sortFrist',
 																		'up',
 																		$event.currentTarget.checked,
 																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger" id="eldsteFørst" value="eldsteFørst" />
-										<label class="form-check-label gjørTilClickable" for="eldsteFørst">
-																Eldste frist først
+																" class="form-check-input gjørTilClickable" type="radio" name="eldsteFristFørst" id="eldsteFristFørst" value="eldsteFristFørst"
+																:checked="settings.sortFrist == 'up'"/>
+										<label class="form-check-label gjørTilClickable" for="eldsteFristFørst">
+																Søknadsfrist <i class="fas fa-sort-numeric-down"></i>
 															</label>
 									</li>
 									<li>
 										<input @click="
 																	sorter([
-																		'sort',
-																		'up',
-																		$event.currentTarget.checked,
-																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger" id="eldsteFørst" value="eldsteFørst" :checked="settings.sort == 'up'" />
-										<label class="form-check-label gjørTilClickable" for="eldsteFørst">
-																Nylig lagt til
-															</label>
-									</li>
-									<li>
-										<input @click="
-																	sorter([
-																		'sort',
+																		'sortDate',
 																		'down',
 																		$event.currentTarget.checked,
 																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="sorteringAvStillinger" id="eldsteFørst" value="eldsteFørst" :checked="settings.sort == 'down'" />
-										<label class="form-check-label gjørTilClickable" for="eldsteFørst">
-																Eldste først
+																" class="form-check-input gjørTilClickable" type="radio" name="nyesteDatoFørst" id="nyesteDatoFørst" value="nyesteDatoFørst" :checked="settings.sort == 'down'" />
+										<label class="form-check-label gjørTilClickable" for="nyesteDatoFørst">
+																Publiseringsdato <i class="fas fa-sort-numeric-up"></i>
+															</label>
+									</li>
+									<li>
+										<input @click="
+																	sorter([
+																		'sortDate',
+																		'up',
+																		$event.currentTarget.checked,
+																	])
+																" class="form-check-input gjørTilClickable" type="radio" name="eldsteDatoFørst" id="eldsteDatoFørst" value="eldsteDatoFørst" :checked="settings.sort == 'up'" />
+										<label class="form-check-label gjørTilClickable" for="eldsteDatoFørst">
+																Publiseringsdato <i class="fas fa-sort-numeric-down"></i>
 															</label>
 									</li>
 								</ul>
@@ -425,16 +427,8 @@
 	console.log(settings);
 	function axiosMe() {
 		settings.value.loading = true;
-		axios
-			.get(
-				`http://localhost:3000/api/jobs?sortDate=${
-						settings.value.sort
-					}&type=${settings.value.type.join("+")}&search=${
-						settings.value.search
-					}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join(
-						"+"
-					)}&page=${settings.value.page}&limit=${settings.value.limit}`
-			)
+		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.frist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`);
+		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.frist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`)
 			.then(function(response) {
 				console.log("da ble loading endret");
 				settings.value.data = response.data.data;
@@ -466,24 +460,37 @@
 	export default {
 		setup() {
 
+				console.log(settings.entireResponse);
+
 			settings.value.loading = false;
 			
 			//Noen variabler og innholdstrackere
 			//Sortering
 			function sorter(message) {
 				var [type, query, state] = message;
-				settings.value.sort = query;
-				settings.value.page = 1;
-				axiosMe();
+				console.log(message);
+				if(type == "sortDate"){
+					settings.value.sort = query;
+					settings.value.page = 1;
+					settings.value.sortFrist = "";
+					axiosMe();
+				}
+				else{
+					settings.value.sortFrist = query;
+					settings.value.page = 1;
+					settings.value.sort = "";
+					axiosMe();
+				}
 			}
 			//Stilling
 			function changeType(message) {
 				var [type, query, state] = message;
-				if (state) settings.value.type.push(query);
+				if (state == true) settings.value.type.push(query);
 				else settings.value.type.splice(settings.value.type.indexOf(query), 1);
 				settings.value.page = 1;
 				axiosMe();
 			}
+			
 			//Frist
 			function changeFrist(message) {
 				var [type, query, state] = message;
@@ -503,6 +510,14 @@
 			function paginate(e) {
 				settings.value.page = e.target.textContent;
 				settings.value.data = "";
+				axiosMe();
+			}
+			//Rarifiser
+			function rarifiser(e){
+				console.log(e);
+				if (e) settings.value.ingenRare = true;
+				else settings.value.ingenRare = false;
+				settings.value.page = 1;
 				axiosMe();
 			}
 			//Limit funksjon
@@ -536,6 +551,7 @@
 				limit,
 				paginator,
 				searchQuery,
+				rarifiser,
 			};
 		},
 		computed: {
@@ -553,3 +569,11 @@
 		searchQuery
 	};
 </script>
+
+<style>
+
+.nav{
+	background-color:black !important;
+}
+
+</style>
