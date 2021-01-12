@@ -1,8 +1,7 @@
 <template>
   <nav class="ekteNav navbar sticky-top navbar-light navbar-expand-xl d-flex align-items-center">
     <div style="max-width: 1400px" class="container">
-      <a id="logo" class="mt-0 navbar-brand" href="/"
-        >&
+      <router-link id="logo" class="mt-0 navbar-brand" to="/">&
         <p
           class="p-0 m-0"
           style="
@@ -12,7 +11,7 @@
             font-family: inherit;
           "
         ></p
-      ></a>
+      ></router-link>
 
       <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2 search" v-on:keydown.enter="onEnter($event)" v-on:input="changeSettings($event);"
@@ -34,18 +33,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item d-flex align-items-center">
-            <a
+            <router-link
               class="nav-link titles"
-              href="/"
+              to="/"
               v-bind:class="{ active: $route.path == '/' }"
-              >HJEM</a
-            >
+              >HJEM</router-link>
           </li>
 
           <li class="nav-item titles d-flex align-items-center">
-            <a
+            <router-link
               class="nav-link"
-              href="/stillinger"
+              to="/stillinger"
               v-bind:class="{ active: $route.path == '/stillinger' }"
               >STILLINGER
               <span
@@ -61,12 +59,12 @@
                 class="badge badge-danger"
                 >{{ hovedData.jobs.length }}</span
               >
-            </a>
+            </router-link>
           </li>
           <li class="nav-item titles">
-            <a
+            <router-link
               class="nav-link"
-              href="/om"
+              to="/om"
               v-bind:class="{ active: $route.path == '/om' }"
               >HVA ER DETTE?
               <span
@@ -82,22 +80,22 @@
                 class="badge badge-danger"
                 >{{  }}</span
               >
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-item titles">
-            <a class="nav-link" href="/kontakt"
+            <router-link class="nav-link" to="/kontakt"
               v-bind:class="{'active': $route.path == '/arrangementer'}">OM OSS
            
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-item titles">
-            <a
+            <router-link
               class="nav-link"
-              href="/blimedlem"
+              to="/blimedlem"
               v-bind:class="{ active: $route.path == '/blimedlem' }"
-              >BLI MEDLEM</a
+              >BLI MEDLEM</router-link
             >
           </li>
 

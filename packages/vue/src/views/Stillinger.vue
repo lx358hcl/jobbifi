@@ -417,6 +417,13 @@
 	import {
 		settings
 	} from "../settings.js";
+	
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import router from '../router';
+console.log("OK");
+
+console.log(firebase.default);
 	var axios = require("axios");
 	var entireResponse = ref("");
 	var antall = ref({});
@@ -427,8 +434,8 @@
 	console.log(settings);
 	function axiosMe() {
 		settings.value.loading = true;
-		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.frist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`);
-		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.frist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`)
+		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`);
+		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`)
 			.then(function(response) {
 				console.log("da ble loading endret");
 				settings.value.data = response.data.data;
@@ -439,7 +446,7 @@
 				console.log(entireResponse.value);
 				console.log(window.location);
 				if (window.location.pathname != "/stillinger") {
-					window.location = window.location.origin + "/stillinger";
+					
 				} else {
 					settings.value.loading = false;
 				}
@@ -459,6 +466,8 @@
 	}
 	export default {
 		setup() {
+		console.log(router);
+
 
 				console.log(settings.entireResponse);
 

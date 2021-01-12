@@ -13,6 +13,12 @@ import Retningslinjer from "@/views/Retningslinjer.vue";
 import ApiRedirect from "./ApiRedirect.vue";
 import Stilling from "@/views/Stilling.vue";
 
+import Register from "../views/Register.vue";
+import Secret from "../views/Secret.vue";
+import About from "../views/About.vue";
+
+import * as firebase from "firebase/app";
+
 const routes = [
   {
     path: "/",
@@ -75,6 +81,27 @@ const routes = [
     component: Stilling,
   },
   {
+    path: "/secret",
+    name: "secret",
+    component: Secret,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: About
+  },
+  {
     path: "/:pathMatch(.*)",
     name: "Feil",
     component: Feil,
@@ -84,6 +111,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes: routes,
+  base: process.env.BASE_URL,
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = firebase.default.auth().currentUser;
+  console.log("isauthenticated", isAuthenticated);
+  if (requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -44,7 +44,7 @@
         height: 100%;
         padding: 5px;
     }
-    .innerButton>* {
+    .innerButton > * {
         padding: 0 10px 0 10px;
         font-size: 26px;
         color: #313131;

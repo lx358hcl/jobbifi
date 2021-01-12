@@ -93,7 +93,9 @@ var allFunctions = {
         return result.find(e => e.id == request);
     },
     sortDate(request, result){
-        if(!request) return result;
+        if(!request) {
+            return result;
+        }
         if(request == "down"){
             return result.sort((a, b) => {
                 var [dag1, måned1, år1] = a.date.split(".");
@@ -161,19 +163,31 @@ var allFunctions = {
         }
     },
     limit(request, result){
-        if(!request) return result;
-        if(request < 0 || request > 200) return "Limit kan kun være mellom og inklusivt 0 til og med 200";
+        if(!request) {
+            console.log("limit");
+            return result;
+        }
+        else if(request < 0 || request > 200) {
+            console.log("limit");
+            return "Limit kan kun være mellom og inklusivt 0 til og med 200";
+        }
+        console.log(result.length);
+        console.log("limit ovenfor");
         return result.slice(0, request);
     },
     page(request, result){
         var [limit, page] = request;
+        console.log("page");
+        console.log(result.length);
         limit = parseInt(limit);
         page = parseInt(page);
         page = page - 1;
         return result.slice(page * limit, (page * limit) + limit);
     },
     search(request, result){
-        if(!request) return result;
+        if(!request) {
+            return result;
+        }
         var params = request.toLowerCase().split(" ");
         var regex = new RegExp(`${params.join("|")}`, "gi");
         var fullText = "";
@@ -207,25 +221,44 @@ var allFunctions = {
     },
     frist(request, result){
         if(!request) return result;
+        request = request.split(" ");
+        var utløpte = request[1] ? request[1] : "false";
+        request = request[0];
         var temp = [];
         var dagensDato = new Date();
         result.forEach(e => {
             var frist = new Date(e.americanDate);
+            if(frist == "Invalid Date"){
+                e.americanDate = e.americanDate.slice(1, -1);
+                frist = new Date(e.americanDate);
+            }
             var differanse = (frist - dagensDato) / 86400000;
-            if(differanse < request){
-                temp.push(e);
+            if(utløpte == "false"){
+                if((differanse < request) && differanse >= 0){
+                    temp.push(e);
+                }
+            }
+            else if(utløpte == "true"){
+                if((differanse < request)){
+                    temp.push(e);
+                }
+            }
+            else{
+                throw Error("Det der ekke en gyldig parameter imbesil!")
             }
         });
+        console.log(temp.length);
+        console.log("ovenfor er temp");
         return temp;
     },
     ingenRare(request, result){
-        console.log("no");
-        console.log(request);
-        console.log(result.length);
-        if(!request) return result;
-        else if(request == "false") return result;
+        if(!request) {
+            return result;
+        }
+        else if(request == "false"){
+            return result;
+        }
         else if(request == "true"){
-            console.log("we are inside");
             var deUtenFrist = [];
             var deMedFrist = [];
             result.forEach(e => {

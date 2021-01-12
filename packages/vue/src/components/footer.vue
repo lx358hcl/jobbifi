@@ -6,22 +6,22 @@
           <li class="ceo">© UTVIKLET AV SKJØNNHETEN OG UDYRET</li>
         </div>
         <div class="rightBlock">
-          <a
-            href="/kontakt"
+          <router-link
+            to="/kontakt"
             class="contak"
             v-bind:class="{ active: $route.path == '/kontakt' }"
-            >KONTAKT</a
+            >KONTAKT</router-link
           >
           ||
-          <a
-            href="/retningslinjer"
+          <router-link
+            to="/retningslinjer"
             class="contak"
             v-bind:class="{ active: $route.path == '/retningslinjer' }"
-            >RETNINGSLINJER</a
+            >RETNINGSLINJER</router-link
           >
           ||
-          <a href="/api" class="contak" v-bind:class="{ active: $route.path == '/api' }"
-            >API</a
+          <router-link to="/api" class="contak" v-bind:class="{ active: $route.path == '/api' }"
+            >API</router-link
           >
         </div>
       </ul>

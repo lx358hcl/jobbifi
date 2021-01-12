@@ -27,8 +27,7 @@ export default {
   },
   methods: {
     pressed() {
-      firebase.default
-        .auth()
+      firebase.default.auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => {
           console.log("here");
