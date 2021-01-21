@@ -6,11 +6,11 @@ http://206.189.115.36:8080/
 
 ### TODO:
 (Du lager strek gjennom teksten ved å plassere 2 sånne her symboler ~ foran og etter teksten)
-- Finne ny logo og fikse logo----- Jobify? Jobifi? **jobbifi?** Jobbify? <--- "Jobbifi er kul LM"
+- **jobbifi** is the chosen one
 - Skrive ferdig API 
 - Legge til OR funksjonalitet i API-en, foreløpig så er alt AND
 - ~~Fikse søkeknappen sånn at den redirecter~~
-- Koble sammen med medlem og login
+- ~~Koble sammen med medlem og login~~
 - ~~Crawle finn og nav og arbeidsplassen~~
 - Fikse knappdesignet
 - Lage mobildesign
