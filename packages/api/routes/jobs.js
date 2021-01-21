@@ -1,10 +1,8 @@
 //Instantiate
-const { all } = require("bluebird");
-const { info } = require("console");
 var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
-var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "ingenRare", "sortFrist", "id", "limit", "page"];
+var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "rare", "sortFrist", "id", "limit", "page"];
 //Jobs-route dirigent
 router.get("/api/jobs", function (request, response){
     if(Object.keys(request.query).length == 0) sendAll(request, response);
@@ -23,8 +21,6 @@ function functions(request, response){
     var limit = request.query.limit;
     var page = request.query.page;
     var antall = {};
-    console.log("we are inside here");
-    console.log(data.jobs.length);
     var results = {
         "data": data.jobs,
         "info": {
@@ -71,16 +67,26 @@ function functions(request, response){
     results.info.antall = antall;
     results.info.alleTeknologierInfo = alleTeknologierInfo;
 
+    var resterende = [];
     for(let e of Object.entries(request.query)){
-        if(e[0] == "limit" || e[0] == "page") continue;   
+        if(["sortFrist", "sortDate"].includes(e[0])){
+            resterende.push(e);
+            continue;
+        }
+        else if(e[0] == "limit" || e[0] == "page") continue;
         var [query, parameter] = e;
         results.data = allFunctions[query](parameter, results.data);
     }
 
+    for(let i = 0; i < resterende.length; i++){
+        var [query, parameter] = resterende[i];
+        results.data = allFunctions[query](parameter, results.data);
+    }
     results.totalt = results.data.length;
-    console.log(results.totalt)
 
-    if(limit && page) results.data = allFunctions.page([limit, page], results.data);
+    if(limit && page) {
+        results.data = allFunctions.page([limit, page], results.data);
+    }
     else if(limit) results.data = allFunctions.limit(limit, results.data);
     else if(page) return "Du kan ikke bruke 'page'-parameteren uten å spesifisere 'limit'. De kan ikke adskilles. F.eks. /api/jobs?limit=10&page=2";
     return results;
@@ -164,21 +170,15 @@ var allFunctions = {
     },
     limit(request, result){
         if(!request) {
-            console.log("limit");
             return result;
         }
-        else if(request < 0 || request > 200) {
-            console.log("limit");
-            return "Limit kan kun være mellom og inklusivt 0 til og med 200";
+        else if(request < 0 || request > 20000) {
+            return "Limit kan kun være mellom og inklusivt 0 til og med 20000";
         }
-        console.log(result.length);
-        console.log("limit ovenfor");
         return result.slice(0, request);
     },
     page(request, result){
         var [limit, page] = request;
-        console.log("page");
-        console.log(result.length);
         limit = parseInt(limit);
         page = parseInt(page);
         page = page - 1;
@@ -220,12 +220,15 @@ var allFunctions = {
         });
     },
     frist(request, result){
+
         if(!request) return result;
         request = request.split(" ");
         var utløpte = request[1] ? request[1] : "false";
-        request = request[0];
+        var antallDager = request[0];
         var temp = [];
         var dagensDato = new Date();
+        var count = 0;
+
         result.forEach(e => {
             var frist = new Date(e.americanDate);
             if(frist == "Invalid Date"){
@@ -233,13 +236,18 @@ var allFunctions = {
                 frist = new Date(e.americanDate);
             }
             var differanse = (frist - dagensDato) / 86400000;
-            if(utløpte == "false"){
-                if((differanse < request) && differanse >= 0){
+            differanse = parseInt(Math.round(differanse));
+            if(isNaN(parseInt(e.frist))){
+                count = count + 1;
+                temp.push(e);
+            }
+            else if(utløpte == "false"){
+                if((antallDager >= differanse) && differanse >= 0){
                     temp.push(e);
                 }
             }
             else if(utløpte == "true"){
-                if((differanse < request)){
+                if(antallDager >= differanse){
                     temp.push(e);
                 }
             }
@@ -247,30 +255,29 @@ var allFunctions = {
                 throw Error("Det der ekke en gyldig parameter imbesil!")
             }
         });
-        console.log(temp.length);
-        console.log("ovenfor er temp");
         return temp;
     },
-    ingenRare(request, result){
-        if(!request) {
+    rare(request, result){
+
+
+        if(request == '') {
             return result;
+        }
+        var deUtenFrist = [];
+        var deMedFrist = [];
+        result.forEach(e => {
+            var num = parseInt(e.frist);
+            if(isNaN(num)) deUtenFrist.push(e);
+            else deMedFrist.push(e);
+        })
+        if(request == "true"){
+            return deUtenFrist.concat(deMedFrist);
         }
         else if(request == "false"){
-            return result;
-        }
-        else if(request == "true"){
-            var deUtenFrist = [];
-            var deMedFrist = [];
-            result.forEach(e => {
-                var num = parseInt(e.frist);
-                if(isNaN(num)) deUtenFrist.push(e);
-                else deMedFrist.push(e);
-            })
-            result = deMedFrist;
-            return result;
+            return deMedFrist;
         }
         else{
-            throw Error("Det der funker ikke brusjan. 'ingenRare' kan kun ta i bruk 'true' u little dipshit \n");
+            throw Error("Det der funker ikke brusjan. 'rare' kan kun ta i bruk 'true/false' u little dipshit \n");
         }
     }
 }

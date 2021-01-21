@@ -6,9 +6,9 @@
                 <i class="fas fa-user-circle"></i>
             </div>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Login</a>
-                <a class="dropdown-item" href="#">Bli medlem</a>
-                <a class="dropdown-item" href="#">Something </a>
+                <router-link class="dropdown-item" to="/login">Login</router-link>
+                <router-link class="dropdown-item" to="/register">Bli medlem</router-link>
+                <router-link class="dropdown-item" to="/logout">Logout </router-link>
             </div>
         </a>
     </div>

@@ -5,24 +5,23 @@
 
       <div class="stackedit__html">
         <div class="form-group">
-
           <br>
           <h2 class="boldyh2">Kontakt oss:</h2>
           <hr>
 
           <div class="col-sm-12 p-0">
             <input required style="margin-bottom:20px !important; margin-top:37px !important;" type="text"
-              class="form-control py-4 mb-4 w-100 mt-4" name="navn" id="email" placeholder="Fornavn/Etternavn">
+              class="form-control py-4 mb-4 w-100 mt-4" name="navn" id="email" placeholder="Fornavn || Fornavn + Etternavn">
           </div>
 
           <div class="col-sm-12 p-0">
             <input required style="margin-bottom:20px !important;" name="emne" type="text" class="form-control py-4 mb-4 w-100"
-              id="email" placeholder="Hva gjelder det?">
+              id="email" placeholder="Emne ? Emne : IngenEmne">
           </div>
 
           <div class="col-sm-12 p-0">
             <input required style="margin-bottom:20px !important;" type="email" class="form-control py-4 mb-4 w-100" id="email"
-              placeholder="Epost">
+              placeholder="!Epost ? () => Throw Error()">
           </div>
 
         </div>
@@ -31,16 +30,16 @@
           <textarea required class="form-control w-100" rows="12" name="melding" placeholder="Melding"></textarea>
         </div>
 
-        <!-- <div class="form-check mt-4 mb-2">
+        <div class="form-check mt-4 mb-2">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Motta en kopi av meldingen til eposten din</label>
-        </div> -->
+        </div>
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-12 p-0 w-100">
             <button type="submit" class="pageclip-form__submit--dark-loader 
             pageclip-form__submit btn btn-dark p-3 w-25 mt-3">
-              <span>Send melding</span>
+              <span>Send Melding</span>
             </button>
           </div>
         </div>

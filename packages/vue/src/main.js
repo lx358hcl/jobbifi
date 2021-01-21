@@ -3,16 +3,16 @@ import App from './App.vue';
 import router from './router';
 import firebase from "firebase/app";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyA3LSpqNdQBBIHL03oVvx1GF32c8voqzIQ",
-    authDomain: "thisone-f7a65.firebaseapp.com",
-    projectId: "thisone-f7a65",
-    storageBucket: "thisone-f7a65.appspot.com",
-    messagingSenderId: "214201865664",
-    appId: "1:214201865664:web:1d33068a8a408eec54e425"
-  };
+var firebaseConfig = {
+  apiKey: "AIzaSyAh0HDRFkHxT5rg1axASthIAEkWfyUuR3Y",
+  authDomain: "nevet-9e3ed.firebaseapp.com",
+  projectId: "nevet-9e3ed",
+  storageBucket: "nevet-9e3ed.appspot.com",
+  messagingSenderId: "108502587373",
+  appId: "1:108502587373:web:5cd48d209d9171076379e4"
+};
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-createApp(App).use(router).mount('#app');
+firebase.initializeApp(firebaseConfig);
+firebase.auth().onAuthStateChanged(user => {
+  createApp(App).use(router).mount('#app');
+});

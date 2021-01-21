@@ -16,6 +16,7 @@ import Stilling from "@/views/Stilling.vue";
 import Register from "../views/Register.vue";
 import Secret from "../views/Secret.vue";
 import About from "../views/About.vue";
+import Logout from "../views/Logout.vue";
 
 import * as firebase from "firebase/app";
 
@@ -102,10 +103,15 @@ const routes = [
     component: About
   },
   {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
+  },
+  {
     path: "/:pathMatch(.*)",
     name: "Feil",
     component: Feil,
-  }
+  },
 ];
 
 const router = createRouter({
@@ -116,6 +122,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  console.log(requiresAuth);
   const isAuthenticated = firebase.default.auth().currentUser;
   console.log("isauthenticated", isAuthenticated);
   if (requiresAuth && !isAuthenticated) {

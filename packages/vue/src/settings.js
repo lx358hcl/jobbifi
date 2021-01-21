@@ -6,9 +6,10 @@ var settings = ref({
     "type": ["fulltid", "deltid", "annet"],
     "search": "",
     "tekno": [],
-    "frist": "",
+    "frist": "9000",
+    "ingenUtløpte": false,
     "sortFrist":"",
-    "ingenRare": false,
+    "rare": true,
     "sort": "down",
     "page": "1",
     "limit": "100",
@@ -19,14 +20,11 @@ var settings = ref({
 
 //Last inn fra localStorage
 var fraLocalStorage = localStorage.getItem("ifijobbSettings");
-if(fraLocalStorage){
-    settings.value = JSON.parse(fraLocalStorage);
-}
-else{
-    localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
-}
 
-//Når en endring i settingen ovenfor skjer
+if(fraLocalStorage) settings.value = JSON.parse(fraLocalStorage);
+else localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
+
+//Lagr settingsene i settings i localStorage
 var lagreEndringer = () => {
     localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
     console.log(settings.value)
@@ -35,4 +33,5 @@ var lagreEndringer = () => {
 //Lytt etter endringer i settings
 watch(settings, lagreEndringer, { deep: true });
 
+//Export them
 export { settings };

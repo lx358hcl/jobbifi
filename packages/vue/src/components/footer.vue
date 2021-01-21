@@ -3,7 +3,7 @@
     <div class="container">
       <ul class="footer">
         <div class="leftBlock">
-          <li class="ceo">© UTVIKLET AV SKJØNNHETEN OG UDYRET</li>
+          <li class="ceo">© UTVIKLET AV <a class="devCredit" href="https://github.com/igormomc">SKJØNNHETEN</a> OG <a class="devCredit" href="https://github.com/lukamo1996">UDYRET</a></li>
         </div>
         <div class="rightBlock">
           <router-link

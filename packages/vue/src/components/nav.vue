@@ -9,8 +9,8 @@
             position: relative;
             top: -5px;
             font-family: inherit;
-          "
-        ></p
+          ">
+          </p
       ></router-link>
 
       <!-- <form class="form-inline my-2 my-lg-0">
@@ -46,7 +46,8 @@
               to="/stillinger"
               v-bind:class="{ active: $route.path == '/stillinger' }"
               >STILLINGER
-              <span
+            </router-link>
+            <span
                 style="
                   position: relative;
                   bottom: 10px;
@@ -57,9 +58,7 @@
                   border-radius: 20px;
                 "
                 class="badge badge-danger"
-                >{{ hovedData.jobs.length }}</span
-              >
-            </router-link>
+                >{{ hovedData.jobs.length }}</span>
           </li>
           <li class="nav-item titles">
             <router-link
@@ -80,13 +79,6 @@
                 class="badge badge-danger"
                 >{{  }}</span
               >
-            </router-link>
-          </li>
-
-          <li class="nav-item titles">
-            <router-link class="nav-link" to="/kontakt"
-              v-bind:class="{'active': $route.path == '/arrangementer'}">OM OSS
-           
             </router-link>
           </li>
 
@@ -118,11 +110,14 @@
 <script>
 var hovedData = require("../../../api/data/data.json");
 import account from "./account.vue";
+import * as firebase from "firebase/app";
+
 export default {
   setup() {
     return {
       hovedData,
-      account
+      account,
+      firebase,
     };
   },
 };

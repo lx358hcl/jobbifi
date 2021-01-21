@@ -1,34 +1,50 @@
 <template>
-  <main class="homepage container">
+  <main class="pt-3 homepage container">
 
     <body class="stackedit">
       <br>
       <div class="stackedit__html">
-        <h2><strong>OM OSS</strong></h2>
+        <h2>
+          <strong style = "font-family: 'Goudy Bookletter 1911', serif !important">Om Jobbifi
+            </strong>
+          </h2>
         <hr>
-        <p><em></em></p>
-        <p>Hensikten med denne siden er å hjelpe dumme studenter som meg og deg og min partner "skjønnheten" å skaffe seg jobb. Jobb er det som gjør at vi ikke faller i dype depresjoner og holder oss forankret til eksistensen og hindrer oss i fortapelse i das nichts.</p>
-        <h5><b>Hensikten med lagringen av data</b></h5>
+        <p> Jobbifi er en nettside der hensikten er å skape en singleton av alle tilgjengelig jobber for
+          informatikk/design/programvareutvikling-studenter. Studier har vist at å spre ut informasjon
+          over et større området reduserer produktivitet og øker prokrastinasjon. 
+        </p>
         <hr>
-        <p><strong>Vi ønsker å gjøre NEVET bedre og tilby tjenester</strong></p>
-        <p>NEVET lagrer kun informasjon som er direkte relatert til brukeropplevelsen og muligheten til å bruke
-          nettsiden. Dette omfatter informasjon som passord, epost. brukernavn, profilbilde, meldinger osv. NEVET har
-          ved hjelp av forskjellige sikkerhetsmål gjort sitt beste for å forhindre uatorisert tilgang på denne
-          informasjonen. Det må allikevel medregnes en viss risiko ved bruk av nettsiden da informasjon lagret kan i
-          verste fall komme i hendene til en erfaren trusselaktør. All informasjon lagret på nettsiden vil dog aldri
-          brukes til kriminelle handlinger og heller ikke selges. Opprettelse av bruker på NEVET anses som aksept av
-          nettsidens retningslinjer.</p>
-        <p><strong>Sikkerhet</strong></p>
-        <p>Personlig informasjon som passord krypteres, mens den resterende brukerinformasjonen lagres som klartekst.
-          NEVET gjør sitt beste for å forsikre at denne informasjonen ikke blir konfiskert. Derfor må det igjen påpekes
-          at bruk av nettsiden skjer under egen risiko.</p>
-        <p><strong>Endringer av retningslinjene</strong></p>
-        <p>Alle endringer til disse retningslinjene vil annonseres på nettsidens hjemmeside i form av en modal eller et
-          nyhetsvindu. En revidering vil samtidig også ledsages av en oppdatering av “Sist oppdatering”-datoen øverst i
-          retningslinjene.</p>
+        <p>
+          <strong>
+            Hva crawler og hvor ofte crawler ifijobb jobbsider?
+          </strong
+        ></p>
+        <p>
+          Per dags dato <i>(12.01.2021)</i> så crawler Ifijobb nettsidene nedenfor hver dag kl. 15:00
+        </p>
+        <ul>
+            <li>
+              <i>finn.no</i>
+            </li>
+            <li>
+              <i>arbeidsplassen.no</i>
+            </li>
+            <li>
+              <i>ifinavnet.no</i>
+            </li>
+          </ul> 
+          <p>
+           Vurderinger blir gjort om hvorvidt webcruiter, jobbsafari.no, karrierestart, jobbnorge.no samt andre mindre studentbaserte jobbsider bør legges til.
+          </p>
+          <hr>
+        <p><strong>FAQ:</strong></p>
+        <p>Hvis du ikke finner spørsmålet ditt nedenfor, send oss gjerne en mail: </p>
         <p><strong>Kontakt</strong></p>
-        <p>Utviklerne kan kontaktes angående retningslinjene på følgende epost: <a
-            href="mailto:momcilovicbrothers@gmail.com">momcilovicbrothers@gmail.com</a></p>
+        <p>Alle spørsmål rettes til følgende e-post addresse:</p> 
+        <a href="mailto:momcilovicbrothers@gmail.com">
+          momcilovicbrothers@gmail.com
+        </a>
+          <hr>
         <p>Luka Momcilovic and Igor Momcilovic</p>
       </div>
     </body>
@@ -40,9 +56,9 @@
 </template>
 
 <script>
-  export default {
-    setup() {
-      return {}
-    }
-  }
+export default {
+  setup() {
+    return {};
+  },
+};
 </script>

@@ -61,36 +61,70 @@
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item border-0 filter p-0 ml-1">
 									<input
-										id="frist1"
+										id="utløpte"
+										class="gjørTilClickable"
+										v-on:click="
+											changeFrist(['frist', '-1', $event.currentTarget.checked])
+										"
+										type="radio"
+										name="frister"
+										:checked="settings.frist == '-1'"
+									/>
+									<label for="utløpte" class="pl-2 mb-1 gjørTilClickable">Vis bare utløpte stillinger
+											<span class="filterAntall">
+											</span>
+										</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input
+										id="frist0"
+										class="gjørTilClickable"
+										v-on:click="
+											changeFrist(['frist', '0', $event.currentTarget.checked])
+										"
+										type="radio"
+										name="frister"
+										:checked="settings.frist == '0'"
+									/>
+									<label for="frist0" class="pl-2 mb-1 gjørTilClickable">Utløper i dag
+											<span class="filterAntall">
+											</span>
+										</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input
+										id="frist7"
 										class="gjørTilClickable"
 										v-on:click="
 											changeFrist(['frist', '7', $event.currentTarget.checked])
 										"
 										type="radio"
-										name="frist"
+										name="frister"
+										:checked="settings.frist == '7'"
 									/>
-									<label for="frist1" class="pl-2 mb-1 gjørTilClickable"
+									<label for="frist7" class="pl-2 mb-1 gjørTilClickable"
 										>Under en uke
 										<span class="filterAntall"
 											>({{
 												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
 													? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["7"]
 													: null
-											}})</span
-										></label
-									>
+											}})
+											</span
+										></label>
 								</li>
 								<li class="list-group-item border-0 filter p-0 ml-1">
 									<input
-										id="frist3"
+										id="frist30"
 										class="gjørTilClickable"
 										v-on:click="
 											changeFrist(['frist', '30', $event.currentTarget.checked])
 										"
 										type="radio"
-										name="frist"
+										name="frister"
+										:checked="settings.frist == '30'"
 									/>
-									<label for="frist3" class="pl-2 mb-1 gjørTilClickable"
+									<label for="frist30" class="pl-2 mb-1 gjørTilClickable"
 										>Under 1 måned
 										<span class="filterAntall"
 											>({{
@@ -103,15 +137,16 @@
 								</li>
 								<li class="list-group-item border-0 filter p-0 ml-1">
 									<input
-										id="frist7"
+										id="frist90"
 										class="gjørTilClickable"
 										v-on:click="
 											changeFrist(['frist', '90', $event.currentTarget.checked])
 										"
 										type="radio"
-										name="frist"
+										name="frister"
+										:checked="settings.frist == '90'"
 									/>
-									<label for="frist7" class="pl-2 mb-1 gjørTilClickable"
+									<label for="frist90" class="pl-2 mb-1 gjørTilClickable"
 										>Under 3 måneder
 										<span class="filterAntall"
 											>({{
@@ -124,16 +159,16 @@
 								</li>
 								<li class="list-group-item border-0 filter p-0 ml-1">
 									<input
-										id="fristIngen"
+										id="frist9000"
 										class="gjørTilClickable"
 										v-on:click="
 											changeFrist(['frist', '9000', $event.currentTarget.checked])
 										"
 										type="radio"
-										name="frist"
-										checked
+										name="frister"
+										:checked="settings.frist == '9000'"
 									/>
-									<label for="fristIngen" class="pl-2 mb-1 gjørTilClickable"
+									<label for="frist9000" class="pl-2 mb-1 gjørTilClickable"
 										>Under 12 måneder
 										<span class="filterAntall"
 											>({{
@@ -181,24 +216,29 @@
 					<div class="col-9">
 						<div class="container mt-4 p-0">
 							<div class="card">
-								<div class="card-body py-0 pr-2">
+								<div class="card-body py-0 pr-5">
 									<div class="row">
 										<div class="col-8">
-											<p class="font-weight-bold mb-0 mt-2">
+											<p class="font-weight-bold mb-0 mt-3">
 												Fant {{ settings.entireResponse.totalt }} resultater av {{ hovedData.jobs.length }} totalt indekserte stillinger
 											</p>
 											<li class="list-group-item border-0 filter p-0 mt-3">
-												<input class="gjørTilClickable" id="ingenRare" name="ingenRare" :checked="true" type="checkbox" @click="rarifiser($event.target.checked);" />
-												<label class="gjørTilClickable pl-2 mb-1" for="ingenRare"
-													>Ikke vis stillinger uten spesifisert frist
+												<input class="gjørTilClickable" id="rare" name="rare" :checked="settings.rare" type="checkbox" @click="rarifiser($event.target.checked);" />
+												<label class="gjørTilClickable pl-2 mb-1" for="rare"
+													>Vis stillinger uten spesifisert frist
 													<span class="filterAntall"></span
 												></label>
-							</li>
-							<p class="mt-2 mb-2">
+											</li>
+											<li class="list-group-item border-0 filter p-0 mt-3">
+												<input class="gjørTilClickable" id="ingenUtløpte" name="ingenUtløpte" :checked="settings.ingenUtløpte" type="checkbox" @click="ingenUtløpte($event.target.checked);" />
+												<label class="gjørTilClickable pl-2 mb-1" for="ingenUtløpte"
+													>Inkluder utløpte stillinger
+													<span class="filterAntall"></span
+												></label>
+											</li>
+							<p class="mt-3 mb-3">
 								Du søkte etter:
-								<span class="font-italic font-weight-bold">{{
-													settings.search.length > 0 ? settings.search : ""
-												}}</span>
+								<span class="font-italic font-weight-bold">{{settings.search.length > 0 ? settings.search : ""}}</span>
 							</p>
 					</div>
 					<div class="col-4 d-flex align-items-center pr-0 justify-content-end">
@@ -420,7 +460,7 @@
 	
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import router from '../router';
+import router from '../router/index.js';
 console.log("OK");
 
 console.log(firebase.default);
@@ -434,8 +474,8 @@ console.log(firebase.default);
 	console.log(settings);
 	function axiosMe() {
 		settings.value.loading = true;
-		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`);
-		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&ingenRare=${settings.value.ingenRare}`)
+		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`);
+		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`)
 			.then(function(response) {
 				console.log("da ble loading endret");
 				settings.value.data = response.data.data;
@@ -444,9 +484,9 @@ console.log(firebase.default);
 				alleTeknologierInfo.value = response.data.info.alleTeknologierInfo;
 				settings.value.entireResponse.info.antall = response.data.info.antall;
 				console.log(entireResponse.value);
-				console.log(window.location);
+				console.log(router.currentRoute);
 				if (window.location.pathname != "/stillinger") {
-					
+					router.push("/stillinger")					
 				} else {
 					settings.value.loading = false;
 				}
@@ -524,8 +564,13 @@ console.log(firebase.default);
 			//Rarifiser
 			function rarifiser(e){
 				console.log(e);
-				if (e) settings.value.ingenRare = true;
-				else settings.value.ingenRare = false;
+				settings.value.rare = e;
+				settings.value.page = 1;
+				axiosMe();
+			}
+			//Ingen utløpte
+			function ingenUtløpte(e){
+				settings.value.ingenUtløpte = e;
 				settings.value.page = 1;
 				axiosMe();
 			}
@@ -561,6 +606,7 @@ console.log(firebase.default);
 				paginator,
 				searchQuery,
 				rarifiser,
+				ingenUtløpte,
 			};
 		},
 		computed: {
