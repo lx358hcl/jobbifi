@@ -13,6 +13,7 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
 firebase.auth().onAuthStateChanged(user => {
   createApp(App).use(router).mount('#app');
 });

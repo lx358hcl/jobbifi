@@ -2,44 +2,46 @@
   <div>
     <h3>Login</h3>
     <form v-on:submit.prevent="login()">
-      <div class="">
-        <input type="text" placeholder="login" v-model="email" />
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input v-model="email"  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
       </div>
-      <div class="password">
-        <input type="password" placeholder="password" v-model="password" />
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
-      <button>Login</button>
+      <div class="error" v-if="error">{{ error.message }}</div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <div class="error" v-if="error">{{ error.message }}</div>
   </div>
 </template>
 
 <script>
-import * as firebase from "firebase/app";
-import { ref } from "vue";
-import router from "../router/index.js";
-
-export default {
-  setup(){
-    var email = ref("");
-    var password = ref("");
-    function login(){
-      firebase.default.auth()
-        .signInWithEmailAndPassword(email.value, password.value)
-        .then(data => {
-          console.log(data);
-          console.log("running");
-          router.push({ path: "/stillinger" });
-        })
-        .catch(error => {
-          this.error = error;
-        });
-    }
-    return {
-      login,
-      email,
-      password,
+  import * as firebase from "firebase/app";
+  import {
+    ref
+  } from "vue";
+  export default {
+    setup() {
+      var email = ref("");
+      var password = ref("");
+      function login() {
+        console.log(password);
+        firebase.default.auth()
+          .signInWithEmailAndPassword(email.value, password.value)
+          .then(data => {
+            window.location = window.location.origin + "/";
+          })
+          .catch(error => {
+            error.value = error;
+          });
+      }
+      return {
+        login,
+        email,
+        password,
+      }
     }
   }
-}
 </script>

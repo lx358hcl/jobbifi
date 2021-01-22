@@ -19,6 +19,7 @@
   import søkeform from "../components/søkeform.vue";
   export default {
     setup() {
+      console.log("hjem");
       return {
         søkeform,
       }

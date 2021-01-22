@@ -17,6 +17,10 @@ import Register from "../views/Register.vue";
 import Secret from "../views/Secret.vue";
 import About from "../views/About.vue";
 import Logout from "../views/Logout.vue";
+import Lagrede from "../views/Lagrede.vue";
+import Innstillinger from "../views/Innstillinger.vue";
+import Meldinger from "../views/Meldinger.vue";
+import Varsler from "../views/Varsler.vue";
 
 import * as firebase from "firebase/app";
 
@@ -103,6 +107,26 @@ const routes = [
     component: Logout,
   },
   {
+    path: "/lagrede",
+    name: "Lagrede",
+    component: Lagrede,
+  },
+  {
+    path: "/innstillinger",
+    name: "Innstillinger",
+    component: Innstillinger,
+  },
+  {
+    path: "/meldinger",
+    name: "Meldinger",
+    component: Meldinger,
+  },
+  {
+    path: "/varsler",
+    name: "Varsler",
+    component: Varsler,
+  },
+  {
     path: "/:pathMatch(.*)",
     name: "Feil",
     component: Feil,
@@ -115,17 +139,17 @@ const router = createRouter({
   base: process.env.BASE_URL,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-//   console.log(requiresAuth);
-//   const isAuthenticated = firebase.default.auth().currentUser;
-//   console.log("isauthenticated", isAuthenticated);
-//   // if (requiresAuth && !isAuthenticated) {
-//   //   next("/login");
-//   // } else {
-//   //   next();
-//   // }
-//   next();
-// });
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  console.log(requiresAuth);
+  const isAuthenticated = firebase.default.auth().currentUser;
+  console.log("isauthenticated", isAuthenticated);
+  if (requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+  next();
+});
 
 export default router;
