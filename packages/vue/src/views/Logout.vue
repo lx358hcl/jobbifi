@@ -8,6 +8,7 @@
 
 <script>
 import * as firebase from "firebase/app";
+import router from "../router/index.js";
 
 export default {
   setup() {

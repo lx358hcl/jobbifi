@@ -3,16 +3,51 @@
         <a class="w-100 h-100 d-flex justify-content-center align-items-center" href="#">
             <div class="innerButton">
                 <i class="fas fa-bars moreIcon"></i>
-                <i class="fas fa-user-circle"></i>
+                <div>
+                    <img v-if="false" src="https://a0.muscache.com/im/pictures/user/3b988e75-6db4-41f5-a458-18be84ec0d31.jpg?aki_policy=profile_medium">
+                    <i class="fas fa-user-circle"></i>
+                </div>
             </div>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <router-link class="dropdown-item" to="/login">Login</router-link>
-                <router-link class="dropdown-item" to="/register">Bli medlem</router-link>
-                <router-link class="dropdown-item" to="/logout">Logout </router-link>
+            <div style = "border-radius: 20px;" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div v-if="user">
+                    <router-link class="dropdown-item" to="/login">{{ user.email.slice(0, user.email.indexOf("@"))}}</router-link>
+                    <router-link class="dropdown-item" to="/login">
+                    Varsler
+                    <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 20px;">32</span>
+                    </router-link>
+                    <router-link class="dropdown-item" to="/login">
+                    Meldinger
+                    <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 20px;">32</span>
+                    </router-link>
+                    <hr style = "" class = "mx-3 my-2">
+                    <router-link class="dropdown-item" to="/login">
+                    Lagret
+                    </router-link>
+                    <router-link class="dropdown-item" to="/register">Innstillinger</router-link>
+                    <router-link class="dropdown-item" to="/logout">Logg ut </router-link>
+                </div>
             </div>
         </a>
     </div>
 </template>
+
+<script>
+
+import * as firebase from "firebase/app";
+import { ref } from "vue";
+import router from "../router/index.js";
+
+export default {
+  setup(){
+        var user = firebase.default.auth().currentUser;
+    return {
+      user,
+    }
+  }
+}
+
+
+</script>
 
 
 <style>

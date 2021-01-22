@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Login</h3>
-    <form v-on:submit.prevent="login($submit)">
+    <form v-on:submit.prevent="login()">
       <div class="">
         <input type="text" placeholder="login" v-model="email" />
       </div>
@@ -10,23 +10,26 @@
       </div>
       <button>Login</button>
     </form>
-    <div class="error" v-if="error">{{error.message}}</div>
+    <div class="error" v-if="error">{{ error.message }}</div>
   </div>
 </template>
 
 <script>
 import * as firebase from "firebase/app";
+import { ref } from "vue";
+import router from "../router/index.js";
 
 export default {
   setup(){
-    function login(e){
-      console.log("running");
-      console.log(e)
+    var email = ref("");
+    var password = ref("");
+    function login(){
       firebase.default.auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .signInWithEmailAndPassword(email.value, password.value)
         .then(data => {
           console.log(data);
-          this.$router.replace({ name: "secret" });
+          console.log("running");
+          router.push({ path: "/stillinger" });
         })
         .catch(error => {
           this.error = error;
@@ -34,7 +37,9 @@ export default {
     }
     return {
       login,
+      email,
+      password,
     }
   }
-};
+}
 </script>
