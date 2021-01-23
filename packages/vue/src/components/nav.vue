@@ -82,24 +82,8 @@
             </router-link>
           </li>
 
-          <li class="nav-item titles">
-            <router-link
-              class="nav-link"
-              to="/blimedlem"
-              v-bind:class="{ active: $route.path == '/blimedlem' }"
-              >BLI MEDLEM</router-link
-            >
-          </li>
-
-
           <li class="nav-item titles d-flex align-items-center">
             <account />
-            <!-- <a
-              class="nav-link"
-              href="/login"
-              v-bind:class="{ active: $route.path == '/login' }"
-              >LOGIN</a
-            > -->
           </li>
         </ul>
       </div>

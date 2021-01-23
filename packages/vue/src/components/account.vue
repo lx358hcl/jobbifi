@@ -10,7 +10,7 @@
             </div>
             <div style="border-radius: 20px;" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div v-if="user">
-                    <a href="#" class="dropdown-item">{{ user.email.slice(0, user.email.indexOf("@"))}}</a>
+                    <router-link to="/secret" href="#" class="dropdown-item">{{ user.email.slice(0, user.email.indexOf("@"))}}</router-link>
                     <router-link class="dropdown-item" to="/varsler"> Varsler
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 20px;">32</span>
                     </router-link>
@@ -32,20 +32,20 @@
 </template>
 
 <script>
-    import * as firebase from "firebase/app";
-    export default {
-        setup() {
-            var user = firebase.default.auth().currentUser;
-            function logOut() {
-                firebase.default.auth().signOut();
-                window.location = window.location.origin + "/logout";
-            }
-            return {
-                user,
-                logOut,
-            }
+import * as firebase from "firebase/app";
+export default {
+    setup() {
+        var user = firebase.default.auth().currentUser;
+        function logOut() {
+            firebase.default.auth().signOut();
+            window.location = window.location.origin + "/logout";
+        }
+        return {
+            user,
+            logOut,
         }
     }
+}
 </script>
 
 

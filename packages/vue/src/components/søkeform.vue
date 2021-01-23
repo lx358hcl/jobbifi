@@ -63,7 +63,6 @@
   import { searchQuery, axiosMe } from "../views/Stillinger.vue";
   import { settings } from "../settings.js";
   import spinner from "./spinner.vue";
-  import router from "../router/index.js";
 
   //Søkefunksjon
 	function changeSettings() {
@@ -103,7 +102,7 @@ html {
   justify-content: center;
   -ms-flex-align: center;
   align-items: center;
-  background: url("../../public/12.jpg");
+  background-image: url("../../public/bgbg.png");
   background-size: cover;
   background-position: center center;
   font-family: "Poppins", sans-serif;
