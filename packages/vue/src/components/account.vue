@@ -17,7 +17,7 @@
                     <router-link class="dropdown-item" to="/meldinger"> Meldinger
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 20px;">32</span>
                     </router-link>
-                        <hr style="" class="mx-3 my-2">
+                    <hr style="" class="mx-3 my-2">
                     <router-link class="dropdown-item" to="/lagrede"> Lagret </router-link>
                     <router-link class="dropdown-item" to="/innstillinger"> Innstillinger </router-link>
                     <a href="#" @click="logOut();" class="dropdown-item"> Logg ut </a>
@@ -32,20 +32,27 @@
 </template>
 
 <script>
-import * as firebase from "firebase/app";
-export default {
-    setup() {
-        var user = firebase.default.auth().currentUser;
-        function logOut() {
-            firebase.default.auth().signOut();
-            window.location = window.location.origin + "/logout";
-        }
-        return {
-            user,
-            logOut,
+    import * as firebase from "firebase";
+    function logOut() {
+        firebase.default.auth().signOut();
+        window.location = window.location.origin + "/logout";
+    }
+    export default {
+        setup() {
+            var user = firebase.default.auth().currentUser;
+            var db = firebase.default.firestore();
+            db.collection("users").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    console.log(doc.data());
+                    console.log(doc.id, " => ", doc.data());
+                });
+            });
+            return {
+                user,
+                logOut,
+            }
         }
     }
-}
 </script>
 
 

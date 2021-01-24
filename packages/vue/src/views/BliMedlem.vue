@@ -33,10 +33,13 @@
         firebase.default.auth().createUserWithEmailAndPassword(email.value, password.value)
           .then(() => {
             var user = firebase.default.auth().currentUser;
-            user.updateProfile({displayName: displayName.value, fornavn: fornavn.value }).then(function() {
-              }).catch(function(error) {
-
-              });
+            var db = firebase.default.firestore();
+            db.collection("users").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log(doc);
+                });
+            });
+            //Send email verification
             user.sendEmailVerification().then(function() {
               console.log("sendte en email verification");
             }).catch(function(error) {

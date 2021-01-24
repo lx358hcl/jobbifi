@@ -3,6 +3,7 @@ var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
 var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "rare", "sortFrist", "id", "limit", "page"];
+
 //Jobs-route dirigent
 router.get("/api/jobs", function (request, response){
     if(Object.keys(request.query).length == 0) sendAll(request, response);

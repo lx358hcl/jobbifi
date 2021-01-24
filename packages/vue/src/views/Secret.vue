@@ -9,10 +9,13 @@
 </template>
 
 <script>
-  import * as firebase from "firebase/app";
-  import {
-    ref
-  } from "vue";
+  import * as firebase from "firebase";
+  import { ref } from "vue";
+  import { appen } from "../main.js";
+  console.log("dette er appen");
+  console.log(appen);
+
+
   export default {
     setup() {
       var user = firebase.default.auth().currentUser;
@@ -40,7 +43,7 @@
           console.log(token);
           await firebase.default.auth().currentUser.getIdToken().then((data) => {
             return token.value = data;
-          })
+          });
         }
       }
       getInfo();

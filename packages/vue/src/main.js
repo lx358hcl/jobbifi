@@ -12,8 +12,10 @@ var firebaseConfig = {
   appId: "1:108502587373:web:5cd48d209d9171076379e4"
 };
 
-firebase.initializeApp(firebaseConfig);
+var appen = firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
   createApp(App).use(router).mount('#app');
 });
+
+export { appen };

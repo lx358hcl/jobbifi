@@ -22,7 +22,7 @@ import Innstillinger from "../views/Innstillinger.vue";
 import Meldinger from "../views/Meldinger.vue";
 import Varsler from "../views/Varsler.vue";
 
-import * as firebase from "firebase/app";
+import * as firebase from "firebase";
 
 const routes = [
   {
@@ -146,10 +146,10 @@ router.beforeEach(async (to, from, next) => {
   console.log("isauthenticated", isAuthenticated);
   if (requiresAuth && !isAuthenticated) {
     next("/login");
-  } else {
+  } 
+  else {
     next();
   }
-  next();
 });
 
 export default router;
