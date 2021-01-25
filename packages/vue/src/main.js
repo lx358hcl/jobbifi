@@ -18,4 +18,4 @@ firebase.auth().onAuthStateChanged(user => {
   createApp(App).use(router).mount('#app');
 });
 
-export { appen };
+export default appen;

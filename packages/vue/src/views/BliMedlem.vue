@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="error" v-if="error">{{error.message}}</div>
     <form @submit.prevent="bliMedlem();">
       Register
       <div class="email">
@@ -9,10 +8,10 @@
       <div class="navn">
         <input type="text" v-model="displayName" placeholder="navn" />
       </div>
-       <div class="fornavn">
+      <div class="fornavn">
         <input type="text" v-model="fornavn" placeholder="fornavn" />
       </div>
-      <div class="password">
+      <div class="pass">
         <input type="password" v-model="password" placeholder="password" />
       </div>
       <button type="submit">Register</button>
@@ -21,32 +20,42 @@
 </template>
 
 <script>
-  import * as firebase from "firebase/app";
+  import appen from "../main.js";  
   import { ref } from "vue";
   export default {
     setup() {
+      async function run(){
+        var db = await appen.firestore();
+        var dbRes = await db.collection("users").get();
+        dbRes.docs.forEach(e => console.log(e.data()))
+        var igor = {
+          "navn": "igor",
+          "alder": 20,
+          "venner": []
+        }
+        var luka = {
+          "navn": "luka",
+          "alder": 24,
+          "venner": []
+        }
+        var data = {
+          "navn": "thomas",
+          "alder": 13,
+          "venner": [luka, igor]
+        }
+        db.collection("users").doc("3").set(data);
+        dbRes.docs.forEach(e => console.log(e.data()))
+      }
+      run();
+
       var email = ref("");
       var password = ref("");
       var displayName = ref("");
-      var fornavn = ref("");
-      function bliMedlem() {
-        firebase.default.auth().createUserWithEmailAndPassword(email.value, password.value)
-          .then(() => {
-            var user = firebase.default.auth().currentUser;
-            var db = firebase.default.firestore();
-            db.collection("users").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    console.log(doc);
-                });
-            });
-            //Send email verification
-            user.sendEmailVerification().then(function() {
-              console.log("sendte en email verification");
-            }).catch(function(error) {
-              console.log("Failed");
-            });
-          })
-          .catch(error => (this.error = error));
+      var fornavn = ref(""); 
+
+      async function bliMedlem() {
+        await firebase.default.auth().createUserWithEmailAndPassword(email.value, password.value);
+        window.location = window.location.origin + "/stillinger";
       }
       return {
         bliMedlem,

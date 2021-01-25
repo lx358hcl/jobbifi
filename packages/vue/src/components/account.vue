@@ -40,13 +40,6 @@
     export default {
         setup() {
             var user = firebase.default.auth().currentUser;
-            var db = firebase.default.firestore();
-            db.collection("users").get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    console.log(doc.data());
-                    console.log(doc.id, " => ", doc.data());
-                });
-            });
             return {
                 user,
                 logOut,
