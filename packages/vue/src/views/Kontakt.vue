@@ -11,17 +11,17 @@
 
           <div class="col-sm-12 p-0">
             <input required style="margin-bottom:20px !important; margin-top:37px !important;" type="text"
-              class="form-control py-4 mb-4 w-100 mt-4" name="navn" id="email" placeholder="Fornavn || Fornavn + Etternavn">
+              class="form-control py-4 mb-4 w-100 mt-4" name="navn" id="email" placeholder="Fornavn/Etternavn">
           </div>
 
           <div class="col-sm-12 p-0">
             <input required style="margin-bottom:20px !important;" name="emne" type="text" class="form-control py-4 mb-4 w-100"
-              id="email" placeholder="Emne ? Emne : IngenEmne">
+              id="email" placeholder="Emne">
           </div>
 
           <div class="col-sm-12 p-0">
             <input required style="margin-bottom:20px !important;" type="email" class="form-control py-4 mb-4 w-100" id="email"
-              placeholder="!Epost ? () => Throw Error()">
+              placeholder="Epost">
           </div>
 
         </div>

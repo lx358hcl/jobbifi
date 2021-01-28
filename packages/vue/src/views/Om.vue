@@ -9,7 +9,7 @@
             </strong>
           </h2>
         <hr>
-        <p> Jobbifi er en nettside der hensikten er å skape en singleton av alle tilgjengelig jobber for
+        <p> Jobbifi er en nettside der hensikten er å skape en <a href = "https://no.wikipedia.org/wiki/Singleton">singleton</a> av alle tilgjengelig jobber for
           informatikk/design/programvareutvikling-studenter. Studier har vist at å spre ut informasjon
           over et større området reduserer produktivitet og øker prokrastinasjon. 
         </p>

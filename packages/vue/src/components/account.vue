@@ -9,6 +9,7 @@
                 </div>
             </div>
             <div style="border-radius: 20px;" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class = "d-flex justify-content-center">
                 <div v-if="user">
                     <router-link to="/secret" href="#" class="dropdown-item">{{ user.email.slice(0, user.email.indexOf("@"))}}</router-link>
                     <router-link class="dropdown-item" to="/varsler"> Varsler
@@ -25,6 +26,7 @@
                 <div v-else>
                     <router-link class="dropdown-item" to="/login"> Login </router-link>
                     <router-link class="dropdown-item" to="/blimedlem"> Bli medlem </router-link>
+                </div>
                 </div>
             </div>
         </a>

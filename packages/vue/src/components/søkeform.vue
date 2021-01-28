@@ -92,10 +92,8 @@ html {
   overflow: scroll;
 }
 .s013 {
-  box-shadow: inset 10px 10px 50px 5px black !important;
   width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
+  height: calc(100vh - 140px);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -113,6 +111,8 @@ html {
   max-width: 914px;
   margin: 0;
   z-index: 10000;
+  zoom:0.8;
+
 }
 
 .s013 form fieldset {
