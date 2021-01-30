@@ -411,9 +411,7 @@
 												style="position: absolute; bottom: 8px"
 												class="px-2 d-flex justify-content-center align-items-center"
 											>
-												<span class="frist text-danger pr-2"
-													>Søkefrist: {{ job.frist }}</span
-												>
+												
 												<div
 													class="søkeButton card-1 d-flex justify-content-center align-items-center ml-3"
 												>
@@ -427,7 +425,7 @@
 														"
 														v-bind:href="job.url"
 														class="text-center"
-														>SØK</a
+														><span style="color: #007bff">&#60; &#92;</span> SØK <span style="color: #007bff">&#62;</span></a
 													>
 												</div>
 												<div class="more">

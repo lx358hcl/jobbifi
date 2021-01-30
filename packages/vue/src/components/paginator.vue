@@ -4,19 +4,19 @@
   <i @click="forrige();" style="font-size:30px;" class="bi gjørTilClickable bi-chevron-left"></i>
 
   <!-- Paginator Elementet-->
-  <input style="width:100px;
-  padding:10px;
-  margin:10px;
+  <input style="width:50px;
+  padding:5px;
+  margin:5px;
   height:auto;
-  font-size:30px;" type = "input" :value="page"> 
+  font-size:15px;" type = "input" :value="page"> 
 
   <span style ="font-size:30px;">/</span> 
 
-  <input style="width:100px;
-  padding:10px;
-  margin:10px;
+  <input style="width:50px;
+  padding:5px;
+  margin:5px;
   height:auto;
-  font-size:30px;" type = "input" :value="totalt ? totalt : '...'">
+  font-size:15px;" type = "input" :value="totalt ? totalt : '...'">
 
   <!-- Til Venstre -->
   <i @click="neste();" style="font-size:30px;" class="bi gjørTilClickable bi-chevron-right"></i>
