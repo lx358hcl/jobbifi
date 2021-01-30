@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Luka Momcilovic <52632596+lukasinos@users.noreply.github.com>",
+  "homepage": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "run": "nodemon main.js",
+    "build": "main.js"
+  },
+  "dependencies": {
+    "heroku": "^7.47.5"
+  }
+}
