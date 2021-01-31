@@ -9,18 +9,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
   import { ref } from "vue";
   import firebase from "../main.js";
   console.log("dette er appen");
-=======
-  import * as firebase from "firebase";
-  import { ref } from "vue";
-  import { appen } from "../main.js";
-  console.log("dette er appen");
-  console.log(appen);
-
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 
   export default {
     setup() {

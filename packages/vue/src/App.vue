@@ -12,15 +12,10 @@
 </template>
 
 <script>
-<<<<<<< HEAD
   //Import header og footer
   import Nav from "./components/nav.vue";
   import Footer from "./components/footer.vue";
 
-=======
-  import Nav from "./components/nav.vue";
-  import Footer from "./components/footer.vue";
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
   export default {
     setup() {
       return {

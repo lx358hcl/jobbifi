@@ -1,14 +1,9 @@
 * {
-<<<<<<< HEAD
-=======
-    font-family: 'Lato', sans-serif;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     -webkit-user-select: none !important; /* Safari */
     -ms-user-select: none !important; /* IE 10 and IE 11 */
     user-select: none !important; /* Standard syntax */
 }
 
-<<<<<<< HEAD
 a, p, li, label, span, div{
     font-family: 'Lato', sans-serif;
 }
@@ -35,12 +30,6 @@ body {
     margin: 0;
     overflow-x: hidden !important;
     overflow-y: overlay;
-=======
-body, html {
-    margin: 0;
-    overflow-y: auto !important;
-    overflow-x:hidden !important;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
 
 .nav-link {
@@ -51,7 +40,6 @@ body, html {
     margin-left:10px
 }
 
-<<<<<<< HEAD
 .router-link-active{
     color:rgb(32, 32, 32) !important;
 }
@@ -65,8 +53,6 @@ body, html {
     padding-left: 5px;
     border-radius: 20px;
 }
-=======
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 .hjem {
     position: absolute;
     left:50%;
@@ -80,11 +66,7 @@ body, html {
 
 .homepage{
     min-height: calc(100vh - 170px);
-<<<<<<< HEAD
 } 
-=======
-}
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 
 .social-footer-buttons {
     padding-left: 10px;
@@ -97,22 +79,15 @@ body, html {
 
 .ekteNav {
     position: fixed;
-<<<<<<< HEAD
-=======
-    /* box-shadow: 0 4px 6px -2px rgba(0, 0, 0, .2); */
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     width: 100% !important;
     line-height: 25px;
 }
 
-<<<<<<< HEAD
 .ekteNav > .container{
     padding-top:30px;
     padding-bottom:30px;
 }
 
-=======
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 .menu ul {
     margin: 0;
     padding: 0;
@@ -135,21 +110,12 @@ li {
 #logo {
     font-size: 45px;
     font-weight: 1000;
-<<<<<<< HEAD
     color:black;
     width: 60px;
-=======
-    /* color: #f9e1c0; */
-    color:black;
-    /* -webkit-text-stroke: 1px white; */
-    width: 60px;
-    font-family: 'Goudy Bookletter 1911', serif;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     list-style: none;
     padding-left: 25px;
 }
 
-<<<<<<< HEAD
 .leftBlockText, .devCredit{
     color: #565656 !important;
     font-weight:1000;
@@ -160,9 +126,6 @@ li {
 }
 
 #logo{
-=======
-.devCredit, #logo{
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
@@ -170,27 +133,15 @@ li {
     transition: all 0.3s ease-out;
 }
 
-<<<<<<< HEAD
 .devCredit:hover{
     color:#242424 !important;
 }
 
 #logo:hover{
-=======
-
-.devCredit:hover, #logo:hover{
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     transition: 0.3s;
     transform: scale(0.95);
 }
 
-<<<<<<< HEAD
-=======
-.devCredit{
-    /* color:red; */
-}
-
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 .search {
     border-radius: 6px;
     border: 1px solid lightgray !important;
@@ -205,21 +156,11 @@ li {
 }
 
 .navbar-nav > li > a {
-<<<<<<< HEAD
     transition: 300ms !important;
 }
 
 .navbar-nav > li > a:hover {
     color: #1e1e1e !important;
-=======
-    /* color: #f9e1c0 !important; */
-    transition: 300ms !important;
-    border-bottom: 2px solid transparent;
-}
-
-.navbar-nav > li > a:hover {
-    color: #161616 !important;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     border-color: #363636 !important;
 }
 
@@ -247,19 +188,11 @@ li {
 
 .navbar {
     min-height: 100px !important;
-<<<<<<< HEAD
     background-color:white;
     box-shadow: 0 4px 6px -2px rgb(0 0 0 / 20%);
     zoom:0.8;
     padding-top:0;
     padding-bottom:0;
-=======
-    padding-bottom: 10px !important;
-    padding-top: 10px !important;
-    background-color:white;
-    box-shadow: 0 4px 6px -2px rgb(0 0 0 / 20%);
-    zoom:0.8;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
 
 .navbar > .nav-link{
@@ -307,11 +240,7 @@ footer {
 }
 
 footer *{
-<<<<<<< HEAD
     color: #565656;
-=======
-    color: rgb(36, 36, 36);
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
 
 .rightBlock {
@@ -327,13 +256,10 @@ footer *{
     float: left;
 }
 
-<<<<<<< HEAD
 .navIndreContainer{
     width:900px !important;
 }
 
-=======
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 .button-fixed {
     width: 150px !important;
 }
@@ -346,7 +272,6 @@ footer *{
 
 .ceo {
     font-weight: bold;
-<<<<<<< HEAD
     color:#565656 !important;
     list-style: none;
     letter-spacing: 2px;
@@ -355,43 +280,16 @@ footer *{
 
 .contak {
     font-weight: 900;
-=======
-    color:#374e57;
-    list-style: none;
-    letter-spacing: 2px;
-    float: left;
-    line-height: 25px;
-}
-
-.contak {
-    font-weight: bold;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     cursor: pointer;
     letter-spacing: 2px;
     list-style: none;
     text-decoration: none;
-<<<<<<< HEAD
     padding-bottom: 5px;  
-=======
-    color:#1f1f1f;
-    line-height: 25px;
-    padding-bottom: 5px;  
-    transition: 300ms !important;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     border-bottom: 2px solid transparent;
 }
 
 .contak:hover {
-<<<<<<< HEAD
     color:#242424 !important;
-=======
-    border-bottom: 2px solid #f9e1c0;
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
 
 .boldyh2 {
@@ -611,11 +509,7 @@ footer *{
     color: rgb(33, 33, 33) !important;
     line-height: 25px;
     padding-bottom: 5px;
-<<<<<<< HEAD
     font-weight:900;
-=======
-    border-bottom:2px solid #363636  !important;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
 
 blockquote,
@@ -637,12 +531,6 @@ samp {
     font-family: Roboto Mono, Lucida Sans Typewriter, Lucida Console, monaco, Courrier, monospace;
     font-size: .85em
 }
-<<<<<<< HEAD
-=======
-.rod{
-    color: red;
-}
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 
 code *,
 pre *,
@@ -665,11 +553,7 @@ blockquote {
 code {
     background-color: rgba(0, 0, 0, .05);
     border-radius: 3px;
-<<<<<<< HEAD
     padding: 2px 4px
-=======
-    padding: 2px 4px;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
 
 hr {
@@ -760,25 +644,14 @@ label {
     font-size: 12px;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 .søkeButton {
     background: #fff;
     border-radius: 2px;
     display: inline-block;
-<<<<<<< HEAD
     height: 27px;
     margin: 1rem;
     position: relative;
     width: 80px;
-=======
-    height: 30px;
-    margin: 1rem;
-    position: relative;
-    width: 210px;
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
     font-family: 'Lato', sans-serif;
 }
 
@@ -823,7 +696,6 @@ label {
     overflow:scroll;
 }
 
-<<<<<<< HEAD
 #søkeIkon{
     display: block;
     fill: none;
@@ -1093,8 +965,3 @@ label {
       width: 100%;
     }
   }
-=======
-.ok::-webkit-scrollbar{
-    background: transparent; /* make scrollbar transparent */
-}
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93

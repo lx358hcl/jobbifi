@@ -16,11 +16,7 @@
           <a style="font-size: 20px" class="link">{{ stilling.teknologier }}</a>
         </h3>
         <hr />
-<<<<<<< HEAD
         <pre><code>Søkefrist: {{ stilling.frist }}</code></pre>
-=======
-        <li><em>Søkefrist </em>: <code> {{ stilling.frist }}</code></li>
->>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
         <hr />
         <pre><code>OriginalURL: <a v-bind:href="stilling.originalURL">Hello</a></code></pre>
         <hr />
