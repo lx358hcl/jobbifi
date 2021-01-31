@@ -65,8 +65,12 @@ body {
 }
 
 .homepage{
-    min-height: calc(100vh - 170px);
+    min-height: calc(100vh - 165px);
 } 
+
+.kontaktSkjema{
+    max-width: 800px !important;
+}
 
 .social-footer-buttons {
     padding-left: 10px;
@@ -116,7 +120,7 @@ li {
     padding-left: 25px;
 }
 
-.leftBlockText, .devCredit{
+.footerBlock > *{
     color: #565656 !important;
     font-weight:1000;
 }
@@ -256,8 +260,12 @@ footer *{
     float: left;
 }
 
+.container-xl{
+    max-width:1400px;
+}
+
 .navIndreContainer{
-    width:900px !important;
+    width:100% !important;
 }
 
 .button-fixed {
@@ -278,17 +286,21 @@ footer *{
     float: left;
 }
 
-.contak {
+.footerElement {
     font-weight: 900;
     cursor: pointer;
     letter-spacing: 2px;
     list-style: none;
     text-decoration: none;
-    padding-bottom: 5px;  
-    border-bottom: 2px solid transparent;
+    padding-left:3px;
+    padding-right:3px;
 }
 
-.contak:hover {
+.footer > li{
+    list-style-type: none;
+}
+
+.footerElement:hover {
     color:#242424 !important;
 }
 
@@ -512,14 +524,6 @@ footer *{
     font-weight:900;
 }
 
-blockquote,
-dl,
-ol,
-p,
-pre {
-    margin: 1.2em 0
-}
-
 a:focus,
 a:hover {
     text-decoration: none
@@ -649,7 +653,6 @@ label {
     border-radius: 2px;
     display: inline-block;
     height: 27px;
-    margin: 1rem;
     position: relative;
     width: 80px;
     font-family: 'Lato', sans-serif;
@@ -714,6 +717,17 @@ label {
     font-family: 'Goudy Bookletter 1911', serif !important;
 }
 
+#velkomstMelding{
+    margin:0;
+    height:50px !important;
+}
+
+.skrivUtContainer{
+    height:100px;
+    margin-bottom:40px;
+    margin-top:30px;
+}
+
 #skrivUt > *{
     font-size:30px;
     text-align: center; 
@@ -721,8 +735,8 @@ label {
 }
 
 #skrivUt{
-    margin-bottom:60px !important; 
-    text-align: center; 
+    text-align: center;
+    margin:0;
     font-family: 'Spectral', serif !important;
 }
 
@@ -800,11 +814,7 @@ label {
     transform: scale(1.2);
     margin-left: -65px !important;
     margin-top: 15px !important;
-    /* margin-left: -110px !important;
-          z-index: 100;
-          transform: scale(0.9) !important;
-          border-radius: 30px !important;
-          font-size: 20px !important; */
+
   }
   .btn-search:hover {
     background-color: #ff284f !important;
@@ -934,7 +944,6 @@ label {
   .s013 form .btn-search {
     min-width: 110px;
     height: 80px;
-    padding: 0 15px;
     background: #ff385c;
     white-space: nowrap;
     border-radius: 3px;
@@ -949,19 +958,4 @@ label {
   }
   .s013 form .btn-search:hover {
     background: #ff385c;
-  }
-  @media screen and (max-width: 767px) {
-    .s013 form .inner-form {
-      display: block;
-    }
-    .s013 form .inner-form .left {
-      display: block;
-    }
-    .s013 form .inner-form .left .input-wrap {
-      margin-bottom: 15px;
-    }
-    .s013 form .btn-search {
-      margin: 0;
-      width: 100%;
-    }
   }

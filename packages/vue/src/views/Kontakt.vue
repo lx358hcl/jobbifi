@@ -1,32 +1,36 @@
 <template>
-  <main class="homepage container">
-    <form method="post">
+  <main class="homepage container kontaktSkjema">
+    <form method="post" v-on:submit.prevent="sendEpost()">
 
       <div>
         <div class="form-group">
           <br>
-          <h2 class="boldyh2">Kontakt oss:</h2>
+          <h2 class="boldyh2">Kontakt oss</h2>
           <hr>
 
           <div class="col-sm-12 p-0">
-            <input required type="text" class="form-control py-4 mb-4 w-100 mt-4" id="navn" placeholder="Fornavn/Etternavn">
+            <input required type="text" class="form-control py-4 mb-4 w-100 mt-4" id="navn" v-model="navn" placeholder="Fornavn/Etternavn">
+          {{ navn }} 
+        </div>
+
+          <div class="col-sm-12 p-0">
+            <input required name="emne" type="text" class="form-control py-4 mb-4 w-100" id="emne" v-model="emne" placeholder="Emne">
           </div>
 
           <div class="col-sm-12 p-0">
-            <input required name="emne" type="text" class="form-control py-4 mb-4 w-100" id="emne" placeholder="Emne">
-          </div>
-
-          <div class="col-sm-12 p-0">
-            <input required type="email" class="form-control py-4 mb-4 w-100" id="mottakerEpost" placeholder="Epost">
+            <input required type="email" class="form-control py-4 mb-4 w-100" id="mottakerEpost" v-model="mottakerEpost" placeholder="Epost">
           </div>
         </div>
 
+        <input v-model="message" placeholder="edit me">
+        <p>Message is: {{ message }}</p>
+
         <div class="form-group">
-          <textarea required class="form-control w-100" rows="12" id="melding" placeholder="Melding"></textarea>
+          <textarea required class="form-control w-100" rows="12" id="melding" v-model="melding" placeholder="Melding"></textarea>
         </div>
 
         <div class="form-check mt-4 mb-2">
-          <input type="checkbox" class="form-check-input" id="mottaKopi">
+          <input type="checkbox" class="form-check-input" id="mottaKopi" v-model="mottaKopi">
           <label class="form-check-label" for="exampleCheck1">Motta kopi av meldingen til eposten din</label>
         </div>
 
@@ -49,9 +53,11 @@
 
 <script>
   import axios from "axios"; 
+  import { ref } from "vue";
+  var navn;
   export default {
     setup() {
-      async function sendEpost(){
+      async function sendEpost(e){
         await axios.post('http://localhost:3000/api/privat/sendEpost', {
           "navn": "Luka",
           "emne": "Luka er mitt navn",
@@ -60,7 +66,6 @@
           "mottaKopi": "request.mottaKopi"
         })
       }
-      sendEpost();
       //SMS tjenesten
       // var api = require('clicksend');
 
@@ -84,7 +89,8 @@
       // console.log("da er den sendt");
 
       return {
-
+        sendEpost,
+        navn,
       }
     }
   }

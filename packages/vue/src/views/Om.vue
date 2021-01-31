@@ -9,7 +9,7 @@
         </h2>
         <hr>
         <p>
-          Jobbifi er en nettside som har som hensikt å gjøre jobbsøkingsprosessen enklere for informatikere/designere og studenter. Ved å redusere antallet tilgjengelig jobbsøkingssider til et minimum så reduseres ego-depletion og produktiviteten øker.
+          Jobbifi er en nettside som har som hensikt å gjøre jobbsøkingsprosessen enklere for informatikere/designere og studenter. Ved å redusere antallet tilgjengelig jobbsøkingssider til et minimum så reduseres graden av <a href = "https://www.sciencedirect.com/topics/psychology/ego-depletion" >ego-depletion</a> og produktivitet øker.
         </p>
         <hr>
         <p>
@@ -18,7 +18,7 @@
           </strong>
         </p>
         <p>
-          Per dags dato <i>(12.01.2021)</i> så crawler Jobbifi nettsidene nedenfor hver dag kl. 15:00
+          Per dags dato <i>(12.01.2021)</i> så crawler Jobbifi nettsidene nedenfor hver dag kl. 15:00. <i>Man kan se antall minutter/timer til neste aggregeringsrunde nederst på siden.</i>
         </p>
         <ul>
           <li><i>finn.no</i></li>
@@ -38,7 +38,7 @@
         <p>
           <strong>Kontakt</strong>
         </p>
-        <p>Alle spørsmål rettes til følgende e-post addresse:</p>
+        <p>Alle spørsmål rettes til følgende e-postadresse:</p>
         <a href="mailto:momcilovicbrothers@gmail.com">momcilovicbrothers@gmail.com</a>
         <hr>
         <p>

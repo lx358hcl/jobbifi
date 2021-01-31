@@ -1,7 +1,7 @@
 <!-- Dette skriver teksten på velkommen-siden -->
 
 <template>
-    <div class="d-flex justify-content-center align-items-center row">
+    <div class="skrivUtContainer d-flex justify-content-center align-items-center row">
         <p id="skrivUt"></p>
     </div>
 </template>
