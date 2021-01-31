@@ -28,5 +28,8 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "dependencies": {
+    "body-parser": "^1.19.0"
+  }
 }

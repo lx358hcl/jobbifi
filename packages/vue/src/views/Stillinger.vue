@@ -1,5 +1,5 @@
 <template>
-	<main tyle="overflow-y: scroll;" class="container-fluid">
+	<main class="container-fluid">
 		<div style="max-width: 1400px; margin-bottom: 100px" class="container">
 			<div class="row">
 				<div class="col-3 pr-0">
