@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
 	<main class="container-fluid">
+=======
+	<main tyle="overflow-y: scroll;" class="container-fluid">
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 		<div style="max-width: 1400px; margin-bottom: 100px" class="container">
 			<div class="row">
 				<div class="col-3 pr-0">
@@ -350,10 +354,46 @@
 		</div>
 		<form v-on:submit.prevent="changeSettings()" class="py-5 form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2 search" style="font-family: FontAwesome" placeholder="&#xF002; Søk" aria-label="Search" v-bind:value="searchQuery" v-on:input="searchQuery = $event.target.value" />
+<<<<<<< HEAD
 			<button type="submit" class="btn btn-primary mb-2">Søkefrist</button>
 		</form>
 		<paginator :page="settings.page" :totalt="totaltAntallSider" />
 
+=======
+			<button type="submit" class="btn btn-primary mb-2">
+									Søk
+								</button>
+		</form>
+		<paginator :page="settings.page" :totalt="totaltAntallSider" />
+		
+		<!-- <nav
+								class="w-100 d-flex justify-content-center align-items-center mt-3"
+								aria-label="Page navigation example"
+							>
+								<ul class="pagination m-0 p-0">
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
+									<li
+										
+										v-on:click="paginate($event)"
+										v-bind:class="['page-item', { active: settings.page == n }]"
+	                  					v-bind:key="n"
+									>
+										<a class="page-link gjørTilClickable">
+											{{ n }}
+										</a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</li>
+								</ul>
+							</nav> -->
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 		</div>
 		<spinner class="d-flex justify-content-center align-items-center" v-if="settings.loading === true" />
 		<div v-if="settings.loading == false" class="container my-0 p-2 d-flex justify-content-start">
@@ -369,6 +409,7 @@
 							<div class="stilling">
 								<a v-bind:href="`http://localhost:8080/stilling/${job.id}`">
 									<h5 class="card-title font-weight-bold">
+<<<<<<< HEAD
 										{{ job.title.slice(0, 80) }}
 									</h5>
 								</a>
@@ -377,6 +418,12 @@
 										{{ 170 > job.teaser.length ? job.teaser.slice(0, 170) + '...' : job.teaser }}
 									</p>
 								</div>
+=======
+										{{ job.title }}
+									</h5>
+								</a>
+								<div style="min-height: 170px; max-height: 150px" class="card-text">{{ 170 > job.teaser.length ? job.teaser.slice(0, 170) + '...' : job.teaser }} </div>
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 								<div class="ok d-flex align-items-center">
 									<a v-for="(key, val) in job.teknologier" :key="val" class="link">{{ key }}</a
 													>
@@ -386,9 +433,13 @@
 												style="position: absolute; bottom: 8px"
 												class="px-2 d-flex justify-content-center align-items-center"
 											>
+<<<<<<< HEAD
 												<span class="frist text-danger pr-2"
 													>Søkefrist: {{ job.frist }}</span
 												>
+=======
+												
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 												<div
 													class="søkeButton card-1 d-flex justify-content-center align-items-center ml-3"
 												>
@@ -402,7 +453,11 @@
 														"
 														v-bind:href="job.url"
 														class="text-center"
+<<<<<<< HEAD
 														>SØK</a
+=======
+														><span style="color: #007bff">&#60; &#92;</span> SØK <span style="color: #007bff">&#62;</span></a
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 													>
 												</div>
 												<div class="more">
@@ -423,6 +478,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 	import { ref, reactive } from "vue";
 	import spinner from "../components/spinner.vue";
 	import paginator from "../components/paginator.vue";
@@ -431,6 +487,24 @@
 	import "firebase/auth";
 	import router from '../router/index.js';
 
+=======
+	import {
+		ref,
+		reactive
+	} from "vue";
+	import spinner from "../components/spinner.vue";
+	import paginator from "../components/paginator.vue";
+	import {
+		settings
+	} from "../settings.js";
+	
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import router from '../router/index.js';
+console.log("OK");
+
+console.log(firebase.default);
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 	var axios = require("axios");
 	var entireResponse = ref("");
 	var antall = ref({});
@@ -438,9 +512,15 @@
 	var alleTeknologierInfo = ref({});
 	var searchQuery = ref("");
 	searchQuery.value = settings.value.search.split("+").join(" ");
+<<<<<<< HEAD
 	function axiosMe() {
 		settings.value.loading = true;
 		console.log(settings);
+=======
+	console.log(settings);
+	function axiosMe() {
+		settings.value.loading = true;
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`);
 		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`)
 			.then(function(response) {
@@ -454,8 +534,12 @@
 				console.log(router.currentRoute);
 				if (window.location.pathname != "/stillinger") {
 					router.push("/stillinger")					
+<<<<<<< HEAD
 				} 
 				else {
+=======
+				} else {
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 					settings.value.loading = false;
 				}
 			})

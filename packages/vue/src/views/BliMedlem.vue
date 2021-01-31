@@ -20,12 +20,20 @@
 </template>
 
 <script>
+<<<<<<< HEAD
   import firebase from "../main.js";  
+=======
+  import appen from "../main.js";  
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
   import { ref } from "vue";
   export default {
     setup() {
       async function run(){
+<<<<<<< HEAD
         var db = await firebase.firestore();
+=======
+        var db = await appen.firestore();
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
         var dbRes = await db.collection("users").get();
         dbRes.docs.forEach(e => console.log(e.data()))
         var igor = {

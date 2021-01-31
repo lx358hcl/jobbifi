@@ -28,8 +28,12 @@
     "> 1%",
     "last 2 versions",
     "not dead"
+<<<<<<< HEAD
   ],
   "dependencies": {
     "body-parser": "^1.19.0"
   }
+=======
+  ]
+>>>>>>> cd212d7ffbb92ecee196d5f29f80185a3347af93
 }
