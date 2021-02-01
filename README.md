@@ -1,9 +1,5 @@
 # Nevet
 
-Preview:
-http://206.189.115.36:8080/
-
-
 ### TODO:
 (Du lager strek gjennom teksten ved å plassere 2 sånne her symboler ~ foran og etter teksten)
 - **jobbifi** is the chosen one
