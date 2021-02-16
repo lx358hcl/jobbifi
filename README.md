@@ -10,7 +10,7 @@
 - ~~Crawle finn og nav og arbeidsplassen~~
 - Fikse knappdesignet
 - Lage mobildesign
-- Fikse kontaktskjema mtp få kopi
+- ~~Fikse kontaktskjema mtp få kopi~~
 - Fikse sånn at hver stilling har sms-varsel funksjon
 - Legge til om-side for brukere
 - ~~Fikse hjem-siden~~
@@ -18,5 +18,5 @@
 - Skrive om retningslinjene
 - Legge til profilbilde for hver bruker
 - Legge til telefonnummer som påloggingsmetode
-- Legge til redis-caching for API-en
+- Legge til redis-caching for API-en ?? Tror dette egentlig er overkill
 - ~~Legge til pagination + limit og page-query i API-en~~
