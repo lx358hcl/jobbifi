@@ -6,7 +6,7 @@
           <div class="container">
 
             <!-- Dette er velkomstmeldingen -->
-            <h1 id="velkomstMelding">
+            <h1 id="velkomstMelding" >
               <b>Jobbifi</b> | For late studenter som trenger jobb
             </h1>
 

@@ -10,7 +10,6 @@
 
           <div class="col-sm-12 p-0">
             <input required type="text" class="form-control py-4 mb-4 w-100 mt-4" id="navn" v-model="navn" placeholder="Fornavn/Etternavn">
-          {{ navn }} 
         </div>
 
           <div class="col-sm-12 p-0">
@@ -21,9 +20,6 @@
             <input required type="email" class="form-control py-4 mb-4 w-100" id="mottakerEpost" v-model="mottakerEpost" placeholder="Epost">
           </div>
         </div>
-
-        <input v-model="message" placeholder="edit me">
-        <p>Message is: {{ message }}</p>
 
         <div class="form-group">
           <textarea required class="form-control w-100" rows="12" id="melding" v-model="melding" placeholder="Melding"></textarea>
@@ -54,43 +50,27 @@
 <script>
   import axios from "axios"; 
   import { ref } from "vue";
-  var navn;
   export default {
     setup() {
-      async function sendEpost(e){
+      var [navn, emne, mottakerEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
+      async function sendEpost(){
         await axios.post('http://localhost:3000/api/privat/sendEpost', {
-          "navn": "Luka",
-          "emne": "Luka er mitt navn",
-          "mottakerEpost": "request.mottakerEpost",
-          "melding": "request.melding",
-          "mottaKopi": "request.mottaKopi"
-        })
+          "navn": navn.value,
+          "emne": emne.value,
+          "mottakerEpost": mottakerEpost.value,
+          "melding": melding.value,
+          "mottaKopi": mottaKopi.value,
+        });
+        document.querySelector("#kontaktSkjema").style.display = "none";
       }
-      //SMS tjenesten
-      // var api = require('clicksend');
-
-      // var smsMessage = new api.SmsMessage();
-
-      // smsMessage.from = "Luka";
-      // smsMessage.to = "+4741357378";
-      // smsMessage.body = "${}";
-
-      // var smsApi = new api.SMSApi("luka_momcilovic@hotmail.com", "3C85F0F8-A63C-8570-2BC5-BCB9964C0A4B");
-
-      // var smsCollection = new api.SmsMessageCollection();
-
-      // smsCollection.messages = [smsMessage];
-
-      // smsApi.smsSendPost(smsCollection).then(function (response) {
-      //   console.log(response.body);
-      // }).catch(function (err) {
-      //   console.error(err.body);
-      // });
-      // console.log("da er den sendt");
 
       return {
         sendEpost,
         navn,
+        emne,
+        mottakerEpost,
+        melding,
+        mottaKopi,
       }
     }
   }

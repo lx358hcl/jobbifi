@@ -24,35 +24,36 @@ router.get("/api/privat/sendEpost", function (request, response){
 
 //Mottakelse av POST-requests
 router.post("/api/privat/sendEpost", function (request, response){
-    var navn = "request.navn";
-    var emne = "request.emne";
-    var mottakerEpost = "request.mottakerEpost";
-    var melding = "request.melding";
-    var mottaKopi = "request.mottaKopi;";
+    var navn = request.body.navn;
+    var emne = request.body.emne;
+    var mottakerEpost = request.body.mottakerEpost;
+    var melding = request.body.melding;
+    var mottaKopi = request.body.mottaKopi;
 
     var mailOptions = {
-        from: "navn ? navn : mottakerEpost",
+        from: mottakerEpost,
         to: 'luka_momcilovic@hotmail.com',
-        subject: "emne",
-        text: "melding",
+        subject: emne,
+        text: `Dette er en e-post fra: ${navn}\n\n` + melding,
     };
 
-    // //Skal personen ha kopi av eposten?
-    // if(mottaKopi){
-    //     var mailOptions = {
-    //         from: "Jobbifi har mottatt melding din",
-    //         to: mottakerEpost,
-    //         text: `Nedenfor kan du se den mottatte melding: \n ${ emne } \n ${ melding }`,
-    //     };
-    //     transporter.sendMail(mailOptions, function(error, info){
-    //         if (error) console.log(error);
-    //         else console.log('Epost sendt: ' + info.response);
-    //     });
-    // }
+    //Skal personen ha kopi av eposten?
+    if(mottaKopi){
+        var mailOptions = {
+            from: "Takk for henvendelsen :) Jobbifi har mottatt e-posten din og vil svare deg så fort som mulig",
+            to: mottakerEpost,
+            text: `Nedenfor kan du se den mottatte melding din:\n\nEmne: ${ emne }\nNavn: ${navn}\nMelding: \n${ melding }`,
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) console.log(error);
+            else console.log('Epost sendt: ' + info.response);
+        });
+    }
 
-    //Send epost til momcilovicene
+    //Send epost til Luka Momcilovic
     transporter.sendMail(mailOptions, function(error, info){
-        console.log(mailOptions)
+        console.log("Dette er mailoptions");
+        console.log(mailOptions);
         if (error) console.log(error);
         else console.log('Epost sendt: ' + info.response);
     });

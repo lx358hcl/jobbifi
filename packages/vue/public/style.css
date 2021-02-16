@@ -17,8 +17,14 @@ html{
 }
 
 #velkomstMelding{
+    display:flex;
+    align-items: center;
     text-align: center; 
     font-family: 'Spectral', serif !important;
+    margin:0;
+    height:100px !important;
+    width:720px;
+    white-space: nowrap;
 }
 
 #skrivUt, #logo{
@@ -717,15 +723,10 @@ label {
     font-family: 'Goudy Bookletter 1911', serif !important;
 }
 
-#velkomstMelding{
-    margin:0;
-    height:50px !important;
-}
-
 .skrivUtContainer{
     height:100px;
-    margin-bottom:40px;
-    margin-top:30px;
+    margin-top:20px;
+    margin-bottom:50px;
 }
 
 #skrivUt > *{
@@ -784,7 +785,7 @@ label {
     display: flex;
   }
   .left {
-    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.15);
     border-radius: 40px !important;
   }
   .input-wrap.first {
