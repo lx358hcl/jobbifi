@@ -20,3 +20,4 @@
 - Legge til telefonnummer som påloggingsmetode
 - Legge til redis-caching for API-en ?? Tror dette egentlig er overkill
 - ~~Legge til pagination + limit og page-query i API-en~~
+- Legg til at Ferdigheter er sortert basert på høyest forekomst
