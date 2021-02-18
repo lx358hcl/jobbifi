@@ -17,7 +17,7 @@
           </div>
 
           <div class="col-sm-12 p-0">
-            <input required type="email" class="form-control py-4 mb-4 w-100" id="mottakerEpost" v-model="mottakerEpost" placeholder="Epost">
+            <input required type="email" class="form-control py-4 mb-4 w-100" id="senderEpost" v-model="senderEpost" placeholder="Epost">
           </div>
         </div>
 
@@ -52,23 +52,23 @@
   import { ref } from "vue";
   export default {
     setup() {
-      var [navn, emne, mottakerEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
+      var [navn, emne, senderEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
       async function sendEpost(){
+        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt og vi gleder oss til å lese den :)</p>";       
         await axios.post('http://localhost:3000/api/privat/sendEpost', {
           "navn": navn.value,
           "emne": emne.value,
-          "mottakerEpost": mottakerEpost.value,
+          "senderEpost": senderEpost.value,
           "melding": melding.value,
           "mottaKopi": mottaKopi.value,
         });
-        document.querySelector("#kontaktSkjema").style.display = "none";
       }
 
       return {
         sendEpost,
         navn,
         emne,
-        mottakerEpost,
+        senderEpost,
         melding,
         mottaKopi,
       }

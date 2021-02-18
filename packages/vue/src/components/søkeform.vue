@@ -7,7 +7,7 @@
 
             <!-- Dette er velkomstmeldingen -->
             <h1 id="velkomstMelding" >
-              <b>Jobbifi</b> | For late studenter som trenger jobb
+              <b>Jobbifi&nbsp;</b> | For late studenter som trenger jobb
             </h1>
 
             <!-- Dette er den bevegelige teksten -->

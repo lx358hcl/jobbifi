@@ -3,7 +3,7 @@
     <div class="container-xl">
       <ul class="footer d-flex align-items-center justify-content-around">
         <li class="footerElement d-flex align-items-center">
-          <p class="p-0 m-0">
+          <p class="p-0 m-0 utvikletAv">
             © UTVIKLET AV
             <a class="devCredit" href="https://github.com/igormomc">SKJØNNHETEN</a> OG
             <a class="devCredit" href="https://github.com/lukamo1996">UDYRET</a>

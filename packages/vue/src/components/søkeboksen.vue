@@ -6,7 +6,7 @@
             <div style="margin-right: -0px;" class="left rounded">
                 <div class="input-wrap first" for="søking">
                     <div class="input-field first">
-                        <label for="søking" class="col-10 gjørTilClickable">DEN SOM LETER, HAN FINNER - <i>Matteus 7:7-11</i></label>
+                        <label for="søking" class="col-10">DEN SOM LETER, HAN FINNER - <i>Matteus 7:7-11</i></label>
                         <input id="søking" type="text" placeholder="E.g. sommerjobb, vue, design, python, machine learning, haskell" aria-label="Search" v-on:input="searchQuery = $event.target.value" class="col-10" />
                     </div>
                 </div>

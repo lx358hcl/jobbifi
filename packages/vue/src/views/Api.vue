@@ -4,7 +4,7 @@
     <body class="stackedit">
       <div class="stackedit__html">
         <br>
-        <h2 class="boldyh2">API for <a href="http://localhost:8080/">NEVET</a></h2>
+        <h2 class="boldyh2">API for Jobbifi</h2>
         <hr>
         <h3 id="entry-pointsene-for-api-en">Entry-pointsene for API-en:</h3>
         <hr>

@@ -960,3 +960,7 @@ label {
   .s013 form .btn-search:hover {
     background: #ff385c;
   }
+
+  .utvikletAv{
+      cursor:text;
+  }

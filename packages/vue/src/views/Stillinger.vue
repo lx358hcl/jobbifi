@@ -350,7 +350,7 @@
 		</div>
 		<form v-on:submit.prevent="changeSettings()" class="py-5 form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2 search" style="font-family: FontAwesome" placeholder="&#xF002; Søk" aria-label="Search" v-bind:value="searchQuery" v-on:input="searchQuery = $event.target.value" />
-			<button type="submit" class="btn btn-primary mb-2">Søkefrist</button>
+			<button type="submit" class="btn btn-primary mb-2">Søk</button>
 		</form>
 		<paginator :page="settings.page" :totalt="totaltAntallSider" />
 

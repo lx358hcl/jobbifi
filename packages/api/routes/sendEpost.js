@@ -17,34 +17,34 @@ var transporter = nodemailer.createTransport({
 //Use bodyparser
 router.use(bodyParser.json());
 
-//Mottakelse av GET-requests
-router.get("/api/privat/sendEpost", function (request, response){
-    response.send("results");
-});
+// //Mottakelse av GET-requests
+// router.get("/api/privat/sendEpost", function (request, response){
+//     response.send("results");
+// });
 
 //Mottakelse av POST-requests
 router.post("/api/privat/sendEpost", function (request, response){
+    console.log("vi sender en epost!!!")
     var navn = request.body.navn;
     var emne = request.body.emne;
-    var mottakerEpost = request.body.mottakerEpost;
+    var senderEpost = request.body.senderEpost;
     var melding = request.body.melding;
     var mottaKopi = request.body.mottaKopi;
 
     var mailOptions = {
-        from: mottakerEpost,
         to: 'luka_momcilovic@hotmail.com',
         subject: emne,
-        text: `Dette er en e-post fra: ${navn}\n\n` + melding,
+        text: `Dette er en e-post fra: ${navn}\n\nEpost: ${senderEpost}\n\n` + "Meldingen er: \n\n" + melding,
     };
 
     //Skal personen ha kopi av eposten?
     if(mottaKopi){
-        var mailOptions = {
-            from: "Takk for henvendelsen :) Jobbifi har mottatt e-posten din og vil svare deg så fort som mulig",
-            to: mottakerEpost,
-            text: `Nedenfor kan du se den mottatte melding din:\n\nEmne: ${ emne }\nNavn: ${navn}\nMelding: \n${ melding }`,
+        var optionsTo = {
+            to: senderEpost,
+            subject: "Kopi av meldingen din til jobbifi",
+            text: `Takk for henvendelsen :) Jobbifi har mottatt e-posten din og vil svare deg så fort som mulig. Nedenfor kan du se den mottatte melding din:\n\nEmne: ${ emne }\nNavn: ${navn}\nMelding: \n${ melding }`,
         };
-        transporter.sendMail(mailOptions, function(error, info){
+        transporter.sendMail(optionsTo, function(error, info){
             if (error) console.log(error);
             else console.log('Epost sendt: ' + info.response);
         });
@@ -57,6 +57,7 @@ router.post("/api/privat/sendEpost", function (request, response){
         if (error) console.log(error);
         else console.log('Epost sendt: ' + info.response);
     });
+    response.send("this stops duplicate emial from being sent, apparently this is necessary, why didn't anyone tell me about this ffs");
 });
 
 module.exports = router;
