@@ -1,10 +1,11 @@
 <template>
-  <main class="homepage container">
-
-    <body class="stackedit">
-      <div class="stackedit__html">
-        <br>
-        <h2 class="boldyh2">API for Jobbifi</h2>
+ <main class="pt-5 homepage container">
+    <div class="stackedit__html">
+      <h2>
+        <strong style="font-family: 'Goudy Bookletter 1911', serif !important">
+          API
+        </strong>
+      </h2>
         <hr>
         <h3 id="entry-pointsene-for-api-en">Entry-pointsene for API-en:</h3>
         <hr>
@@ -136,17 +137,5 @@
       <br>
       <br>
       <br>
-    </body>
   </main>
 </template>
-
-<script>
-  export default {
-    setup() {
-      return {
-
-      }
-
-    }
-  }
-</script>

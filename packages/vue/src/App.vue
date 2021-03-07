@@ -6,7 +6,7 @@
   </main>
   <main v-else>
     <Nav />
-    <router-view style="margin-top: 100px !important;" />
+    <router-view style="margin-top: 80px !important;" />
     <Footer />
   </main>
 </template>
