@@ -12,7 +12,8 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex justify-content-center">
                 <div v-if="user">
-                    <router-link to="/secret" href="#" class="dropdown-item">{{ user.email.slice(0, user.email.indexOf("@"))}}</router-link>
+                    <router-link to="/secret" href="#" class="dropdown-item">Konto </router-link>
+
                     <router-link class="dropdown-item" to="/varsler"> Varsler
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
                     </router-link>
@@ -21,7 +22,6 @@
                     </router-link>
                     <hr style="" class="mx-3 my-2">
                     <router-link class="dropdown-item" to="/lagrede"> Lagret </router-link>
-                    <router-link class="dropdown-item" to="/innstillinger"> Innstillinger </router-link>
                     <a href="#" @click="logOut();" class="dropdown-item"> Logg ut </a>
                 </div>
                 <div v-else>
@@ -39,7 +39,7 @@
     //Logg ut funksjon
     function logOut() {
         firebase.default.auth().signOut();
-        window.location = window.location.origin + "/logout";
+        window.location = window.location.origin + "/login";
     }
     //Setup funksjon
     export default {

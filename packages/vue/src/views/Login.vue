@@ -15,19 +15,21 @@
                   </h1>
                   <hr>
                 </div>
-                <p class="mb-4 pb-2 login-card-description">Login på kontoen din</p>
-                <form action="#!">
+                <p class="mb-4 pb-0 login-card-description">Login på kontoen din</p>
+                <form v-on:submit.prevent="login()">
                   <div class="form-group">
                     <label for="email" class="sr-only">Email</label>
-                    <input required type="email" name="email" id="email" class="form-control" placeholder="E-postadresse">
+                    <input required v-model="email" type="email" name="email" id="email" class="form-control" placeholder="E-postadresse">
                   </div>
-                  <div class="form-group mb-4">
+                  <div class="form-group mb-0 pb-0">
                     <label for="password" class="sr-only">Password</label>
-                    <input required type="password" name="password" id="password" class="form-control" placeholder="Passord">
+                    <input required v-model="password" type="password" name="password" id="password" class="form-control mb-3" placeholder="Passord">
                   </div>
-                    <button type="submit" id="login" class="btn btn-block login-btn mb-4" >
+                    <p class="error mb-3 py-1" v-if="true">{{ error }}</p>   
+
+                    <button type="submit" id="login" class="logRegGreier btn btn-block login-btn mb-4" >
                       <span>Login</span>
-                    </button>                
+                    </button>
                   </form>
                 <a href="#!" class="forgot-password-link logRegGreier">Glemt passordet?</a>
                 <p class="mt-3 mb-3 login-card-footer-text logRegGreier"><a href="#!" class="text-reset">Har du ikke bruker? Lag bruker her</a></p>
@@ -40,46 +42,33 @@
         </div>
       </div>
     </div>
-    <!--<h3>Login</h3>
-      <form v-on:submit.prevent="login()">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input v-model="email"  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="error" v-if="error">{{ error.message }}</div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>-->
   </div>
 </template>
 
 <script>
   import * as firebase from "firebase/app";
-  import {
-    ref
-  } from "vue";
+  import { ref } from "vue";
   export default {
     setup() {
       var email = ref("");
+      var error = ref("");
       var password = ref("");
-      function login() {
-        console.log(password);
-        firebase.default.auth()
-          .signInWithEmailAndPassword(email.value, password.value)
-          .then(data => {
-            window.location = window.location.origin + "/";
-          })
-          .catch(error => {
-            error.value = error;
-          });
+      async function login() {
+        try{
+          await firebase.default.auth().signInWithEmailAndPassword(email.value, password.value);
+          window.location = window.location.origin + "/secret";
+        }
+        catch(e){
+          error.value = e.message;
+          console.log(error.value);
+        }
+        
       }
       return {
         login,
         email,
         password,
+        error,
       }
     }
   }
@@ -111,7 +100,7 @@
     object-fit: cover;
   }
   .login-card .card-body {
-    padding: 85px 60px 60px;
+    padding: 85px 30px 60px;
   }
   @media (max-width: 422px) {
     .login-card .card-body {

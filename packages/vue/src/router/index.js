@@ -13,7 +13,6 @@ import Retningslinjer from "@/views/Retningslinjer.vue";
 import ApiRedirect from "./ApiRedirect.vue";
 import Stilling from "@/views/Stilling.vue";
 
-import Register from "../views/Register.vue";
 import Secret from "../views/Secret.vue";
 import About from "../views/About.vue";
 import Logout from "../views/Logout.vue";
@@ -64,6 +63,10 @@ const routes = [
     path: "/blimedlem",
     name: "Bli Medlem",
     component: BliMedlem,
+    beforeEnter: async (to, from, next) => {
+      if(firebase.default.auth().currentUser) next("secret");
+      else next(); 
+    }
   },
   {
     path: "/bedrifter",
@@ -89,12 +92,11 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: Login
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register
+    component: Login,
+    beforeEnter: async (to, from, next) => {
+        if(firebase.default.auth().currentUser) next("secret");
+        else next(); 
+    }
   },
   {
     path: "/about",
@@ -141,9 +143,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  console.log(requiresAuth);
   const isAuthenticated = firebase.default.auth().currentUser;
-  console.log("isauthenticated", isAuthenticated);
   if (requiresAuth && !isAuthenticated) {
     next("/login");
   } 

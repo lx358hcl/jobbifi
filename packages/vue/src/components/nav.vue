@@ -23,12 +23,12 @@
       <div class="collapse navbar-collapse" id="toggler">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item d-flex align-items-center">
-            <router-link class="nav-link titles" to="/">
+            <router-link class="nav-link titles logRegGreier" to="/">
               HJEM
             </router-link>
           </li>
           <li class="nav-item titles d-flex align-items-center">
-            <router-link class="nav-link" to="/stillinger">
+            <router-link class="nav-link logRegGreier" to="/stillinger">
               STILLINGER
             </router-link>
             <span class="antallBadgeRød badge badge-danger">
@@ -36,7 +36,7 @@
             </span>
           </li>
           <li class="nav-item titles">
-            <router-link class="nav-link" to="/om">
+            <router-link class="nav-link logRegGreier" to="/om">
               HVA ER DETTE?
             </router-link>
           </li>

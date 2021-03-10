@@ -1,5 +1,5 @@
 <template>
-	<main class="container-fluid">
+	<main class="homepage">
 		<div style="max-width: 1400px; margin-bottom: 100px" class="container">
 			<div class="row">
 				<div class="col-3 pr-0">
@@ -592,11 +592,3 @@
 		searchQuery
 	};
 </script>
-
-<style>
-
-.nav{
-	background-color:black !important;
-}
-
-</style>
