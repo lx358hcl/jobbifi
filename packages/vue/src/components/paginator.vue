@@ -1,26 +1,33 @@
 <template>
+  <div class = "d-flex justify-content-center">
+    <div style class = "d-flex justify-content-center align-items-center">
+      <!-- Til Venstre-->
+      <div @click="forrige();" class = "paginatorBoks gjørTilClickable">
+        <i style="font-size:30px;" class="bi gjørTilClickable bi-chevron-left"></i>
+      </div>
+      
+      <!-- Paginator Elementet-->
+      <div class = "paginatorBoks">
+        <div class = "paginatorBoks border-0">{{ page }}</div>
+      </div>
+      
 
-  <!-- Til Høyre-->
-  <i @click="forrige();" style="font-size:30px;" class="bi gjørTilClickable bi-chevron-left"></i>
+      <!--Av-->
+      <div class = "paginatorBoks">
+        <p style ="font-size:24px;"> av </p>
+      </div>
 
-  <!-- Paginator Elementet-->
-  <input style="width:100px;
-  padding:10px;
-  margin:10px;
-  height:auto;
-  font-size:30px;" type = "input" :value="page"> 
+      <!--Høyre -->
+      <div class = "paginatorBoks">
+        <div class = "paginatorBoks border-0">{{ totalt ? totalt : "..." }}</div>
+      </div>
 
-  <span style ="font-size:30px;">/</span> 
-
-  <input style="width:100px;
-  padding:10px;
-  margin:10px;
-  height:auto;
-  font-size:30px;" type = "input" :value="totalt ? totalt : '...'">
-
-  <!-- Til Venstre -->
-  <i @click="neste();" style="font-size:30px;" class="bi gjørTilClickable bi-chevron-right"></i>
-
+      <!-- Til Høyre -->
+      <div @click="neste();" class = "paginatorBoks gjørTilClickable">
+        <i style="font-size:30px;" class="bi gjørTilClickable bi-chevron-right"></i>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,21 +44,19 @@ export default {
       type: Number,
     }
   },
-  setup(props){
-
-function neste(){
-  if(!props.totalt) return null;
-  else if(settings.value.page == props.totalt) return null;
-  settings.value.page = settings.value.page + 1;
-  axiosMe();
-}
-function forrige(){
-  if(!props.totalt) return null;
-  else if(settings.value.page == 1) return null;
-  settings.value.page = settings.value.page - 1;
-  axiosMe();
-}
-
+setup(props){
+  function neste(){
+    if(!props.totalt) return null;
+    else if(settings.value.page == props.totalt) return null;
+    settings.value.page = settings.value.page + 1;
+    axiosMe();
+  }
+  function forrige(){
+    if(!props.totalt) return null;
+    else if(settings.value.page == 1) return null;
+    settings.value.page = settings.value.page - 1;
+    axiosMe();
+  }
     return{
       neste,
       forrige,

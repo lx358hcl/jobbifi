@@ -1,35 +1,45 @@
-* {
-    -webkit-user-select: none !important; /* Safari */
-    -ms-user-select: none !important; /* IE 10 and IE 11 */
-    user-select: none !important; /* Standard syntax */
-}
-
-footer, nav, .s013, .stackedit__html, .kontaktSkjema, .inner-form * {
+footer,
+nav,
+.s013,
+.stackedit__html,
+.kontaktSkjema,
+.inner-form * {
     font-family: 'Lato', sans-serif;
 }
 
-.collapse > .brand{
-    margin-top:100px;
+.collapse>.brand {
+    margin-top: 100px;
 }
 
-html{
-    margin:0;
+html {
+    margin: 0;
 }
 
-#velkomstMelding{
+p {
+    margin: 0;
+    height:auto;
+}
+
+.enkeltStilling{
+    display:flex;
+    flex-direction:column;
+}
+
+#velkomstMelding {
     font-family: 'Spectral', serif;
-    margin:0;
-    height:100px !important;
+    margin: 0;
+    height: 100px !important;
     text-align: center;
     white-space: nowrap;
 }
 
-.ommeg{
+.ommeg {
     font-family: 'Karla', serif;
 }
 
-#skrivUt, #logo{
-    font-size:30px;
+#skrivUt,
+#logo {
+    font-size: 30px;
     font-family: 'Goudy Bookletter 1911', serif !important;
 }
 
@@ -44,10 +54,10 @@ body {
     word-wrap: none !important;
     word-break: none !important;
     white-space: nowrap !important;
-    margin-left:10px
+    margin-left: 10px
 }
 
-.antallBadgeRød{
+.antallBadgeRød {
     position: relative;
     bottom: 10px;
     padding-top: 3px;
@@ -56,9 +66,10 @@ body {
     padding-left: 5px;
     border-radius: 20px;
 }
+
 .hjem {
     position: absolute;
-    left:50%;
+    left: 50%;
     transform: translate(-50%, -0%)
 }
 
@@ -67,11 +78,11 @@ body {
     justify-content: center;
 }
 
-.homepage{
+.homepage {
     min-height: calc(100vh - 145px);
-} 
+}
 
-.kontaktSkjema{
+.kontaktSkjema {
     max-width: 800px !important;
 }
 
@@ -90,9 +101,9 @@ body {
     line-height: 25px;
 }
 
-.ekteNav > .container{
-    padding-top:30px;
-    padding-bottom:30px;
+.ekteNav>.container {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .menu ul {
@@ -117,22 +128,23 @@ li {
 #logo {
     font-size: 45px;
     font-weight: 1000;
-    color:black;
+    color: black;
     width: 60px;
     list-style: none;
     padding-left: 25px;
 }
 
-.footerBlock > *{
+.footerBlock>* {
     color: #565656 !important;
-    font-weight:1000;
+    font-weight: 1000;
 }
 
-#logo:active{
-    transform:scale(0.90) !important;
+#logo:active {
+    transform: scale(0.90) !important;
 }
 
-#logo, .profile-image{
+#logo,
+.profile-image {
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
@@ -140,44 +152,57 @@ li {
     transition: all 0.3s ease-out;
 }
 
-.devCredit:hover{
-    color:#242424 !important;
+.devCredit:hover {
+    color: #242424 !important;
 }
 
-.error{
-    color:red;
-    font-size:14px !important;
+.error {
+    color: red;
+    font-size: 14px !important;
 }
 
-.profile-image:hover{
+.profile-image:hover {
     transition: 0.3s;
     transform: scale(0.95);
 }
 
-.profile-image:active{
+.profile-image:active {
     transition: 0.3s;
     transform: scale(0.93);
 }
 
-#logo:hover{
+#logo:hover {
     transition: 0.3s;
     transform: scale(0.95);
 }
 
+.søkeStillingKnapp {
+    height: 35px;
+    width: 100px;
+    color: #333;
+    margin-top: 12px;
+}
+
+.stillingsTekstStillingsSide{
+    overflow:hidden !important;
+}
+
+.stillingsSøkeKnapp{
+    margin-top:18px;
+}
+
 .search {
-    border-radius: 6px;
-    border: 1px solid lightgray !important;
-    width: 250px !important;
-    border: 1px solid red;
-    width: 200px !important;
-    margin-left: 15px;
+    height: 56px;
+    width: 95% !important;
+    border: none;
+    font-size: 16px;
 }
 
 .navbar-toggler {
     margin-right: 15px;
 }
 
-.navbar-nav > li > a:hover {
+.navbar-nav>li>a:hover {
     color: #1e1e1e !important;
     border-color: #363636 !important;
 }
@@ -206,15 +231,15 @@ li {
 
 .navbar {
     min-height: 100px !important;
-    background-color:white;
+    background-color: white;
     box-shadow: 0 4px 6px -2px rgb(0 0 0 / 20%);
-    zoom:0.8;
-    padding-top:0;
-    padding-bottom:0;
+    zoom: 0.8;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.navbar > .nav-link{
-    color: rgba(0,0,0,.5) !important;
+.navbar>.nav-link {
+    color: rgba(0, 0, 0, .5) !important;
 }
 
 .menu input[type=text] {
@@ -254,10 +279,10 @@ footer {
     white-space: nowrap;
     box-shadow: 0 4px 6px 2px rgb(0 0 0 / 80%);
     font-size: 12px;
-    zoom:0.8;
+    zoom: 0.8;
 }
 
-footer *{
+footer * {
     color: #565656;
 }
 
@@ -274,12 +299,12 @@ footer *{
     float: left;
 }
 
-.container-xl{
-    max-width:1400px;
+.container-xl {
+    max-width: 1400px;
 }
 
-.navIndreContainer{
-    width:100% !important;
+.navIndreContainer {
+    width: 100% !important;
 }
 
 .button-fixed {
@@ -294,7 +319,7 @@ footer *{
 
 .ceo {
     font-weight: bold;
-    color:#565656 !important;
+    color: #565656 !important;
     list-style: none;
     letter-spacing: 2px;
     float: left;
@@ -305,32 +330,32 @@ footer *{
     letter-spacing: 2px;
     list-style: none;
     text-decoration: none;
-    padding-left:3px;
-    padding-right:3px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
-.footer > li{
+.footer>li {
     list-style-type: none;
 }
 
 .footerElement:hover {
-    color:#242424 !important;
+    color: #242424 !important;
 }
 
 .boldyh2 {
     font-weight: 900;
 }
 
+
 /* MIDDLE  */
+
 @keyframes zoom {
     0% {
         transform: scale(1, 01);
     }
-
     50% {
         transform: scale(1.022, 1.022);
     }
-
     100% {
         transform: scale(1, 1);
     }
@@ -340,12 +365,12 @@ footer *{
     margin-left: -10px;
 }
 
-.logRegGreier:hover{
+.logRegGreier:hover {
     filter: brightness(40%);
 }
 
-.logRegGreier:active{
-    transform:scale(0.96) !important;
+.logRegGreier:active {
+    transform: scale(0.96) !important;
 }
 
 .panel h1 {
@@ -367,7 +392,7 @@ footer *{
     padding-top: 20px;
 }
 
-.loginSide .card-body:not(#velkomstmelding){
+.loginSide .card-body:not(#velkomstmelding) {
     font-family: "Karla", sans-serif;
 }
 
@@ -466,7 +491,6 @@ footer *{
     background-color: rgb(41, 39, 39) !important;
 }
 
-
 .boks button {
     background-color: rgb(232, 239, 241);
     text-align: center;
@@ -532,9 +556,11 @@ footer *{
     border-bottom: 1px solid rgb(165, 165, 165);
     position: absolute;
 }
-.bossButton{
-    cursor:default !important;
+
+.bossButton {
+    cursor: default !important;
 }
+
 .loginline {
     width: 70%;
     height: 20px;
@@ -550,8 +576,8 @@ footer *{
     padding-bottom: 5px;
 }
 
-.router-link-active{
-    color:rgb(32, 32, 32) !important;
+.router-link-active {
+    color: rgb(32, 32, 32) !important;
     font-weight: 900;
 }
 
@@ -603,12 +629,40 @@ pre>code {
     padding: .5em;
     -webkit-text-size-adjust: none;
     overflow-x: auto;
-    white-space: pre
+    white-space: pre;
 }
 
 .toc ul {
     list-style-type: none;
-    padding-left: 20px
+    padding-left: 20px;
+}
+
+.søkeInnstillinger {
+    background-color: rgb(255, 255, 255);
+    border-radius: 0 !important;
+    width:auto;
+}
+
+.paginatorBoks{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    height:100px;
+    width:100px;
+    text-align: center;
+    font-size:24px;
+}
+
+.sortør {
+    width:100%;
+}
+
+.søkeInnstillinger:hover {
+    background-color: rgb(241, 241, 241);
+}
+
+.titles{
+    cursor:default;
 }
 
 .stackedit__html {
@@ -617,6 +671,22 @@ pre>code {
     padding-left: 30px;
     padding-right: 30px;
     max-width: 750px
+}
+
+.søkeCard {
+    border: 0;
+    border-bottom: 1px solid #a3a3a3;
+    border-radius: 0;
+}
+
+.søkeKnapp {
+    border: 0;
+    border-radius: 0;
+    background-color: rgb(241, 241, 241);
+}
+
+.søkeKnapp:hover {
+    background-color: rgb(212, 212, 212);
 }
 
 .søkeNav {
@@ -645,9 +715,10 @@ pre>code {
 }
 
 .filterTittel {
-    font-family: Lato;
-    font-size: 25px;
-    letter-spacing: 0px;
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .filtertypeTittel {
@@ -682,55 +753,57 @@ label {
 .søkeButton {
     background: #fff;
     border-radius: 2px;
-    display: inline-block;
     height: 27px;
     position: relative;
     width: 80px;
     font-family: 'Lato', sans-serif;
 }
 
-
 .card-1 {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 2px 3px rgba(77, 77, 77, 0.74);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(129, 129, 129, 0.74);
     transition: all 0.1s cubic-bezier(.25, .8, .25, 1);
     font-family: 'Lato', sans-serif;
     font-weight: 800;
     color: #4e4e4e;
-    cursor:pointer;
-    user-select:none;
+    cursor: pointer;
+    user-select: none;
 }
 
 .card-1:active {
     box-shadow: 0 0 0 rgba(231, 231, 231, 0.25), 0 0px 1px #4e4e4e;
 }
 
-.frist{
-    font-size:14px;
-    font-weight:900;
+.frist {
+    font-size: 14px;
+    font-weight: 900;
 }
 
-.more{
+.more {
     color: #4e4e4e;
 }
 
-.gjørTilClickable{
-    cursor:pointer;
+.stillingsTittel{
+    font-family: Lato;
 }
 
-.stilling{
-    min-height:200px !important;
-    height:200px !important;
-    overflow:hidden;
+.gjørTilClickable {
+    cursor: pointer;
+}
+
+.stilling {
+    min-height: 200px !important;
+    height: 200px !important;
+    overflow: hidden;
 }
 
 .ok {
-    position:absolute; 
-    bottom:60px;
-    max-width:300px !important;
-    overflow:scroll;
+    position: absolute;
+    overflow: scroll;
+    margin:0;
+    padding:0;
 }
 
-#søkeIkon{
+#søkeIkon {
     display: block;
     fill: none;
     height: 16px;
@@ -740,29 +813,30 @@ label {
     overflow: visible;
 }
 
-.ok::-webkit-scrollbar{
-    background: transparent; /* make scrollbar transparent */
+.ok::-webkit-scrollbar {
+    background: transparent;
+    /* make scrollbar transparent */
 }
 
-#logo{
+#logo {
     font-family: 'Goudy Bookletter 1911', serif !important;
 }
 
-.skrivUtContainer{
-    height:100px;
-    margin-top:20px;
-    margin-bottom:50px;
+.skrivUtContainer {
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
-#skrivUt > *{
-    font-size:30px;
-    text-align: center; 
+#skrivUt>* {
+    font-size: 30px;
+    text-align: center;
     font-family: 'Spectral', serif !important;
 }
 
-#skrivUt{
+#skrivUt {
     text-align: center;
-    margin:0;
+    margin: 0;
     font-family: 'Spectral', serif !important;
 }
 
@@ -778,74 +852,86 @@ label {
     background-size: cover;
     background-position: center 37%;
     font-family: "Poppins", sans-serif;
-  }
-  .s013 form {
+}
+
+.s013 form {
     width: 100%;
     max-width: 914px;
     margin: 0;
     z-index: 10000;
     zoom: 0.8;
-  }
-  .s013 form fieldset {
+}
+
+.s013 form fieldset {
     margin-bottom: 50px;
-  }
-  .s013 form fieldset legend {
+}
+
+.s013 form fieldset legend {
     font-size: 36px;
     font-weight: bold;
     color: #fff;
     font-family: "Poppins", sans-serif;
     text-align: center;
-  }
-  .s013 form .inner-form {
+}
+
+.s013 form .inner-form {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    width:600px;
-  }
-  .s013 form .inner-form .left {
+    width: 600px;
+}
+
+.s013 form .inner-form .left {
     -ms-flex-positive: 1;
     flex-grow: 1;
     display: -ms-flexbox;
     display: flex;
-  }
-  .left {
+}
+
+.left {
     box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.15);
     border-radius: 40px !important;
-  }
-  .input-wrap.first {
-    width:500px;
+}
+
+.input-wrap.first {
+    width: 500px;
     border-radius: 40px !important;
-  }
-  .input-wrap.second {
+}
+
+.input-wrap.second {
     border-bottom-right-radius: 40px !important;
     border-top-right-radius: 40px !important;
-  }
-  .s013 form .inner-form .input-wrap {
+}
+
+.s013 form .inner-form .input-wrap {
     background: #fff;
     height: 80px;
     position: relative;
     padding: 20px 25px 20px 25px;
-  }
-  .s013 form .inner-form .input-wrap .input-field label {
+}
+
+.s013 form .inner-form .input-wrap .input-field label {
     font-size: 11px;
     font-weight: 900;
     display: block;
     color: #555;
-  }
-  button.btn-search {
+}
+
+button.btn-search {
     min-width: 50px !important;
     height: 50px !important;
     border-radius: 30px !important;
     transform: scale(1.2);
     margin-left: -65px !important;
     margin-top: 15px !important;
+}
 
-  }
-  .btn-search:hover {
+.btn-search:hover {
     background-color: #ff284f !important;
-  }
-  .s013 form .inner-form .input-wrap .input-field input {
+}
+
+.s013 form .inner-form .input-wrap .input-field input {
     font-size: 16px;
     color: #333;
     background: transparent;
@@ -853,42 +939,52 @@ label {
     border: 0;
     font-family: "Lato", sans-serif;
     padding: 8px 0;
-  }
-  .input-field.first {
+}
+
+.input-field.first {
     margin-left: 10px;
-  }
-  .input-field.secon {
+}
+
+.input-field.secon {
     margin-left: 0px;
-  }
-  .s013 form .inner-form .input-wrap .input-field input.placeholder {
+}
+
+.s013 form .inner-form .input-wrap .input-field input.placeholder {
     color: #808080;
-  }
-  .s013 form .inner-form .input-wrap .input-field input:-moz-placeholder {
+}
+
+.s013 form .inner-form .input-wrap .input-field input:-moz-placeholder {
     color: #808080;
-  }
-  .s013 form .inner-form .input-wrap .input-field input::-webkit-input-placeholder {
+}
+
+.s013 form .inner-form .input-wrap .input-field input::-webkit-input-placeholder {
     color: #808080;
-  }
-  .s013 form .inner-form .input-wrap .input-field input.hover,
-  .s013 form .inner-form .input-wrap .input-field input:focus {
+}
+
+.s013 form .inner-form .input-wrap .input-field input.hover,
+.s013 form .inner-form .input-wrap .input-field input:focus {
     box-shadow: none;
     outline: 0;
-  }
-  .s013 form .inner-form .input-wrap.first {
+}
+
+.s013 form .inner-form .input-wrap.first {
     -ms-flex-positive: 1;
     flex-grow: 1;
     border-radius: 3px 0 0 3px;
-  }
-  .s013 form .inner-form .input-wrap.second {
+}
+
+.s013 form .inner-form .input-wrap.second {
     min-width: 262px;
     border-radius: 0 3px 3px 0;
     border-left: 1px solid #e5e5e5;
-  }
-  .s013 form .input-select {
+}
+
+.s013 form .input-select {
     height: 34px;
     padding: 10px 0 6px 0;
-  }
-  .s013 form .choices__inner {
+}
+
+.s013 form .choices__inner {
     background: transparent;
     border-radius: 0;
     border: 0;
@@ -903,16 +999,18 @@ label {
     font-size: 16px;
     min-height: auto;
     font-family: "Lato", sans-serif;
-  }
-  .s013 form .choices__inner .choices__list.choices__list--single {
+}
+
+.s013 form .choices__inner .choices__list.choices__list--single {
     display: -ms-flexbox;
     display: flex;
     padding: 0;
     -ms-flex-align: center;
     align-items: center;
     height: 100%;
-  }
-  .s013 form .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
+}
+
+.s013 form .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -921,36 +1019,43 @@ label {
     opacity: 1;
     color: #808080;
     font-weight: 400;
-  }
-  .s013 form .choices__inner .choices__list--single .choices__item {
+}
+
+.s013 form .choices__inner .choices__list--single .choices__item {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
     align-items: center;
     height: 100%;
-  }
-  .s013 form .choices__list.choices__list--dropdown {
+}
+
+.s013 form .choices__list.choices__list--dropdown {
     border: 0;
     background: #fff;
     padding: 10px 15px;
     margin-top: 10px;
     border-radius: 3px;
-  }
-  .s013 form .choices__list.choices__list--dropdown .choices__item--selectable {
+}
+
+.s013 form .choices__list.choices__list--dropdown .choices__item--selectable {
     padding-right: 0;
-  }
-  .s013 form .choices__list--dropdown .choices__item--selectable.is-highlighted {
+}
+
+.s013 form .choices__list--dropdown .choices__item--selectable.is-highlighted {
     background: transparent;
     color: #333;
-  }
-  .s013 form .choices__list--dropdown .choices__item {
+}
+
+.s013 form .choices__list--dropdown .choices__item {
     color: #555;
     min-height: 24px;
-  }
-  .s013 form .choices[data-type*="select-one"] .choices__inner {
+}
+
+.s013 form .choices[data-type*="select-one"] .choices__inner {
     padding-bottom: 0;
-  }
-  .s013 form .choices[data-type*="select-one"]:after {
+}
+
+.s013 form .choices[data-type*="select-one"]:after {
     border: 0;
     width: 18px;
     height: 18px;
@@ -963,11 +1068,13 @@ label {
     background-position: right center;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg fill='%23999' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
-  }
-  .s013 form .choices[data-type*="select-one"].is-open:after {
+}
+
+.s013 form .choices[data-type*="select-one"].is-open:after {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg fill='%23999' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'/%3e%3c/svg%3e");
-  }
-  .s013 form .btn-search {
+}
+
+.s013 form .btn-search {
     min-width: 110px;
     height: 80px;
     background: #ff385c;
@@ -981,11 +1088,12 @@ label {
     font-weight: 400;
     font-family: "Poppins", sans-serif;
     margin-left: 10px;
-  }
-  .s013 form .btn-search:hover {
-    background: #ff385c;
-  }
+}
 
-  .utvikletAv{
-      cursor:text;
-  }
+.s013 form .btn-search:hover {
+    background: #ff385c;
+}
+
+.utvikletAv {
+    cursor: text;
+}

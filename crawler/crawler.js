@@ -148,7 +148,13 @@ var dato = `${dag}.${måned}.${år}`;
         }
 
         //Søkeknapp
-        var søkeKnapp = document.querySelector("#job-apply-button").href;
+        var søkeKnapp;
+        try{
+          søkeKnapp = document.querySelector("#job-apply-button").href;
+        }
+        catch{
+          søkeKnapp = window.location.href;
+        }
         obj["url"] = søkeKnapp;
 
         //Dato

@@ -1,423 +1,328 @@
 <template>
 	<main class="homepage">
-		<div style="max-width: 1400px; margin-bottom: 100px" class="container">
-			<div class="row">
-				<div class="col-3 pr-0">
-					<h4 style="
-								font-family: 'Goudy Bookletter 1911', serif;
-								font-size: 30px;
-								font-weight: 900;
-								letter-spacing: 2px;
-							" class="card-title filterTittel pt-4 pb-2 mb-0">
-						Filtrer:
-					</h4>
-					<div class="jobbtype">
-						<p class="card-title filtertypeTittel mb-2 mt-3">Fulltid/deltid</p>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item border-0 filter p-0 ml-1">
-								<input class="gjørTilClickable" v-bind:checked="settings.type.includes('deltid')" @click="changeType(['type', 'deltid', $event.target.checked])" type="checkbox" id="deltid" />
-								<label class="gjørTilClickable pl-2 mb-1" for="deltid">Deltid
-										<span class="filterAntall"
-											>({{ settings.entireResponse.info.antall["deltid"] }})</span
-										></label
-									>
-								</li>
-								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										class="gjørTilClickable"
-										v-bind:checked="settings.type.includes('annet')"
-										@click="changeType(['type', 'annet', $event.target.checked])"
-										type="checkbox"
-										id="annet"
-									/>
-									<label class="gjørTilClickable pl-2 mb-1" for="annet"
-										>Annet
-										<span class="filterAntall"
-											>({{ settings.entireResponse.info.antall["annet"] }})</span
-										></label
-									>
-								</li>
-								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										class="gjørTilClickable"
-										v-bind:checked="settings.type.includes('fulltid')"
-										@click="
-											changeType(['type', 'fulltid', $event.target.checked])
-										"
-										type="checkbox"
-										id="fulltid"
-									/>
-									<label class="gjørTilClickable pl-2 mb-1" for="fulltid"
-										>Fulltid
-										<span class="filterAntall"
-											>({{ settings.entireResponse.info.antall["fulltid"] }})</span
-										></label
-									>
-								</li>
-							</ul>
-						</div>
-						<div class="søknadsfrist">
-							<p class="card-title filtertypeTittel mb-2 mt-3">Søknadsfrist</p>
+		<div style="margin-bottom: 100px; margin-top:90px;" class="container">
+			<!-- Hele siden befinner seg på denne rowen -->
+			<div v-if="settings.entireResponse && settings.entireResponse.info.antall['deltid']" class="row">
+					<!--Filtersiden-->
+					<div class="filtersiden col-3 p-0">
+						<!--Filter tittelen -->
+						<h4 class="card-title filterTittel pt-4 pb-2 mb-0">
+							Filtrer:
+						</h4>
+
+						<!--Ekstrainfo -->
+						<div class="ekstraInfo">
+							<p class="card-title filtertypeTittel mb-2 mt-3">Ekstra</p>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										id="utløpte"
-										class="gjørTilClickable"
-										v-on:click="
-											changeFrist(['frist', '-1', $event.currentTarget.checked])
-										"
-										type="radio"
-										name="frister"
-										:checked="settings.frist == '-1'"
-									/>
-									<label for="utløpte" class="pl-2 mb-1 gjørTilClickable">Vis bare utløpte stillinger
-											<span class="filterAntall">
-											</span>
-										</label>
+									<input class="gjørTilClickable" id="ingenUtløpte" name="ingenUtløpte" :checked="settings.ingenUtløpte" type="checkbox" @click="ingenUtløpte($event.target.checked);" />
+									<label class="gjørTilClickable pl-2 mb-1" for="ingenUtløpte">
+										Inkluder utløpte stillinger
+										<span class="filterAntall"></span>
+									</label>
 								</li>
 								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										id="frist0"
-										class="gjørTilClickable"
-										v-on:click="
-											changeFrist(['frist', '0', $event.currentTarget.checked])
-										"
-										type="radio"
-										name="frister"
-										:checked="settings.frist == '0'"
-									/>
-									<label for="frist0" class="pl-2 mb-1 gjørTilClickable">Utløper i dag
-											<span class="filterAntall">
-											</span>
-										</label>
-								</li>
-								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										id="frist7"
-										class="gjørTilClickable"
-										v-on:click="
-											changeFrist(['frist', '7', $event.currentTarget.checked])
-										"
-										type="radio"
-										name="frister"
-										:checked="settings.frist == '7'"
-									/>
-									<label for="frist7" class="pl-2 mb-1 gjørTilClickable"
-										>Under en uke
-										<span class="filterAntall"
-											>({{
-												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
-													? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["7"]
-													: null
-											}})
-											</span
-										></label>
-								</li>
-								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										id="frist30"
-										class="gjørTilClickable"
-										v-on:click="
-											changeFrist(['frist', '30', $event.currentTarget.checked])
-										"
-										type="radio"
-										name="frister"
-										:checked="settings.frist == '30'"
-									/>
-									<label for="frist30" class="pl-2 mb-1 gjørTilClickable"
-										>Under 1 måned
-										<span class="filterAntall"
-											>({{
-												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
-													? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["30"]
-													: 0
-											}})</span
-										></label
-									>
-								</li>
-								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										id="frist90"
-										class="gjørTilClickable"
-										v-on:click="
-											changeFrist(['frist', '90', $event.currentTarget.checked])
-										"
-										type="radio"
-										name="frister"
-										:checked="settings.frist == '90'"
-									/>
-									<label for="frist90" class="pl-2 mb-1 gjørTilClickable"
-										>Under 3 måneder
-										<span class="filterAntall"
-											>({{
-												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
-													? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["90"]
-													: 0
-											}})</span
-										></label
-									>
-								</li>
-								<li class="list-group-item border-0 filter p-0 ml-1">
-									<input
-										id="frist9000"
-										class="gjørTilClickable"
-										v-on:click="
-											changeFrist(['frist', '9000', $event.currentTarget.checked])
-										"
-										type="radio"
-										name="frister"
-										:checked="settings.frist == '9000'"
-									/>
-									<label for="frist9000" class="pl-2 mb-1 gjørTilClickable"
-										>Under 12 måneder
-										<span class="filterAntall"
-											>({{
-												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
-													? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["9000"]
-													: 0
-											}})</span
-										></label
-									>
+									<input class="gjørTilClickable" id="rare" name="rare" :checked="settings.rare" type="checkbox" @click="rarifiser($event.target.checked);" />
+									<label class="gjørTilClickable pl-2 mb-1" for="rare">
+										Vis stillinger uten spesifisert frist
+										<span class="filterAntall"></span>
+									</label>
 								</li>
 							</ul>
 						</div>
+
+						<!--Jobbtype -->
+						<div class="jobbtype">
+							<p class="card-title filtertypeTittel mb-2 mt-3">Fulltid/deltid</p>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input class="gjørTilClickable" v-bind:checked="settings.type.includes('deltid')" @click="changeType(['type', 'deltid', $event.target.checked])" type="checkbox" id="deltid" />
+									<label class="gjørTilClickable pl-2 mb-1" for="deltid">
+										Deltid
+										<span class="filterAntall">({{ settings.entireResponse.info.antall["deltid"] }})</span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input class="gjørTilClickable" v-bind:checked="settings.type.includes('annet')" @click="changeType(['type', 'annet', $event.target.checked])" type="checkbox" id="annet" />
+									<label class="gjørTilClickable pl-2 mb-1" for="annet">
+										Annet
+										<span class="filterAntall">({{ settings.entireResponse.info.antall["annet"] }})</span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input class="gjørTilClickable" v-bind:checked="settings.type.includes('fulltid')" @click="changeType(['type', 'fulltid', $event.target.checked])" type="checkbox" id="fulltid" />
+									<label class="gjørTilClickable pl-2 mb-1" for="fulltid">
+										Fulltid
+										<span :class="filterAntall">({{ settings.entireResponse.info.antall["fulltid"] }})</span>
+									</label>
+								</li>
+							</ul>
+						</div>
+
+						<!--Søknadsfrist -->
+						<div class="søknadsfrist">
+							<p class="card-title filtertypeTittel mb-2 mt-3">
+								Søknadsfrist:
+							</p>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input id="utløpte" class="gjørTilClickable" v-on:click="changeFrist(['frist', '-1', $event.currentTarget.checked])" type="radio" name="frister" :checked="settings.frist == '-1'"/>
+									<label for="utløpte" class="pl-2 mb-1 gjørTilClickable">
+										Vis bare utløpte stillinger
+										<span class="filterAntall"></span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input id="frist0" class="gjørTilClickable" v-on:click="changeFrist(['frist', '0', $event.currentTarget.checked])" type="radio" name="frister" :checked="settings.frist == '0'" />
+									<label for="frist0" class="pl-2 mb-1 gjørTilClickable">
+										Utløper i dag
+										<span class="filterAntall"></span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input id="frist7" class="gjørTilClickable" v-on:click=" changeFrist(['frist', '7', $event.currentTarget.checked])" type="radio" name="frister" :checked="settings.frist == '7'" />
+									<label for="frist7" class="pl-2 mb-1 gjørTilClickable">
+										Under en uke
+										<span class="filterAntall">({{ settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist ? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["7"] : null }})</span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input id="frist30" class="gjørTilClickable" v-on:click=" changeFrist(['frist', '30', $event.currentTarget.checked]) " type="radio" name="frister" :checked="settings.frist == '30'" />
+									<label for="frist30" class="pl-2 mb-1 gjørTilClickable">
+										Under 1 måned
+										<span class="filterAntall">
+											({{
+												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
+												? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["30"]
+												: 0
+											}})
+										</span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input id="frist90" class="gjørTilClickable" v-on:click=" changeFrist(['frist', '90', $event.currentTarget.checked])" type="radio" name="frister" :checked="settings.frist == '90'"/>
+									<label for="frist90" class="pl-2 mb-1 gjørTilClickable">
+										Under 3 måneder
+										<span class="filterAntall">
+											({{
+												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
+												? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["90"]
+												: 0
+											}})
+										</span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input id="frist9000" class="gjørTilClickable" v-on:click=" changeFrist(['frist', '9000', $event.currentTarget.checked])" type="radio" name="frister" :checked="settings.frist == '9000'" />
+									<label for="frist9000" class="pl-2 mb-1 gjørTilClickable">
+										Under 12 måneder
+										<span class="filterAntall">
+											({{
+												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist
+												? settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerFrist["9000"]
+												: 0
+											}})
+										</span>
+									</label>
+								</li>
+							</ul>
+						</div>
+
+						<!--Ferdigheterfilter -->
 						<div class="ferdigheter">
 							<p class="card-title filtertypeTittel mb-2 mt-3">Ferdigheter</p>
 							<ul class="list-group list-group-flush">
-								<li
-									v-for="teknologi in settings.entireResponse.info.alleTeknologierInfo.unikeTeknologier"
-									v-bind:key="teknologi"
-									class="list-group-item border-0 filter p-0 ml-1"
-								>
-									<input
-										@click="
-											changeTekno(['skill', teknologi, $event.target.checked])
-										"
-										v-bind:name="teknologi"
-										type="checkbox"
-										v-bind:id="teknologi"
-										v-bind:checked="settings.tekno.includes(teknologi)"
-										v-bind:value="settings.tekno.includes(teknologi)"
-									/>
-									<label class="pl-2 mb-1 gjørTilClickable" v-bind:for="teknologi"
-										>{{ teknologi
-										}}<span class="filterAntall gjørTilClickable">
-											({{
-												settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerTeknologi[
-													teknologi
-												]
-											}})</span
-										></label
-									>
+								<li v-for="teknologi in settings.entireResponse.info.alleTeknologierInfo.unikeTeknologier" v-bind:key="teknologi" class=" d-flex align-items-center list-group-item border-0 filter p-0 ml-1">
+									<input class = "gjørTilClickable" @click=" changeTekno(['skill', teknologi, $event.target.checked])" v-bind:name="teknologi" type="checkbox" v-bind:id="teknologi" v-bind:checked="settings.tekno.includes(teknologi)" v-bind:value="settings.tekno.includes(teknologi)"/>
+									<label class="pl-2 mb-1 gjørTilClickable" v-bind:for="teknologi">
+										{{ teknologi }}
+											<span class="filterAntall gjørTilClickable">
+												({{
+													settings.entireResponse.info.alleTeknologierInfo.antallStillingerPerTeknologi[teknologi]
+												}})
+											</span>
+									</label>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-9">
-						<div class="container mt-4 p-0">
-							<div class="card">
-								<div class="card-body py-0 pr-5">
-									<div class="row">
-										<div class="col-8">
-											<p class="font-weight-bold mb-0 mt-3">
-												Fant {{ settings.entireResponse.totalt }} resultater av {{ hovedData.jobs.length }} totalt indekserte stillinger
-											</p>
-											<li class="list-group-item border-0 filter p-0 mt-3">
-												<input class="gjørTilClickable" id="rare" name="rare" :checked="settings.rare" type="checkbox" @click="rarifiser($event.target.checked);" />
-												<label class="gjørTilClickable pl-2 mb-1" for="rare"
-													>Vis stillinger uten spesifisert frist
-													<span class="filterAntall"></span
-												></label>
-											</li>
-											<li class="list-group-item border-0 filter p-0 mt-3">
-												<input class="gjørTilClickable" id="ingenUtløpte" name="ingenUtløpte" :checked="settings.ingenUtløpte" type="checkbox" @click="ingenUtløpte($event.target.checked);" />
-												<label class="gjørTilClickable pl-2 mb-1" for="ingenUtløpte"
-													>Inkluder utløpte stillinger
-													<span class="filterAntall"></span
-												></label>
-											</li>
-							<p class="mt-3 mb-3">
-								Du søkte etter:
-								<span class="font-italic font-weight-bold">{{settings.search.length > 0 ? settings.search : ""}}</span>
-							</p>
-					</div>
-					<div class="col-4 d-flex align-items-center pr-0 justify-content-end">
-						<div style="" class="btn-group w-100 d-flex align-items-center pr-3 justify-content-end">
-							<button style="
-														min-width: 150px;
-														border: 1px solid #dfdfdf !important;
-													" class="border-0 bg-light rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Vis {{ settings.limit }} per side
-												</button>
-							<div style="min-width: 150px" class="dropdown-menu w-100">
-								<ul class="pl-4 ml-2 my-auto">
-									<li>
-										<input @click="
-																	limit(['limit', 20, $event.currentTarget.checked ])
-																" class="form-check-input gjørTilClickable" type="radio" name="limit20" id="limit20" value="limit20" :checked="settings.limit == 20" />
-										<label class="form-check-label gjørTilClickable" for="limit20">
-																20 per side
-															</label>
-									</li>
-									<li>
-										<input @click="
-																	limit(['limit', 50, $event.currentTarget.checked ])
-																" class="form-check-input gjørTilClickable" type="radio" name="limit50" id="limit50" value="limit50" v-bind:checked="settings.limit == 50" />
-										<label class="form-check-label gjørTilClickable" for="limit50">
-																50 per side
-															</label>
-									</li>
-									<li>
-										<input @click="limit(['limit', 100, $event.currentTarget.checked ])" class="form-check-input gjørTilClickable" type="radio" name="limit100" id="limit100" value="limit100" :checked="settings.limit == 100" />
-										<label class="form-check-label gjørTilClickable" for="limit100">
-																100 per side
-															</label>
-									</li>
-									<li>
-										<input @click="limit(['limit', 200, $event.currentTarget.checked ])															" class="form-check-input gjørTilClickable" type="radio" name="limit200" id="limit200" value="limit200" :checked="settings.limit == 200" />
-										<label class="form-check-label gjørTilClickable" for="limit200">
-																200 per side
-															</label>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div style="" class="btn-group w-100 d-flex align-items-center pr-3 justify-content-end">
-							<button style="
-														min-width: 200px;
-														border: 1px solid #dfdfdf !important;
-													" class="border-0 bg-light rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Viser {{ settings.sort == "down" ? "Nye stillinger øverst" : settings.sort == "up" ? "Gamle stillinger øverst" : settings.sortFrist == "down" ? "Stillinger med kort frist" : "Stillinger med frist om lenge" }}
-												</button>
-							<div style="min-width: 340px" class="dropdown-menu w-100">
-								<ul class="pl-4 ml-2 my-auto">
-									<li>
-										<input @click="
-																	sorter([
-																		'sortFrist',
-																		'down',
-																		$event.currentTarget.checked,
-																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="nyesteFristFørst" id="nyesteFristFørst" value="nyesteFristFørst"
-																:checked="settings.sortFrist == 'down'" />
-										<label class="form-check-label gjørTilClickable" for="nyesteFristFørst">
-																 Søknadsfrist <i class="fas fa-sort-numeric-up"></i>
-															</label>
-									</li>
-									<li>
-										<input @click="
-																	sorter([
-																		'sortFrist',
-																		'up',
-																		$event.currentTarget.checked,
-																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="eldsteFristFørst" id="eldsteFristFørst" value="eldsteFristFørst"
-																:checked="settings.sortFrist == 'up'"/>
-										<label class="form-check-label gjørTilClickable" for="eldsteFristFørst">
-																Søknadsfrist <i class="fas fa-sort-numeric-down"></i>
-															</label>
-									</li>
-									<li>
-										<input @click="
-																	sorter([
-																		'sortDate',
-																		'down',
-																		$event.currentTarget.checked,
-																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="nyesteDatoFørst" id="nyesteDatoFørst" value="nyesteDatoFørst" :checked="settings.sort == 'down'" />
-										<label class="form-check-label gjørTilClickable" for="nyesteDatoFørst">
-																Publiseringsdato <i class="fas fa-sort-numeric-up"></i>
-															</label>
-									</li>
-									<li>
-										<input @click="
-																	sorter([
-																		'sortDate',
-																		'up',
-																		$event.currentTarget.checked,
-																	])
-																" class="form-check-input gjørTilClickable" type="radio" name="eldsteDatoFørst" id="eldsteDatoFørst" value="eldsteDatoFørst" :checked="settings.sort == 'up'" />
-										<label class="form-check-label gjørTilClickable" for="eldsteDatoFørst">
-																Publiseringsdato <i class="fas fa-sort-numeric-down"></i>
-															</label>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<form v-on:submit.prevent="changeSettings()" class="py-5 form-inline my-2 my-lg-0">
-			<input class="form-control mr-sm-2 search" style="font-family: FontAwesome" placeholder="&#xF002; Søk" aria-label="Search" v-bind:value="searchQuery" v-on:input="searchQuery = $event.target.value" />
-			<button type="submit" class="btn btn-primary mb-2">Søk</button>
-		</form>
-		<paginator :page="settings.page" :totalt="totaltAntallSider" />
 
-		</div>
-		<spinner class="d-flex justify-content-center align-items-center" v-if="settings.loading === true" />
-		<div v-if="settings.loading == false" class="container my-0 p-2 d-flex justify-content-start">
-			<div class="row">
-				<h1 v-if="settings.data.length == 0">Ingen stillinger kunnet finnes med de søkekriteriene</h1>
-				<div v-for="job in settings.data" :key="job.id" class="col-sm-6 col-lg-4 p-2">
-					<div style="min-height: 480px" class="boksen card">
-						<div style="width: 75%; height: 180px" class="d-flex align-items-center card-img my-auto mx-auto">
-							<img style="width: 100%; max-height: 180px" class="my-auto mx-auto card-img-top pt-4" :src="job.companyImage" alt="Card image cap" />
-						</div>
-						<div style="min-height: 360px; max-height: 360px" class="card-body">
-							<hr class="mt-0" />
-							<div class="stilling">
-								<a v-bind:href="`http://localhost:8080/stilling/${job.id}`">
-									<h5 class="card-title font-weight-bold">
-										{{ job.title.slice(0, 80) }}
-									</h5>
-								</a>
-								<div style="min-height: 170px; max-height: 150px" class="card-text">
-									<p>
-										{{ 170 > job.teaser.length ? job.teaser.slice(0, 170) + '...' : job.teaser }}
-									</p>
-								</div>
-								<div class="ok d-flex align-items-center">
-									<a v-for="(key, val) in job.teknologier" :key="val" class="link">{{ key }}</a
-													>
+					<!-- Infoseksjon for søk -->
+					<div class="col-9 mt-2">
+						<div class="container mt-4 p-0">
+
+							<!--Første boks ovenfor stillingercontainer -->
+							<div class="card">
+								<div class="card-body py-0 pr-0 pl-0">
+									<div class = "container">
+										<div class = "row flex-nowrap">
+
+											<!--Infobit av søkeseksjon -->
+											<div class="col-8 d-flex align-items-center">
+												<p>Fant {{ settings.entireResponse.totalt }} stillinger av {{ hovedData.jobs.length }} totalt </p>
+											</div>
+
+											<!--Knappene i søkeseksjonen-->
+											<div class="col-4 d-flex align-items-start pr-0 justify-content-end">
+												<div style="" class="btn-group w-100 d-flex align-items-center pr-0">
+													<button class="border-0 søkeInnstillinger rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															Vis {{ settings.limit }} per side
+													</button>
+													<div class="dropdown-menu w-100">
+														<ul class="pl-4 ml-2 my-auto">
+															<li>
+																<input @click="limit(['limit', 20, $event.currentTarget.checked ])" class="form-check-input gjørTilClickable" type="radio" name="limit20" id="limit20" value="limit20" :checked="settings.limit == 20" />
+																<label class="form-check-label gjørTilClickable" for="limit20">
+																	20 per side
+																</label>
+															</li>
+															<li>
+																<input @click="limit(['limit', 50, $event.currentTarget.checked ])" class="form-check-input gjørTilClickable" type="radio" name="limit50" id="limit50" value="limit50" v-bind:checked="settings.limit == 50" />
+																<label class="form-check-label gjørTilClickable" for="limit50">
+																	50 per side
+																</label>
+															</li>
+															<li>
+																<input @click="limit(['limit', 100, $event.currentTarget.checked ])" class="form-check-input gjørTilClickable" type="radio" name="limit100" id="limit100" value="limit100" :checked="settings.limit == 100" />
+																<label class="form-check-label gjørTilClickable" for="limit100">
+																	100 per side
+																</label>
+															</li>
+															<li>
+																<input @click="limit(['limit', 200, $event.currentTarget.checked ])" class="form-check-input gjørTilClickable" type="radio" name="limit200" id="limit200" value="limit200" :checked="settings.limit == 200" />
+																<label class="form-check-label gjørTilClickable" for="limit200">
+																	200 per side
+																</label>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div style="" class="btn-group w-100 d-flex align-items-center pr-0">
+													<button class="border-0 søkeInnstillinger sortør rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														Viser {{ settings.sort == "down" ? "nyeste først" : settings.sort == "up" ? "eldste først" : settings.sortFrist == "down" ? "" : "Stillinger med frist om lenge" }}
+													</button>
+													<div class="dropdown-menu w-100">
+														<ul class="pl-4 ml-2 my-auto">
+															<li>
+																<input @click="sorter(['sortFrist', 'down', $event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="nyesteFristFørst" id="nyesteFristFørst" value="nyesteFristFørst" :checked="settings.sortFrist == 'down'" />
+																<label class="form-check-label gjørTilClickable" for="nyesteFristFørst">
+																	Søknadsfrist <i class="fas fa-sort-numeric-up"></i>
+																</label>
+															</li>
+															<li>
+																<input @click="sorter(['sortFrist','up',$event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="eldsteFristFørst" id="eldsteFristFørst" value="eldsteFristFørst" :checked="settings.sortFrist == 'up'"/>
+																<label class="form-check-label gjørTilClickable" for="eldsteFristFørst">
+																	Søknadsfrist <i class="fas fa-sort-numeric-down"></i>
+																</label>
+															</li>
+															<li>
+																<input @click="sorter(['sortDate','down',$event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="nyesteDatoFørst" id="nyesteDatoFørst" value="nyesteDatoFørst" :checked="settings.sort == 'down'" />
+																<label class="form-check-label gjørTilClickable" for="nyesteDatoFørst">
+																	Publiseringsdato <i class="fas fa-sort-numeric-up"></i>
+																</label>
+															</li>
+															<li>
+																<input @click="sorter(['sortDate','up',$event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="eldsteDatoFørst" id="eldsteDatoFørst" value="eldsteDatoFørst" :checked="settings.sort == 'up'" />
+																<label class="form-check-label gjørTilClickable" for="eldsteDatoFørst">
+																	Publiseringsdato <i class="fas fa-sort-numeric-down"></i>
+																</label>
+															</li>
+														</ul>
+													</div>
 												</div>
 											</div>
-											<div
-												style="position: absolute; bottom: 8px"
-												class="px-2 d-flex justify-content-center align-items-center"
-											>
-												<span class="frist text-danger pr-2"
-													>Søkefrist: {{ job.frist }}</span
-												>
-												<div
-													class="søkeButton card-1 d-flex justify-content-center align-items-center ml-3"
-												>
-													<a
-														style="
-															height: 35px;
-															width: 100px;
-															line-height: 21px;
-															color: #333;
-															margin-top: 12px;
-														"
-														v-bind:href="job.url"
-														class="text-center"
-														>SØK</a
-													>
-												</div>
-												<div class="more">
-													<a class="more" href="#">
-														<i class="fas fa-ellipsis-h"></i>
-													</a>
+
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
+
+							<!--Andre boks, søkeboksen -->
+							<div class="card my-2 søkeCard">
+								<div class="card-body p-0">
+
+									<!--Søkeknapp i søkeseksjon -->
+									<form v-on:submit.prevent="changeSettings()">
+										<div class = "container">
+											<div class = "row flex-nowrap">
+												<input class="form-control col-8 search pl-4" style="font-family: FontAwesome" placeholder="Søk f.eks. Python " aria-label="Search" v-bind:value="searchQuery" v-on:input="searchQuery = $event.target.value" />
+												<button type="submit" class="col-4 btn btn-white søkeKnapp"><i class="fas fa-search"></i></button>
+											</div>
+										</div>
+									</form>
+
+								</div>
+							</div>
+
+							<!--Paginator i søkeseksjon -->
+							<paginator :page="settings.page" :totalt="totaltAntallSider" />
+
+							<!--Stillinger containeren -->
+							<div class="container my-0 p-2">
+								<!-- Loadingspinneren -->
+								<div class = "stillingsContainer d-flex justify-content-center">
+									<spinner class="p-0 m-0" style="width:20px; height:20px;" v-if="settings.loading == true" />
+								</div>
+								<!-- Stillingscontainer -->
+								<div class="row" v-if="settings.loading == false" >
+									<h5 class = "m-auto" v-if="settings.data.length == 0">Det finnes ingen stillinger med de søkekriteriene :(</h5>
+									<div v-for="job in settings.data" :key="job.id" class="col-sm-6 col-lg-4 p-2">
+										<div style="min-height: 480px" class="boksen card">
+											<div style="width: 75%; height: 180px" class="d-flex align-items-center card-img my-auto mx-auto">
+												<img style="width: 80%; max-height: 180px" class="my-auto mx-auto card-img-top pt-4" :src="job.companyImage" alt="Card image cap" />
+											</div>
+											<!--Stilling -->
+											<div style="min-height: 360px; max-height: 360px" class="card-body enkeltStilling">
+												<hr class="mt-0 mb-2 pb-2" />
+												<div class = "stillingsTekstStillingsSide" style = "min-height: 230px">
+													<div class = "col-12 m-0 p-0">
+														<a v-bind:href="`http://localhost:8080/stilling/${job.id}`">
+															<h5 class="card-title stillingsTittel font-weight-bold">
+																{{ job.title.slice(0, 80) }}
+															</h5>
+														</a>
+													</div>
+													<div class="col-12 m-0 p-0 card-text">
+														<p>
+															{{ 170 > job.teaser.length ? job.teaser.slice(0, 170) + '...' : job.teaser.trim() }}
+														</p>
+													</div>
+												</div>
+
+												<div>
+													<div class="col-11 m-0 p-0 ok d-flex align-items-center">
+														<a v-for="(key, val) in job.teknologier" :key="val" class="link">{{ key }}</a>
+													</div>
+												</div>
+												<br>
+												
+												<div class = "stillingsSøkeKnapp ml-5 mr-2 d-flex align-items-center">
+													<div class="d-flex justify-content-center mx-auto søkeButton card-1 align-items-center">
+														<a v-bind:href="job.url" class="søkeStillingKnapp text-center">
+															SØK
+														</a>
+													</div>
+													<div class="d-flex align-items-center justify-content-end">
+														<div class="dropdown">
+															<button class="more btn btn-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																<i class="fas fa-ellipsis-h"></i>
+															</button>
+															<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+																<a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Lagre <i class="fas fa-heart float-right"></i></a>
+																<a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Del <i class="fas fa-share-alt float-right"></i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 					</div>
 				</div>
+
 			</div>
-		</div>
-		</div>
-		</div>
 		</div>
 	</main>
 </template>
@@ -475,10 +380,7 @@
 	export default {
 		setup() {
 		console.log(router);
-
-
-				console.log(settings.entireResponse);
-
+		console.log(settings.entireResponse);
 			settings.value.loading = false;
 			
 			//Noen variabler og innholdstrackere

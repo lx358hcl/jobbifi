@@ -1,4 +1,7 @@
 //Send epost API
+//Configure .dotenv
+require('dotenv').config()
+
 //Instantiate
 var express = require("express");
 var bodyParser = require('body-parser')
@@ -9,8 +12,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'jobbifitjenester@gmail.com',
-        pass: 'InspiredElement24120019',
+        user: process.env.API_EPOST_SENDER,
+        pass: process.env.API_SEND_EPOST_PASS,
     }
 });
 
@@ -42,7 +45,7 @@ router.post("/api/privat/sendEpost", function (request, response){
         var optionsTo = {
             to: senderEpost,
             subject: "Kopi av meldingen din til jobbifi",
-            text: `Takk for henvendelsen :) Jobbifi har mottatt e-posten din og vil svare deg så fort som mulig. Nedenfor kan du se den mottatte melding din:\n\nEmne: ${ emne }\nNavn: ${navn}\nMelding: \n${ melding }`,
+            text: `Takk for henvendelsen :) Jobbifi har mottatt e-posten din og vil svare deg så fort som mulig. Nedenfor kan du se den mottatte meldingen din:\n\nEmne: ${ emne }\nNavn: ${navn}\nMelding: \n${ melding }`,
         };
         transporter.sendMail(optionsTo, function(error, info){
             if (error) console.log(error);
@@ -57,7 +60,7 @@ router.post("/api/privat/sendEpost", function (request, response){
         if (error) console.log(error);
         else console.log('Epost sendt: ' + info.response);
     });
-    response.send("this stops duplicate emial from being sent, apparently this is necessary, why didn't anyone tell me about this ffs");
+    response.send("this stops duplicate emails from being sent, apparently this is necessary, why didn't anyone tell me about this ffs");
 });
 
 module.exports = router;

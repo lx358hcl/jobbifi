@@ -17,9 +17,9 @@
                     <router-link class="dropdown-item" to="/varsler"> Varsler
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
                     </router-link>
-                    <router-link class="dropdown-item" to="/meldinger"> Meldinger
+                    <!--<router-link class="dropdown-item" to="/meldinger"> Meldinger
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
-                    </router-link>
+                    </router-link>-->
                     <hr style="" class="mx-3 my-2">
                     <router-link class="dropdown-item" to="/lagrede"> Lagret </router-link>
                     <a href="#" @click="logOut();" class="dropdown-item"> Logg ut </a>

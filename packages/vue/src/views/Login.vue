@@ -34,7 +34,7 @@
                 <a href="#!" class="forgot-password-link logRegGreier">Glemt passordet?</a>
                 <p class="mt-3 mb-3 login-card-footer-text logRegGreier"><a href="#!" class="text-reset">Har du ikke bruker? Lag bruker her</a></p>
                 <nav class="login-card-footer-nav logRegGreier">
-                  <a href="#!">Retningslinjer og personvern</a>
+                  <router-link to="/retningslinjer" href="#!">Retningslinjer og personvern</router-link>
                 </nav>
               </div>
             </div>

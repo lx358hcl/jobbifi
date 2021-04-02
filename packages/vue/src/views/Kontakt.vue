@@ -1,6 +1,6 @@
 <template>
   <main class="pt-5 homepage container">
-    <div class="stackedit__html">
+    <div class="stackedit__html kontaktSkjema">
       <h2>
         <strong style="font-family: 'Goudy Bookletter 1911', serif !important">
           Send oss en melding

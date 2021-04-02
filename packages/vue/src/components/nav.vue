@@ -23,7 +23,7 @@
       <div class="collapse navbar-collapse" id="toggler">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item d-flex align-items-center">
-            <router-link class="nav-link titles logRegGreier" to="/">
+            <router-link class="nav-link gjørTilClickable titles logRegGreier" to="/">
               HJEM
             </router-link>
           </li>

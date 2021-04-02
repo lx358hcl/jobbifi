@@ -8,7 +8,7 @@
       </h2>
       <hr>
       <p>
-        Jobbifi er en nettside som har som hensikt å gjøre jobbsøkingsprosessen enklere for informatikere/designere og informatikkstudenter. Ved å redusere antallet tilgjengelig jobbsøkingssider til et minimum så vil graden av <a href="https://www.sciencedirect.com/topics/psychology/ego-depletion">ego-depletion</a> bli mindre og dermed vil også produktiviteten helhetsmessig øke.
+        Jobbifi er en nettside som prøver å gjøre jobbsøkingsprosessen litt enklere for informatikk- og designstudenter. Ved å redusere antallet tilgjengelige jobbsøkingssider så vil graden av <a href="https://www.sciencedirect.com/topics/psychology/ego-depletion">ego-depletion</a> reduseres og produktivitet helhetsmessig øke.
       </p>
       <hr>
       <p>
@@ -17,7 +17,7 @@
         </strong>
       </p>
       <p>
-        Per dags dato <i>(12.01.2021)</i> så aggregerer/crawler/innsamler Jobbifi nettsidene nedenfor hver dag kl. 15:00. <i>Man kan se antall minutter/timer til neste aggregeringsrunde nederst i midten på siden.</i>
+        Per dags dato <i>(12.01.2021)</i> så crawler jobbifi nettsidene nedenfor hver dag kl. 15:00. <i>Man kan se antall minutter/timer til neste aggregeringsrunde nederst i midten på siden.</i>
       </p>
       <ul>
         <li><i>finn.no</i></li>
@@ -25,15 +25,9 @@
         <li><i>ifinavnet.no</i></li>
       </ul>
       <p>
-        Vurderinger blir gjort om hvorvidt webcruiter, jobbsafari.no, karrierestart, jobbnorge.no og andre universitetsbaserte studentsider skal legges til.
+        Det er mulig vi inkluderer webcruiter og andre liknende sider, men vi får se.
       </p>
       <hr>
-      <p>
-        <strong>FAQ:</strong>
-      </p>
-      <p>
-        Hvis du ikke finner spørsmålet ditt nedenfor, send oss gjerne en mail på e-posten nedenfor.
-      </p>
       <p>
         <strong>Kontakt</strong>
       </p>

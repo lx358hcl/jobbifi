@@ -41,7 +41,7 @@
                   </button>
                 </form>
                 <nav class="login-card-footer-nav logRegGreier">
-                  <a href="#!">Retningslinjer og personvern</a>
+                  <router-link to="/retningslinjer">Retningslinjer og personvern</router-link>
                 </nav>
               </div>
             </div>
