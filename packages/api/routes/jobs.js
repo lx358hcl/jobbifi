@@ -2,7 +2,7 @@
 var express = require("express");
 var router = express.Router();
 var data = require("../data/data.json");
-var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "rare", "sortFrist", "id", "limit", "page"];
+var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "rare", "sortFrist", "id", "limit", "page", "source"];
 
 //Jobs-route dirigent
 router.get("/api/jobs", function (request, response){
@@ -203,10 +203,17 @@ var allFunctions = {
         return temp;
     },
     type(request, result){ 
-        if(!request) return result;
+        if(!request) return [];
         var params = request.toLowerCase().split(" ");
         return result.filter(job => {
             return params.some(jobType => jobType == job.position);
+        });
+    },
+    source(request, result){ 
+        if(!request) return [];
+        var params = request.toLowerCase().split(" ");
+        return result.filter(job => {
+            return params.some(e => e == job.opprinnelse);
         });
     },
     tekno(request, result){

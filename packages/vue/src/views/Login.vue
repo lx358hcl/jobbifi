@@ -28,7 +28,8 @@
                     <p class="error mb-3 py-1" v-if="true">{{ error }}</p>   
 
                     <button type="submit" id="login" class="logRegGreier btn btn-block login-btn mb-4" >
-                      <span>Login</span>
+                      <spinner class = "loadingSpinner" v-if="settings.loading"></spinner>
+                      <span v-else>Login</span>
                     </button>
                   </form>
                 <a href="#!" class="forgot-password-link logRegGreier">Glemt passordet?</a>
@@ -48,6 +49,8 @@
 <script>
   import * as firebase from "firebase/app";
   import { ref } from "vue";
+  import { settings } from "../settings.js";
+  import spinner from "../components/spinner.vue";
   export default {
     setup() {
       var email = ref("");
@@ -55,6 +58,7 @@
       var password = ref("");
       async function login() {
         try{
+          settings.value.loading = true;
           await firebase.default.auth().signInWithEmailAndPassword(email.value, password.value);
           window.location = window.location.origin + "/secret";
         }
@@ -62,13 +66,17 @@
           error.value = e.message;
           console.log(error.value);
         }
-        
+        finally{
+          settings.value.loading = false;
+        }
       }
       return {
         login,
         email,
         password,
         error,
+        settings,
+        spinner,
       }
     }
   }

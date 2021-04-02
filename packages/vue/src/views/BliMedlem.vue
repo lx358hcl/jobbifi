@@ -37,7 +37,8 @@
                     <div class="error" v-if="error">{{ error }}</div>           
                     <br>
                   <button type="submit" id="bliMedlem" class="logRegGreier btn btn-block login-btn mb-4" >
-                    <span>Opprett Konto</span>
+                    <spinner v-if="settings.loading" class = "loadingSpinner"></spinner>
+                    <span v-else>Opprett Konto</span>
                   </button>
                 </form>
                 <nav class="login-card-footer-nav logRegGreier">
@@ -49,12 +50,14 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
   import firebase from "../main.js";  
   import { ref } from "vue";
+  import spinner from "../components/spinner.vue";
+  import { settings } from "../settings.js";
   export default {
     setup() {
       //Noen reffer vi trenger 
@@ -66,16 +69,29 @@
       //Lag ny bruker funksjon
       async function bliMedlem() {
         try{
+          settings.value.loading = true;
           var creds = await firebase.default.auth().createUserWithEmailAndPassword(email.value, password.value);
-          await creds.user.updateProfile({
-            displayName: "222"
+          var user = await firebase.default.auth().currentUser;
+          var db = await firebase.firestore();
+          await db.collection("users").doc(user.uid).set({
+            username: ,
+            state: "CA",
+            country: "NORGE"
           })
-          window.location = window.location.origin + "/secret";
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+          window.location = window.location.origin + `/secret`;
         }
         catch(e){
           error.value = e.message;
         }
-        
+        finally{
+          settings.value.loading = false;
+        }
       }
       return {
         bliMedlem,
@@ -83,6 +99,8 @@
         password,
         brukernavn,
         error,
+        spinner,
+        settings,
       }
     }
   }

@@ -11,6 +11,10 @@ nav,
     margin-top: 100px;
 }
 
+.container{
+    max-width: 900px !important;
+}
+
 html {
     margin: 0;
 }
@@ -188,7 +192,9 @@ li {
 }
 
 .stillingsSøkeKnapp{
-    margin-top:18px;
+    margin-top:22px;
+    margin-right:-10px;
+    margin-left:30px;
 }
 
 .search {
@@ -778,12 +784,27 @@ label {
     font-weight: 900;
 }
 
-.more {
+.høyre:hover, .venstre:hover{
+    background-color: rgb(212, 212, 212);
+}
+
+.høyre:active, .venstre:active{
+    background-color: rgb(180, 180, 180);
+}
+
+.more .dropdown-menu {
     color: #4e4e4e;
+    min-width:130px !important;
 }
 
 .stillingsTittel{
     font-family: Lato;
+}
+
+.loadingSpinner{
+    width:20px;
+    height:20px;
+    font-weight: 100;
 }
 
 .gjørTilClickable {

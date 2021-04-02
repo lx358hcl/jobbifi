@@ -1,6 +1,6 @@
 <template>
-	<main class="homepage">
-		<div style="margin-bottom: 100px; margin-top:90px;" class="container">
+	<main class="homepage px-3">
+		<div style="margin-bottom: 100px; margin-top:90px;" class="container stillingsContainer">
 			<!-- Hele siden befinner seg på denne rowen -->
 			<div v-if="settings.entireResponse && settings.entireResponse.info.antall['deltid']" class="row">
 					<!--Filtersiden-->
@@ -24,7 +24,35 @@
 								<li class="list-group-item border-0 filter p-0 ml-1">
 									<input class="gjørTilClickable" id="rare" name="rare" :checked="settings.rare" type="checkbox" @click="rarifiser($event.target.checked);" />
 									<label class="gjørTilClickable pl-2 mb-1" for="rare">
-										Vis stillinger uten spesifisert frist
+										Vis stillinger uten frist
+										<span class="filterAntall"></span>
+									</label>
+								</li>
+							</ul>
+						</div>
+
+						<!--Fra Kilde -->
+						<div class="kilde">
+							<p class="card-title filtertypeTittel mb-2 mt-3">Vis fra:</p>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input class="gjørTilClickable" v-bind:checked="settings.source.includes('ifijobs')" @click="changeSource(['source', 'ifijobs', $event.target.checked])" type="checkbox" id="ifinavet" />
+									<label class="gjørTilClickable pl-2 mb-1" for="ifinavet">
+										ifinavet.no
+										<span class="filterAntall"></span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input class="gjørTilClickable" v-bind:checked="settings.source.includes('arbeidsplassen')" @click="changeSource(['source', 'arbeidsplassen', $event.target.checked])" type="checkbox" id="nav" />
+									<label class="gjørTilClickable pl-2 mb-1" for="nav">
+										nav.no
+										<span class="filterAntall"></span>
+									</label>
+								</li>
+								<li class="list-group-item border-0 filter p-0 ml-1">
+									<input class="gjørTilClickable" v-bind:checked="settings.source.includes('finn')" @click="changeSource(['source', 'finn', $event.target.checked])" type="checkbox" id="finn" />
+									<label class="gjørTilClickable pl-2 mb-1" for="finn">
+										finn.no
 										<span class="filterAntall"></span>
 									</label>
 								</li>
@@ -132,7 +160,7 @@
 						<div class="ferdigheter">
 							<p class="card-title filtertypeTittel mb-2 mt-3">Ferdigheter</p>
 							<ul class="list-group list-group-flush">
-								<li v-for="teknologi in settings.entireResponse.info.alleTeknologierInfo.unikeTeknologier" v-bind:key="teknologi" class=" d-flex align-items-center list-group-item border-0 filter p-0 ml-1">
+								<li v-for="teknologi in settings.entireResponse.info.alleTeknologierInfo.unikeTeknologier.sort((a, b) => settings.tekno.includes(b) - settings.tekno.includes(a))" v-bind:key="teknologi" class=" d-flex align-items-center list-group-item border-0 filter p-0 ml-1">
 									<input class = "gjørTilClickable" @click=" changeTekno(['skill', teknologi, $event.target.checked])" v-bind:name="teknologi" type="checkbox" v-bind:id="teknologi" v-bind:checked="settings.tekno.includes(teknologi)" v-bind:value="settings.tekno.includes(teknologi)"/>
 									<label class="pl-2 mb-1 gjørTilClickable" v-bind:for="teknologi">
 										{{ teknologi }}
@@ -164,9 +192,9 @@
 
 											<!--Knappene i søkeseksjonen-->
 											<div class="col-4 d-flex align-items-start pr-0 justify-content-end">
-												<div style="" class="btn-group w-100 d-flex align-items-center pr-0">
+												<div style="" class="btn-group w-100 d-flex align-items-center pr-1">
 													<button class="border-0 søkeInnstillinger rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															Vis {{ settings.limit }} per side
+															Vis {{ settings.limit }}
 													</button>
 													<div class="dropdown-menu w-100">
 														<ul class="pl-4 ml-2 my-auto">
@@ -199,11 +227,11 @@
 												</div>
 												<div style="" class="btn-group w-100 d-flex align-items-center pr-0">
 													<button class="border-0 søkeInnstillinger sortør rounded p-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-														Viser {{ settings.sort == "down" ? "nyeste først" : settings.sort == "up" ? "eldste først" : settings.sortFrist == "down" ? "" : "Stillinger med frist om lenge" }}
+														Viser {{ settings.sort == "down" ? "nyeste" : settings.sort == "up" ? "eldste" : settings.sortFrist == "down" ? "" : "Stillinger med frist om lenge" }}
 													</button>
 													<div class="dropdown-menu w-100">
 														<ul class="pl-4 ml-2 my-auto">
-															<li>
+															<!--<li>
 																<input @click="sorter(['sortFrist', 'down', $event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="nyesteFristFørst" id="nyesteFristFørst" value="nyesteFristFørst" :checked="settings.sortFrist == 'down'" />
 																<label class="form-check-label gjørTilClickable" for="nyesteFristFørst">
 																	Søknadsfrist <i class="fas fa-sort-numeric-up"></i>
@@ -214,17 +242,17 @@
 																<label class="form-check-label gjørTilClickable" for="eldsteFristFørst">
 																	Søknadsfrist <i class="fas fa-sort-numeric-down"></i>
 																</label>
-															</li>
+															</li>-->
 															<li>
 																<input @click="sorter(['sortDate','down',$event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="nyesteDatoFørst" id="nyesteDatoFørst" value="nyesteDatoFørst" :checked="settings.sort == 'down'" />
 																<label class="form-check-label gjørTilClickable" for="nyesteDatoFørst">
-																	Publiseringsdato <i class="fas fa-sort-numeric-up"></i>
+																	Nyeste først
 																</label>
 															</li>
 															<li>
 																<input @click="sorter(['sortDate','up',$event.currentTarget.checked,])" class="form-check-input gjørTilClickable" type="radio" name="eldsteDatoFørst" id="eldsteDatoFørst" value="eldsteDatoFørst" :checked="settings.sort == 'up'" />
 																<label class="form-check-label gjørTilClickable" for="eldsteDatoFørst">
-																	Publiseringsdato <i class="fas fa-sort-numeric-down"></i>
+																	Eldste først
 																</label>
 															</li>
 														</ul>
@@ -260,7 +288,7 @@
 							<!--Stillinger containeren -->
 							<div class="container my-0 p-2">
 								<!-- Loadingspinneren -->
-								<div class = "stillingsContainer d-flex justify-content-center">
+								<div class = "d-flex justify-content-center">
 									<spinner class="p-0 m-0" style="width:20px; height:20px;" v-if="settings.loading == true" />
 								</div>
 								<!-- Stillingscontainer -->
@@ -290,20 +318,20 @@
 												</div>
 
 												<div>
-													<div class="col-11 m-0 p-0 ok d-flex align-items-center">
+													<div class="col-10 ml-1 pt-2 ok d-flex align-items-center drag">
 														<a v-for="(key, val) in job.teknologier" :key="val" class="link">{{ key }}</a>
 													</div>
 												</div>
 												<br>
 												
-												<div class = "stillingsSøkeKnapp ml-5 mr-2 d-flex align-items-center">
+												<div class = "stillingsSøkeKnapp d-flex align-items-center">
 													<div class="d-flex justify-content-center mx-auto søkeButton card-1 align-items-center">
 														<a v-bind:href="job.url" class="søkeStillingKnapp text-center">
 															SØK
 														</a>
 													</div>
 													<div class="d-flex align-items-center justify-content-end">
-														<div class="dropdown">
+														<div class="dropdown more">
 															<button class="more btn btn-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																<i class="fas fa-ellipsis-h"></i>
 															</button>
@@ -346,8 +374,8 @@
 	function axiosMe() {
 		settings.value.loading = true;
 		console.log(settings);
-		console.log(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`);
-		axios.get(`http://localhost:3000/api/jobs?${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`)
+		console.log(`http://localhost:3000/api/jobs?source=${settings.value.source.join("+")}&${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`);
+		axios.get(`http://localhost:3000/api/jobs?source=${settings.value.source.join("+")}&${settings.value.sort ? 'sortDate' : 'sortFrist'}=${settings.value.sort ? settings.value.sort : settings.value.sortFrist}&type=${settings.value.type.join("+")}&search=${settings.value.search}&frist=${settings.value.frist}+${settings.value.ingenUtløpte}&tekno=${settings.value.tekno.join("+")}&page=${settings.value.page}&limit=${settings.value.limit}&rare=${settings.value.rare}`)
 			.then(function(response) {
 				console.log("da ble loading endret");
 				settings.value.data = response.data.data;
@@ -356,7 +384,8 @@
 				alleTeknologierInfo.value = response.data.info.alleTeknologierInfo;
 				settings.value.entireResponse.info.antall = response.data.info.antall;
 				console.log(entireResponse.value);
-				console.log(router.currentRoute);
+				console.log(router.currentRoute);							
+
 				if (window.location.pathname != "/stillinger") {
 					router.push("/stillinger")					
 				} 
@@ -425,6 +454,15 @@
 				settings.value.page = 1;
 				axiosMe();
 			}
+			//Tekno
+			function changeSource(message) {
+				var [type, query, state] = message;
+				console.log(message);
+				if (state) settings.value.source.push(query);
+				else settings.value.source.splice(settings.value.source.indexOf(query), 1);
+				settings.value.page = 1;
+				axiosMe();
+			}
 			//Pagination funksjon
 			function paginate(e) {
 				settings.value.page = e.target.textContent;
@@ -477,6 +515,7 @@
 				searchQuery,
 				rarifiser,
 				ingenUtløpte,
+				changeSource,
 			};
 		},
 		computed: {

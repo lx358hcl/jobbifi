@@ -2,7 +2,7 @@
   <div class = "d-flex justify-content-center">
     <div style class = "d-flex justify-content-center align-items-center">
       <!-- Til Venstre-->
-      <div @click="forrige();" class = "paginatorBoks gjørTilClickable">
+      <div @click="forrige();" class = "venstre paginatorBoks gjørTilClickable">
         <i style="font-size:30px;" class="bi gjørTilClickable bi-chevron-left"></i>
       </div>
       
@@ -23,7 +23,7 @@
       </div>
 
       <!-- Til Høyre -->
-      <div @click="neste();" class = "paginatorBoks gjørTilClickable">
+      <div @click="neste();" class = "høyre paginatorBoks gjørTilClickable">
         <i style="font-size:30px;" class="bi gjørTilClickable bi-chevron-right"></i>
       </div>
     </div>
