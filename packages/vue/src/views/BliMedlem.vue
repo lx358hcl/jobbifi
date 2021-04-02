@@ -74,9 +74,7 @@
           var user = await firebase.default.auth().currentUser;
           var db = await firebase.firestore();
           await db.collection("users").doc(user.uid).set({
-            username: ,
-            state: "CA",
-            country: "NORGE"
+            username: brukernavn.value,
           })
         .then(() => {
             console.log("Document successfully written!");
