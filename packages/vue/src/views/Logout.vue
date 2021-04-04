@@ -9,7 +9,7 @@
 <script>
   export default {
     setup() {
-      
+      window.location = window.location.origin + "/";
       return {
 
       }

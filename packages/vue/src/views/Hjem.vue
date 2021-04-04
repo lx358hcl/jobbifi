@@ -10,9 +10,16 @@
 
 <script>
   import søkeform from "../components/søkeform.vue";
+  import router from "../router/index.js";
   export default {
     setup() {
       console.log("hjem");
+      if(window.history.state.back == "logout"){
+        iziToast.success({
+            title: 'Lagret',
+            message: 'Kontoinformasjon oppdatert',
+        });
+      }
       return {
         søkeform,
       }

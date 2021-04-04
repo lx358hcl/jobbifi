@@ -13,7 +13,7 @@
                   <h1 id="velkomstMelding">
                     <b>~ Jobbifi&nbsp;</b> | &nbsp;<i>Login ~</i>
                   </h1>
-                  <hr>
+                  <hr >
                 </div>
                 <p class="mb-4 pb-0 login-card-description">Login på kontoen din</p>
                 <form v-on:submit.prevent="login()">
@@ -33,7 +33,7 @@
                     </button>
                   </form>
                 <a href="#!" class="forgot-password-link logRegGreier">Glemt passordet?</a>
-                <p class="mt-3 mb-3 login-card-footer-text logRegGreier"><a href="#!" class="text-reset">Har du ikke bruker? Lag bruker her</a></p>
+                <p class="mt-3 mb-3 login-card-footer-text logRegGreier"><router-link to="/blimedlem" class="text-reset">Har du ikke bruker? Lag bruker her</router-link></p>
                 <nav class="login-card-footer-nav logRegGreier">
                   <router-link to="/retningslinjer" href="#!">Retningslinjer og personvern</router-link>
                 </nav>
@@ -60,7 +60,7 @@
         try{
           settings.value.loading = true;
           await firebase.default.auth().signInWithEmailAndPassword(email.value, password.value);
-          window.location = window.location.origin + "/secret";
+          window.location = window.location.origin + "/konto";
         }
         catch(e){
           error.value = e.message;

@@ -4,15 +4,15 @@
             <div class="innerButton">
                 <i class="fas fa-bars moreIcon"></i>
                 <div>
-                    <img v-if="false" src="https://a0.muscache.com/im/pictures/user/3b988e75-6db4-41f5-a458-18be84ec0d31.jpg?aki_policy=profile_medium">
-                    <i class="fas fa-user-circle"></i>
+                    <img v-if="profilBilde" class = "d-flex align-items-center" style="border-radius:100px" height="26" width="26" :src="profilBilde">
+                    <i v-else class="fas fa-user-circle"></i>
                 </div>
             </div>
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex justify-content-center">
                 <div v-if="user">
-                    <router-link to="/secret" href="#" class="dropdown-item">Konto </router-link>
+                    <router-link to="/konto" href="#" class="dropdown-item">Konto </router-link>
 
                     <router-link class="dropdown-item" to="/varsler"> Varsler
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
@@ -35,7 +35,14 @@
 
 <script>
     //Import firebase
-    import * as firebase from "firebase";
+    import firebase from "../main.js";
+    import firestore from 'firebase/firestore';
+    import { ref } from "vue";
+    var user = ref("");
+    var profilBilde = ref("");
+    var db = "";
+    var dbInfo = "";
+    
     //Logg ut funksjon
     function logOut() {
         firebase.default.auth().signOut();
@@ -44,10 +51,21 @@
     //Setup funksjon
     export default {
         setup() {
-            var user = firebase.default.auth().currentUser;
+            
+            async function getInfo(){
+                user.value = await firebase.default.auth().currentUser;
+                db = await firebase.firestore();
+                dbInfo = await db.collection("users").doc(user.value.uid).get();
+                dbInfo = await dbInfo.data();
+                profilBilde.value = dbInfo.profilbilde;
+                console.log(profilBilde);
+            }
+            getInfo();
+            
             return {
                 user,
                 logOut,
+                profilBilde,
             }
         }
     }

@@ -294,10 +294,10 @@
 								<!-- Stillingscontainer -->
 								<div class="row" v-if="settings.loading == false" >
 									<h5 class = "m-auto" v-if="settings.data.length == 0">Det finnes ingen stillinger med de søkekriteriene :(</h5>
-									<div v-for="job in settings.data" :key="job.id" class="col-sm-6 col-lg-4 p-2">
+									<div v-for="job in settings.data" :key="job.id" class="col-sm-6 col-lg-6 p-2">
 										<div style="min-height: 480px" class="boksen card">
 											<div style="width: 75%; height: 180px" class="d-flex align-items-center card-img my-auto mx-auto">
-												<img style="width: 80%; max-height: 180px" class="my-auto mx-auto card-img-top pt-4" :src="job.companyImage" alt="Card image cap" />
+												<img style="width: 90%; max-height: 170px" class="my-auto mx-auto card-img-top pt-4" :src="job.companyImage" alt="Card image cap" />
 											</div>
 											<!--Stilling -->
 											<div style="min-height: 360px; max-height: 360px" class="card-body enkeltStilling">
@@ -312,13 +312,13 @@
 													</div>
 													<div class="col-12 m-0 p-0 card-text">
 														<p>
-															{{ 170 > job.teaser.length ? job.teaser.slice(0, 170) + '...' : job.teaser.trim() }}
+															{{ 250 > job.teaser.length ? job.teaser.slice(0, 250) + '' : job.teaser.trim() }}
 														</p>
 													</div>
 												</div>
 
 												<div>
-													<div class="col-10 ml-1 pt-2 ok d-flex align-items-center drag">
+													<div class="col-11 ml-1 pt-0 ok d-flex align-items-center drag">
 														<a v-for="(key, val) in job.teknologier" :key="val" class="link">{{ key }}</a>
 													</div>
 												</div>

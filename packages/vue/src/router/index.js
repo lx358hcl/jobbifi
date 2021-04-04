@@ -14,6 +14,7 @@ import ApiRedirect from "./ApiRedirect.vue";
 import Stilling from "@/views/Stilling.vue";
 
 import Secret from "../views/Secret.vue";
+import Bruker from "../views/Bruker.vue";
 import About from "../views/About.vue";
 import Logout from "../views/Logout.vue";
 import Lagrede from "../views/Lagrede.vue";
@@ -22,7 +23,6 @@ import Meldinger from "../views/Meldinger.vue";
 import Varsler from "../views/Varsler.vue";
 
 import * as firebase from "firebase";
-import { settings } from "../settings.js";
 
 const routes = [
   {
@@ -85,10 +85,15 @@ const routes = [
     component: Stilling,
   },
   {
-    path: "/secret",
-    name: "secret",
+    path: "/konto",
+    name: "konto",
     component: Secret,
     meta: { requiresAuth: true }
+  },
+  {
+    path: "/bruker/",
+    name: "Bruker",
+    component: Bruker,
   },
   {
     path: "/login",
@@ -145,9 +150,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const isAuthenticated = firebase.default.auth().currentUser;
-  if(settings.loading){
-    next();
-  }
   if (requiresAuth && !isAuthenticated) {
     next("/login");
   } 

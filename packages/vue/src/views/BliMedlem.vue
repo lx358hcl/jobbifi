@@ -17,7 +17,24 @@
                   <hr>
                 </div>
                 <p class="mb-4 pb-0 login-card-description">Opprett en ny konto</p>
-               <form method="post" v-on:submit.prevent="bliMedlem();">
+               <form class = "container" method="post" v-on:submit.prevent="bliMedlem();">
+                  <div class="form-group mb-2">
+
+                    <!--Velg profilbilde -->
+                    <!--<div class="avatar-upload gjørTilClickable">
+                        <div class="avatar-edit">
+                            <input v-on:change="readURL($event.target)" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                            <label for="imageUpload"></label>
+                        </div>
+                        <label for="imageUpload" class = "gjørTilClickable">
+                          <div class="avatar-preview">
+                              <div id="imagePreview" style="background-image: url(happydog.jpg">
+                              </div>
+                          </div>
+                        </label>
+                    </div>-->
+
+                  </div>
                   <div class="form-group mb-2">
                     <label for="email" class="sr-only">Email</label>
                     <input required type="email" v-model="email" name="email" id="email" class="form-control" placeholder="E-postadresse">
@@ -58,14 +75,15 @@
   import { ref } from "vue";
   import spinner from "../components/spinner.vue";
   import { settings } from "../settings.js";
+
+  //Noen reffer vi trenger 
+    var email = ref("");
+    var password = ref("");
+    var brukernavn = ref("");
+    var error = ref("");
+
   export default {
     setup() {
-      //Noen reffer vi trenger 
-      var email = ref("");
-      var password = ref("");
-      var brukernavn = ref("");
-      var error = ref("");
-
       //Lag ny bruker funksjon
       async function bliMedlem() {
         try{
@@ -73,8 +91,17 @@
           var creds = await firebase.default.auth().createUserWithEmailAndPassword(email.value, password.value);
           var user = await firebase.default.auth().currentUser;
           var db = await firebase.firestore();
+          console.log(brukernavn);
           await db.collection("users").doc(user.uid).set({
             username: brukernavn.value,
+            fornavn: "",
+            etternavn: "",
+            profilbilde: "https://i.redd.it/b5xmgi712hs51.jpg",
+            sosialt: "",
+            omMeg: "Apparently, this user prefers to keep an air of mystery about them.",
+            linkedn: "",
+            github: "",
+            nettside: "",
           })
         .then(() => {
             console.log("Document successfully written!");
@@ -82,10 +109,11 @@
         .catch((error) => {
             console.error("Error writing document: ", error);
         });
-          window.location = window.location.origin + `/secret`;
+          window.location = window.location.origin + `/konto`;
         }
         catch(e){
-          error.value = e.message;
+          console.log(e);
+          error.value = e ;
         }
         finally{
           settings.value.loading = false;

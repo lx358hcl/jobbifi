@@ -34,6 +34,7 @@
 var axios = require("axios");
 import { settings } from "../settings.js";
 import { axiosMe } from "../views/Stillinger.vue";
+import spinner from "../components/spinner.vue";
 
 export default {
   props: {
@@ -45,21 +46,24 @@ export default {
     }
   },
 setup(props){
-  function neste(){
+  console.log(settings.value);
+  async function neste(){
     if(!props.totalt) return null;
     else if(settings.value.page == props.totalt) return null;
     settings.value.page = settings.value.page + 1;
-    axiosMe();
+    await axiosMe();
   }
-  function forrige(){
+  async function forrige(){
     if(!props.totalt) return null;
     else if(settings.value.page == 1) return null;
     settings.value.page = settings.value.page - 1;
-    axiosMe();
+    await axiosMe();
   }
     return{
       neste,
       forrige,
+      settings,
+      spinner,
     }
   }
 }
