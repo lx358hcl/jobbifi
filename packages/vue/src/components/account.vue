@@ -1,32 +1,37 @@
 <template>
     <div class="dropdown bossButton" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <a class="outerButton h-100 d-flex justify-content-center align-items-center" href="#">
-            <div class="innerButton">
-                <i class="fas fa-bars moreIcon"></i>
+            <div class="innerButton d-flex justify-content-center ">
+                <i class="fas fa-bars moreIcon float-left"></i>
                 <div>
-                    <img v-if="profilBilde" class = "d-flex align-items-center" style="border-radius:100px" height="26" width="26" :src="profilBilde">
-                    <i v-else class="fas fa-user-circle"></i>
+                    <div v-if="loading">
+                        <spinner></spinner>
+                    </div>
+                    <div v-else>
+                        <img v-if="profilBilde" class = "navProfilBilde d-flex align-items-center" style="border-radius:100px" :src="profilBilde">
+                        <i v-else class="fas fa-user-circle"></i>
+                    </div>
                 </div>
             </div>
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex justify-content-center">
-                <div v-if="user">
-                    <router-link to="/konto" href="#" class="dropdown-item">Konto </router-link>
+                <div style = "letter-spacing:0px" v-if="user">
+                    <router-link class="accountText py-1 dropdown-item" to="/konto" href="#" >Konto </router-link>
 
-                    <router-link class="dropdown-item" to="/varsler"> Varsler
-                        <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
+                    <router-link class="accountText py-1 dropdown-item" to="/varsler"> Varsler
+                        <span class="badge badge-danger">32</span>
                     </router-link>
                     <!--<router-link class="dropdown-item" to="/meldinger"> Meldinger
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
                     </router-link>-->
                     <hr style="" class="mx-3 my-2">
-                    <router-link class="dropdown-item" to="/lagrede"> Lagret </router-link>
+                    <router-link class="accountText py-1 dropdown-item" to="/lagrede"> Lagret </router-link>
                     <a href="#" @click="logOut();" class="dropdown-item"> Logg ut </a>
                 </div>
                 <div v-else>
-                    <router-link class="dropdown-item" to="/login"> Login </router-link>
-                    <router-link class="dropdown-item" to="/blimedlem"> Bli medlem </router-link>
+                    <router-link class="accountText py-1 dropdown-item" to="/login"> Login </router-link>
+                    <router-link class="accountText py-1 dropdown-item" to="/blimedlem"> Bli medlem </router-link>
                 </div>
             </div>
         </div>
@@ -35,17 +40,20 @@
 
 <script>
     //Import firebase
-    import firebase from "../main.js";
+    import firebaseApp from "../../../firebase/firebaseconfig.js";
     import firestore from 'firebase/firestore';
     import { ref } from "vue";
+    import spinner from "./spinner.vue";
+    import notification from "./notification.vue";
     var user = ref("");
     var profilBilde = ref("");
     var db = "";
     var dbInfo = "";
+    var loading = ref(true);
     
     //Logg ut funksjon
     function logOut() {
-        firebase.default.auth().signOut();
+        firebaseApp.auth().signOut();
         window.location = window.location.origin + "/login";
     }
     //Setup funksjon
@@ -53,12 +61,16 @@
         setup() {
             
             async function getInfo(){
-                user.value = await firebase.default.auth().currentUser;
-                db = await firebase.firestore();
-                dbInfo = await db.collection("users").doc(user.value.uid).get();
-                dbInfo = await dbInfo.data();
-                profilBilde.value = dbInfo.profilbilde;
-                console.log(profilBilde);
+                user.value = await firebaseApp.auth().currentUser;
+                if(user.value){
+                    db = await firebaseApp.firestore();
+                    dbInfo = await db.collection("users").doc(user.value.uid).get();
+                    dbInfo = await dbInfo.data();
+                    profilBilde.value = dbInfo.profilbilde;
+                    console.log(profilBilde);
+                    loading.value = false;
+                }
+                else loading.value = false;
             }
             getInfo();
             
@@ -66,68 +78,10 @@
                 user,
                 logOut,
                 profilBilde,
+                loading,
+                spinner,
+                notification,
             }
         }
     }
 </script>
-
-<style>
-    .outerButton {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 90px !important;
-        height: 45px !important;
-        background-color: #fff;
-        border-radius: 105px;
-        margin-left: 30px;
-        margin-right: 15px;
-        box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 65%);
-    }
-    .outerButton:active {
-        box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 65%);
-        transform: scale(0.99);
-    }
-    .outerButton>a {
-        text-decoration: none;
-        color: transparent;
-    }
-    .innerButton {
-        display: inherit;
-        justify-content: space-between;
-        align-items: inherit;
-        width: 100%;
-        height: 100%;
-        padding: 5px;
-        margin-left: 5px;
-    }
-    .innerButton>* {
-        padding: 0 10px 0 10px;
-        font-size: 26px;
-        color: #313131;
-    }
-    .bossButton .dropdown-menu {
-        min-width: 100px !important;
-        margin: 10px !important;
-        padding: 10px !important;
-        border-radius:10px;
-        left:-20px !important;
-    }
-    .bossButton .dropdown-menu .dropdown-item{
-        background-color:transparent;
-    }
-    .dropdown-menu .dropdown-item:active {
-        color: black;
-        background-color: none !important;
-        transform: scale(0.97) !important;
-    }
-    .dropdown-menu .dropdown-item:hover {
-        border-radius: 10px;
-        font-weight: 900 !important;
-        left: -20px;
-        background-color: #fff;
-    }
-    .moreIcon {
-        font-size: 16px;
-    }
-</style>

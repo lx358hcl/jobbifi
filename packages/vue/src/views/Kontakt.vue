@@ -1,12 +1,13 @@
 <template>
-  <main class="pt-5 homepage container">
-    <div class="stackedit__html kontaktSkjema">
-      <h2>
+  <main class="container center">
+    <div class="row beholder center">
+      <div class="col-12">
+       <h2>
         <strong style="font-family: 'Goudy Bookletter 1911', serif !important">
           Send oss en melding
         </strong>
       </h2>
-      <form method="post" v-on:submit.prevent="sendEpost()">
+      <form class = "kontaktSkjema" method="post" v-on:submit.prevent="sendEpost()">
         <div>
           <div class="form-group">
             <hr>
@@ -29,26 +30,21 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-12 p-0 w-100">
-              <button type="submit" class="btn btn-dark p-3 w-25 mt-3">
+              <button type="submit" class="btn btn-dark p-3 mt-3">
                   <span>Send Melding</span>
                 </button>
             </div>
           </div>
         </div>
       </form>
-      <br>
-      <br>
-      <br>
-      <br>
+    </div>
     </div>
   </main>
 </template>
 
 <script>
   import axios from "axios";
-  import {
-    ref
-  } from "vue";
+  import { ref } from "vue";
   export default {
     setup() {
       var [navn, emne, senderEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];

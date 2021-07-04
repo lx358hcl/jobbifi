@@ -1,10 +1,11 @@
 <template>
-  <main class="pt-5 homepage container">
-    <div class="stackedit__html">
+  <main class="container center">
+    <div class="row beholder center">
+      <div class="col-12">      
       <h2>
         <strong style="font-family: 'Goudy Bookletter 1911', serif !important">
-            Retningslinjer og personvern
-          </strong>
+          Retningslinjer og personvern
+        </strong>
       </h2>
       <hr>
       <p><em>Disse retningslinjene gjelder fra og med 24. novemeber 2020.</em></p>
@@ -25,10 +26,7 @@
       <p><strong>Kontakt</strong></p>
       <p>Utviklerne kan kontaktes angående retningslinjene på følgende epost: <a href="mailto:momcilovicbrothers@gmail.com">momcilovicbrothers@gmail.com</a></p>
       <p>Luka Momcilovic and Igor Momcilovic</p>
-      <br>
-      <br>
-      <br>
-      <br>
+    </div>
     </div>
   </main>
 </template>

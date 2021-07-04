@@ -1,9 +1,94 @@
 //Puppeteer crawler for Finn.no, arbeidsplassen.no og ifinavet.no
 //Kun IT-relaterte stillinger, ingen duplikater
 
-//Needed stuff
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+//Firebase Pusher
+import admin from "firebase-admin";
+import puppeteer from "puppeteer";
+import fs from "fs";
+
+var serviceAccount = {
+    "type": "service_account",
+    "project_id": "nevet-9e3ed",
+    "private_key_id": "15c001f768d2b401fc81e32770a5971f87702b5f",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCZabupSJqtP5bD\nSSduKNzz8rD3XLjWkcJn5mTUZZvXa5wMJNUqZZIV6AP+KIMJQK8i/d7BY2Xz9V4F\nmTabAwXobQzRPcisW4nZVqVGhJ1BegrSN3Prp+EQTfknDi730eJSsh/tLyDvjerg\n+8R067PBW7aZfKwOTdOHENym/HjQlW0TEnyigitfVSQ/pnCK7pkbBJpFD7VQFaOt\nAWhBX9ATMAb/L1j3w7tQ693u48fHfILfcIdcDGLNbd5Za5dXkfjGUsrsj64EXHLI\nGdaJ4D/+FnNSnHX72muXCEIG+GKd/teJre6ILOOxtkoWv6vSII/o8S/B5r/FLQJt\nS1OUDo0DAgMBAAECggEAByGarN8asrWMb0KhbHOhibvBmwTjq0bfj90lInQgaowc\nKUzscOnxN34KzgtHMcfp0xcCR2B95ucWkRF8C1PBpdWIcf6xYg5DQyfNy0c8RmlV\negKyK3xNlLG7MjZIJO3MAC/NhGlttcve5RIl2LWF4ygY9Lb8LsjkyQXMotg7mXnt\nFTlxqP15M+JyjoZOuvwfXIsp4joE1k9DfT0Mc6ybMokecijZQ5BIr7XuiaBvqoS5\nIk4eCbRp52u39E5sj43Fg93Jvk/3/LMIO+HYi6Ql7B/R7e25e2LJUCOpg7AGGTUx\nkmTQ5SI6QnKafSag+K0tvxhrrTswzO4aLHU2GM7fwQKBgQDW6DX6t/6RdQnr9+lc\nZcfIFCFADALRvaazagydC2Ip3hREeDJLg9kC6NrtizfDnLc1GTd9ZK+dCvvJOxBZ\nAgL4l7HU5O24xTRHmP3U0DYNNRYSxX7Ri5mWqn0QJQ2QCkUZhDOJHo1wR/xHRptE\nCPv/ueK+6akuWtlk3V9soBOhoQKBgQC2v1z0kohQm8bLiDcVvb5bzh8vFMrYhisI\na7oa2WrzYrxWDbRRCmK44xw9E44KO7ZvaLietRIQbj2N8ZVJC1RmaJLsojquNPOI\nor5uJY1+7pkJSUhI1VuzE7eUzsja8ukC4QLjolWvWw5u7IX+Rlz2M10y3qZwNlSa\nZ+nc3hL0IwKBgCE82NxmCKFGkLpGJXl85GE1e88EDIuT4WxuQnUnhY8kIc5VKLI1\nOiMREIsctQsz+cHknIhwQhjv0fFViTm67eq0y3Q50+p31ZYdO2TmrvVr+HX+xZZz\nGNYMmDse//H/JKDFqZLTftyWxZXgfbMQEKmEfmU4jkn1ExpegpuyRlcBAoGBAJiI\nHyEwEUEe1I3bUwb9iZ5868BTXX/edJqhuANjB4bAGazF4YRm48GoJlDAOqVF898H\njFlDjyFRsmUAiHcgUsDrdf625b20CrU4CTRMec7BfdCnbwMDunc89NTqx/EgIOa7\nQrsXKuejW+ev2aNDvaHte1PTTR6J6pG6PBOS9ET7AoGAZF2hgvy9hO6wdW8/d+zC\nrtYjiSUhyAVM0iMiRrfAUoTVw3DzY+VgCUOoldhQdqvJGMXoLFA2PcLScTOblTqo\nCFywCiSXK/t5Bc/PYdE5ig70qCPMEqGmiJr6s56RT5Ym4xQQwFdSU3MsXJ6DpJvn\nh/bi9VFFEeX3zQrXKYRddag=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-mzwef@nevet-9e3ed.iam.gserviceaccount.com",
+    "client_id": "103535212802088334955",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-mzwef%40nevet-9e3ed.iam.gserviceaccount.com"
+}
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://nevet-9e3ed-default-rtdb.europe-west1.firebasedatabase.app"
+});
+
+//Firestore pusher
+async function pushToFirestore(){
+  var db = admin.firestore();
+  var dataRaw = fs.readFileSync("./crawler/data.json");
+  var dataRawParsed = JSON.parse(dataRaw);
+  dataRawParsed = dataRawParsed.jobs;
+  var settInnHistorikk = {};
+
+  //Pusher vi ny data til database
+  console.log("kjører innleggelse");
+  for(let i = 0; i < dataRawParsed.length; i++){
+    //Sjekk om dokumentet finnes
+    console.log(dataRawParsed[i].id)
+    var jobb = await db.collection("jobs").doc(dataRawParsed[i].id).get();
+    settInnHistorikk[dataRawParsed[i].id] = true;
+    console.log(jobb.exists);
+
+    if(jobb.exists == true){
+      var jobbData = jobb.data();
+      console.log("den finnes fra før, overskriver");
+      // console.log(jobbData);
+      await db.collection("jobs").doc(dataRawParsed[i].id).set({
+        "americanDate": jobbData.americanDate ? jobbData.americanDate : "ingen dato",
+        "companyImage": jobbData.companyImage ? jobbData.companyImage : "null",
+        "companyName": jobbData.companyName ? jobbData.companyName : "null",
+        "date": jobbData.date ? jobbData.date : "ingen dato",
+        "frist": jobbData.frist ? jobbData.frist : "ingen frist",
+        "opprinnelse": jobbData.opprinnelse ? jobbData.opprinnelse : "feil",
+        "originalPosition": jobbData.originalPosition ? jobbData.originalPosition : "feil",
+        "originalURL": jobbData.originalURL ? jobbData.originalURL : "feil",
+        "position": jobbData.position ? jobbData.position : "feil",
+        "sted": jobbData.sted ? jobbData.sted : jobbData.fulltSted,
+        "teaser": jobbData.teaser ? jobbData.teaser : "Ingen sammendrag.",
+        "teknologier": jobbData.teknologier ? jobbData.teknologier : [],
+        "title": jobbData.title ? jobbData.title : "Ingen tittel",
+        "url": jobbData.url ? jobbData.url : "null",
+      })
+    }
+    else if(jobb.exists == false){
+      await db.collection("jobs").doc(dataRawParsed[i].id).set(dataRawParsed[i]);
+      console.log("den er ny, legger til");
+      console.log(jobbData.title)
+    }
+  }
+
+  //Fjerner det som ikke ble oppdatert eller lagt til 
+  var keys = Object.keys(settInnHistorikk);
+  console.log("FERDIG");
+  console.log(settInnHistorikk);
+
+  for(let i = 0; i < keys.length; i++){
+    var bleDetLagtTil = await db.collection("jobs").doc(keys[i]).get();
+    console.log(keys[i]);
+    console.log()
+    if(bleDetLagtTil.exists == false){
+      console.log("den ble IKKE LAGT TIL TIDLIGERE, fjern den");
+      console.log()
+      await db.collection("jobs").doc(keys[i]).delete()
+    }
+    else{
+      console.log("den ble lagt til fortsett");
+    }
+  }
+}
+
 var data = {};
 var jobs = []
 
@@ -34,54 +119,60 @@ var dato = `${dag}.${måned}.${år}`;
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  //ifinavet.no begynner her
-  //Login i ifinavet
-  await page.goto("https://ifinavet.no/login", { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => {
-    document.querySelector(".input-group.login-field").querySelector("input").value = "lukamo";
-    document.querySelector(".input-group.password-field").querySelector("input").value = "InspiredElement24120019";
-    document.querySelector(".btn.btn-lg.btn-block").click();
-  });
-  await page.waitFor(2000);
-
-  //Gå gjennom alle jobbene (30 er satt vilkårlig, det blir aldri så mange stillinger)
-  for(let i = 0; i < 30; i++){
-    await page.goto(`https://ifinavet.no/api/jobs?page=${i}`, { waitUntil: 'domcontentloaded' });
-    var webpage = await page.evaluate(() => {
-      return document.querySelector("body").textContent;
+  try{
+    //ifinavet.no begynner her
+    //Login i ifinavet
+    await page.goto("https://ifinavet.no/login", { waitUntil: 'domcontentloaded' });
+    await page.evaluate(() => {
+      document.querySelector(".input-group.login-field").querySelector("input").value = "lukamo";
+      document.querySelector(".input-group.password-field").querySelector("input").value = "InspiredElement24120019";
+      document.querySelector(".btn.btn-lg.btn-block").click();
     });
-    jobs.push(webpage);
+    await page.waitFor(2000);
+
+    //Gå gjennom alle jobbene (30 er satt vilkårlig, det blir aldri så mange stillinger)
+    for(let i = 0; i < 30; i++){
+      await page.goto(`https://ifinavet.no/api/jobs?page=${i}`, { waitUntil: 'domcontentloaded' });
+      var webpage = await page.evaluate(() => {
+        return document.querySelector("body").textContent;
+      });
+      jobs.push(webpage);
+    }
+
+    //Finpuss av innholdet, husker ikke helt hvorfor dette med flat() og mapping var nødvendig men whatever
+    jobs = jobs.map(e => JSON.parse(e));
+    jobs = jobs.map(e => e.events);
+    jobs = jobs.flat();
+    jobs.forEach(e => {
+      e.frist = e.date;
+      e.date = dato;
+      e.opprinnelse = "ifijobs";
+      e.companyImage = `https://ifinavet.no/images/original/${e.companyImage}`;
+    });
+
+    //Legg til teknologier ved å skanne igjennom tittel og about etter ord i tecnologies.
+    var technologies = ["vue", "web", "clojure", "linux", "C++", "trusseletteretning", "sikkerhetsanalyse", "logganalyse", "redux", "genus", "node", "app", "backend", "frontend", "swift", "dart", "go", "kafka", "flutter", "javascript", "python", "kotlin", "react", "java", "azure", "node.js", "kubernetes", "docker", "typescript", "mongodb", "mysql", "css", "html", "ux", "ui", "design", "machine learning", "C", "net", "c#", "sql", "uml", "ai", "webdesign", "uml", "angular", "aws", "platform.sh", "nosql", "api", "soap", "github", "gitlab", "php", "powershell", "reactjs", "vuejs", "angularjs", "google"];
+    jobs.forEach(e => {
+      var text = (e.about + " " + e.title).match(/[A-Åa-å+]+/gi, " ");
+      e["teknologier"] = [...new Set(text.filter(e => technologies.includes(e.toLowerCase())))];
+    });
+
+    //Sett stillingstypen til små bokstaver
+    jobs.forEach(e => e.position = e.position.toLowerCase());
+
+    //Lag et amerikansk dato objekt av dato-en allerede i jobben + legg til ifinavet URL-en og sted.
+    jobs.forEach(f => {
+      f.americanDate = f.frist;
+      f.americanDate = f.americanDate.split(".");
+      f.americanDate = new Date(switcharoo(f.americanDate).join(".")).getTime();
+      f.originalURL = `https://www.ifinavet.no/job/${f.id}`;
+      f.id = f.id;
+      f.sted = "Oslo";
+    });
   }
+  catch{
 
-  //Finpuss av innholdet, husker ikke helt hvorfor dette med flat() og mapping var nødvendig men whatever
-  jobs = jobs.map(e => JSON.parse(e));
-  jobs = jobs.map(e => e.events);
-  jobs = jobs.flat();
-  jobs.forEach(e => {
-    e.frist = e.date;
-    e.date = dato;
-    e.opprinnelse = "ifijobs";
-    e.companyImage = `https://ifinavet.no/images/original/${e.companyImage}`;
-  });
-
-  //Legg til teknologier ved å skanne igjennom tittel og about etter ord i tecnologies.
-  var technologies = ["vue", "web", "clojure", "linux", "C++", "trusseletteretning", "sikkerhetsanalyse", "logganalyse", "redux", "genus", "node", "app", "backend", "frontend", "swift", "dart", "go", "kafka", "flutter", "javascript", "python", "kotlin", "react", "java", "azure", "node.js", "kubernetes", "docker", "typescript", "mongodb", "mysql", "css", "html", "ux", "ui", "design", "machine learning", "C", "net", "c#", "sql", "uml", "ai", "webdesign", "uml", "angular", "aws", "platform.sh", "nosql", "api", "soap", "github", "gitlab", "php", "powershell", "reactjs", "vuejs", "angularjs", "google"];
-  jobs.forEach(e => {
-    var text = (e.about + " " + e.title).match(/[A-Åa-å+]+/gi, " ");
-    e["teknologier"] = [...new Set(text.filter(e => technologies.includes(e.toLowerCase())))];
-  });
-
-  //Sett stillingstypen til små bokstaver
-  jobs.forEach(e => e.position = e.position.toLowerCase());
-
-  //Lag et amerikansk dato objekt av dato-en allerede i jobben + legg til ifinavet URL-en og sted.
-  jobs.forEach(f => {
-    f.americanDate = f.frist;
-    f.americanDate = f.americanDate.split(".");
-    f.americanDate = switcharoo(f.americanDate);
-    f.originalURL = `https://www.ifinavet.no/job/${f.id}`;
-    f.sted = "Oslo";
-  });
+  }
 
   //Finn.no begynner her
   //Gå gjennom alle jobbene (30 er satt vilkårlig, det blir aldri så mange stillinger)
@@ -125,8 +216,11 @@ var dato = `${dag}.${måned}.${år}`;
         //About
         obj["about"] = document.querySelector(".import-decoration").innerHTML;
 
+        //About pure
+        obj["aboutPure"] = obj["about"].replace(/<[^>]*>?/gm, '').replace(/(&nbsp;)/gi, " ");
+
         //Teaser
-        obj["teaser"] = obj["about"].replace(/(<([^>]+)>)/ig, '').slice(0, 170) + " ...";
+        obj["teaser"] = obj["about"].replace(/(<([^>]+)>)/ig, '').replace(/(&nbsp;)/gi, " ").slice(0, 170) + " ...";
 
         //Annen stillingsinfo
         var info = document.querySelectorAll(".definition-list")[0].innerText.split("\n");
@@ -140,12 +234,15 @@ var dato = `${dag}.${måned}.${år}`;
         //Gjør fristen om til amerikansk dato
         //Amerikansk dato - Gjør fristen om til amerikansk dato
         if(isNaN(parseInt(obj.frist))) {
-          obj["americanDate"] = JSON.stringify(new Date());
+          obj["americanDate"] = JSON.stringify(new Date().getTime());
         }
         else{
           obj["americanDate"] = obj.frist.split(".");
-          obj["americanDate"] = switcharoo(obj["americanDate"]);
+          obj["americanDate"] = new Date(switcharoo(obj["americanDate"]).join(".")).getTime();
         }
+
+        //Id
+        obj["id"] = window.location.search.slice(window.location.search.indexOf("=") + 1);
 
         //Søkeknapp
         var søkeKnapp;
@@ -223,6 +320,8 @@ var dato = `${dag}.${måned}.${år}`;
     //Vent litt for å unngå null-buggen
     await page.waitFor(1500);
 
+    console.log("done waiting");
+
     //Injiser scriptet nedenfor inn i siden
     var stilling = await page.evaluate((alleStillinger, i, technologies) => {
 
@@ -237,8 +336,16 @@ var dato = `${dag}.${måned}.${år}`;
         return a;
       }
 
-      // Navn på stillingen
-      obj["title"] = document.querySelector(".Stilling__h1").textContent;
+      //Navn på stillingen
+      var tittel = "null";
+      try{
+        tittel = document.querySelector(".Stilling__h1").textContent;
+      } 
+      catch{ 
+        console.log("en feil");
+        console.log("en feil");
+      };
+      obj["title"] = tittel;
 
       //Opprinnelse
       obj["opprinnelse"] = "arbeidsplassen";
@@ -254,9 +361,12 @@ var dato = `${dag}.${måned}.${år}`;
       
       //Frist
       obj["frist"] = alleStillinger[i].frist;
-
+ 
       //Dato
       obj["date"] = alleStillinger[i].date;
+
+      //ID
+      obj["id"] = window.location.pathname.slice(window.location.pathname.indexOf("stilling/") + 9);
 
       //Amerikansk dato - Gjør fristen om til amerikansk dato
       if(isNaN(parseInt(obj.frist))){
@@ -264,19 +374,30 @@ var dato = `${dag}.${måned}.${år}`;
       }
       else{
         obj["americanDate"] = obj.frist.split(".");
-        obj["americanDate"] = switcharoo(obj["americanDate"]);
+        obj["americanDate"] = new Date(switcharoo(obj["americanDate"]).join(".")).getTime();
       }
 
       //About
-      obj["about"] = document.querySelector(".AdText").innerHTML;
+      var aboutText = null;
+      try{
+        obj["about"] = document.querySelector(".AdText").innerHTML;
+      }
+      catch { 
+
+      };
 
       //Teaser
-      obj["teaser"] = obj["about"].replace(/(<([^>]+)>)/ig, '').slice(0, 170) + " ...";
+      try{
+        obj["teaser"] = obj["about"].replace(/(<([^>]+)>)/ig, '').replace(/(&nbsp;)/gi, " ").slice(0, 170) + " ...";
+      }
+      catch{
+        obj["teaser"] = "null";
+      }
 
       //Stillingstype
       var index = [...document.querySelectorAll(".detail-section__body > .dl-flex.typo-normal > dt")].findIndex(e => e.textContent == "Heltid/deltid:");
-      if(index != -1 || !index)  {
-        obj["position"] = document.querySelectorAll(".detail-section__body > .dl-flex.typo-normal > dd")[index];
+      if(index != -1 || !index){
+        obj["position"] = document.querySelectorAll(".detail-section__body > .dl-flex.typo-normal > dd")[index].textContent;
       }
       else {
         obj["position"] = "NoeAnnet";
@@ -303,15 +424,15 @@ var dato = `${dag}.${måned}.${år}`;
       var text = (obj.about + " " + obj.title).match(/[A-Åa-å+]+/gi, " ");
       obj["teknologier"] = [...new Set(text.filter(e => technologies.includes(e.toLowerCase())))];
 
-      return obj;
+      return JSON.stringify(obj);
     }, alleStillinger, i, technologies);
 
-    jobs.push(stilling);
+    jobs.push(JSON.parse(stilling));
   }
 
-  //Gi alle stillingene en ID og gjør typen jobb mer ensformig
+  //Gi alle stillingene en antall Likes og gjør typen jobb mer ensformig
   jobs = jobs.filter(e => e);
-  jobs.forEach((e, i) =>  e["id"] = i);
+  jobs.forEach((e, i) =>  e["likes"] = 0);
   jobs.forEach(e => {
     if(!e.position) console.log(e);
     e.originalPosition = e.position.toLowerCase();
@@ -329,9 +450,12 @@ var dato = `${dag}.${måned}.${år}`;
   data["jobs"] = jobs;
 
   //Lagre data
-  fs.writeFileSync('./packages/api/data/data.json', JSON.stringify(data));
+  fs.writeFileSync('./crawler/data.json', JSON.stringify(data));
 
   //Close the crawler
   await browser.close()
+
+  //Push to firebase
+  pushToFirestore();
 
 })();

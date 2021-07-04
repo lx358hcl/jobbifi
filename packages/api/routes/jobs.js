@@ -1,95 +1,41 @@
 //Instantiate
-var express = require("express");
+import express from 'express';
+import firebaseApp from "../../firebase/firebaseconfig.js";
+
+// For the default version 
+import algoliasearch from 'algoliasearch'; 
+
+// For the search only version 
+const client = algoliasearch('0Z5J6B61BT', 'a298ec04554ffe5a8bdd490352dd474e'); 
+const algoliaIndex = client.initIndex('jobbifijobs');
+
 var router = express.Router();
-var data = require("../data/data.json");
 var allowedKeys = ["search", "tekno", "type", "frist", "sortDate", "rare", "sortFrist", "id", "limit", "page", "source"];
 
-//Jobs-route dirigent
-router.get("/api/jobs", function (request, response){
-    if(Object.keys(request.query).length == 0) sendAll(request, response);
-    else if(Object.keys(request.query).every(e => allowedKeys.includes(e))) searchHandler(request, response);
+
+//Jobs-route dirigent   
+router.get("/api/jobs", async function (request, response){
+    if(Object.keys(request.query).length == 0) await sendAll(request, response);
+    else if(Object.keys(request.query).every(key => allowedKeys.includes(key))) {
+        await searchHandler(request, response);
+    }
     else response.send("Ugyldig API-call. Sjekk query-parametrene dine. Feilen har opphav i query-stringen.")
 });
 
 //Send all jobs to user
-var sendAll = (request, response) => response.send(data.jobs)
+var sendAll = (request, response) => response.send("l");
 
 //Search handler
-var searchHandler = (request, response) => response.send(functions(request, response));
+async function searchHandler(request, response){
+    response.send(await functions(request, response));
+}
 
 //This function gets called when searching jobs
-function functions(request, response){
-    var limit = request.query.limit;
-    var page = request.query.page;
-    var antall = {};
-    var results = {
-        "data": data.jobs,
-        "info": {
-            "antall": "",
-            "alleTeknologierInfo": "",
-        }
-    }
-    var alleTeknologierInfo = {
-        "unikeTeknologier": [...new Set(results.data.reduce((a, c) => a.concat(c.teknologier.map(e => e.toLowerCase())), []))],
-        "antallStillingerPerTeknologi": {},
-        "alleTeknologier": results.data.reduce((a, c) => a.concat([...new Set(c.teknologier.map(e => e.toLowerCase()))]), []),
-        "antallStillingerPerFrist": {
-            "7": 0,
-            "30": 0,
-            "90": 0,
-            "9000": 0,
-        },
-    }
-    function finnAntall() {
-        antall["fulltid"] = results.data.reduce((a, c) => c.position == "fulltid" ? 1 + a : 0 + a, 0);
-        antall["deltid"] = results.data.reduce((a, c) => c.position == "deltid" ? 1 + a : 0 + a, 0);
-        antall["annet"] = results.data.reduce((a, c) => c.position == "annet" ? 1 + a : 0 + a, 0);
-        for (let el of alleTeknologierInfo.alleTeknologier) {
-            alleTeknologierInfo.antallStillingerPerTeknologi[el] = alleTeknologierInfo.antallStillingerPerTeknologi[el] ?
-            alleTeknologierInfo.antallStillingerPerTeknologi[el] + 1 : 1;
-        }
-        var temp = [];
-        var dagensDato = new Date();
-        results.data.forEach(e => {
-            var frist = new Date(e.americanDate);
-            var differanse = (frist - dagensDato) / 86400000;
-            if (differanse < 7) alleTeknologierInfo.antallStillingerPerFrist["7"] = alleTeknologierInfo
-            .antallStillingerPerFrist["7"] + 1;
-            if (differanse < 30) alleTeknologierInfo.antallStillingerPerFrist["30"] = alleTeknologierInfo
-            .antallStillingerPerFrist["30"] + 1;
-            if (differanse < 90) alleTeknologierInfo.antallStillingerPerFrist["90"] = alleTeknologierInfo
-            .antallStillingerPerFrist["90"] + 1;
-            if (differanse <  9000) alleTeknologierInfo.antallStillingerPerFrist["9000"] = alleTeknologierInfo
-            .antallStillingerPerFrist["9000"] + 1;
-        });
-        return temp;
-    }
-    finnAntall();
-    results.info.antall = antall;
-    results.info.alleTeknologierInfo = alleTeknologierInfo;
+async function functions(request, response){
+    var søkeOrd = request.query;
+    //Først får vi tak i all av tekstrepresentasjon
+    var results = await algoliaIndex.search(søkeOrd);
 
-    var resterende = [];
-    for(let e of Object.entries(request.query)){
-        if(["sortFrist", "sortDate"].includes(e[0])){
-            resterende.push(e);
-            continue;
-        }
-        else if(e[0] == "limit" || e[0] == "page") continue;
-        var [query, parameter] = e;
-        results.data = allFunctions[query](parameter, results.data);
-    }
-
-    for(let i = 0; i < resterende.length; i++){
-        var [query, parameter] = resterende[i];
-        results.data = allFunctions[query](parameter, results.data);
-    }
-    results.totalt = results.data.length;
-
-    if(limit && page) {
-        results.data = allFunctions.page([limit, page], results.data);
-    }
-    else if(limit) results.data = allFunctions.limit(limit, results.data);
-    else if(page) return "Du kan ikke bruke 'page'-parameteren uten å spesifisere 'limit'. De kan ikke adskilles. F.eks. /api/jobs?limit=10&page=2";
     return results;
 }
 
@@ -194,9 +140,10 @@ var allFunctions = {
         var fullText = "";
         var temp = [];
         result.forEach(e => {
-            fullText = e.teknologier.join(" ") + " " + e.about.toLowerCase() + " " + e.title.toLowerCase() + " " + e.teaser.toLowerCase();
+            fullText = e.teaser.toLowerCase() + " " + e.about.toLowerCase();
             fullText = [...new Set(fullText.split(" "))].join(" ");
             if((fullText.match(regex) || []).length > 0){
+                console.log("OK");
                 temp.push(e);
             } 
         });
@@ -266,8 +213,6 @@ var allFunctions = {
         return temp;
     },
     rare(request, result){
-
-
         if(request == '') {
             return result;
         }
@@ -291,4 +236,4 @@ var allFunctions = {
 }
 
 //Export it
-module.exports = router;
+export default router;

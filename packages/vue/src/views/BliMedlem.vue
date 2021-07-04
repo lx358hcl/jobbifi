@@ -1,132 +1,168 @@
 <template>
-
-    <div class="homepage loginSide d-flex align-items-center justify-content-center">
-    <div class="my-5 container mx-5" style = "max-width:1000px;">
-      <div class="card login-card">
-        <div class="row no-gutters">
-          <div class="col-md-5">
-            <img src="../../public/lampe.jpg" alt="login" class="login-card-img">
-          </div>
-          <div class="col-md-7">
-            <div class="container text-center">
-              <div class="card-body">
-                <div class="brand-wrapper">
-                  <h1 id="velkomstMelding">
-                    <b>~ Jobbifi&nbsp;</b> | &nbsp;<i>Registrer ~</i>
-                  </h1>
-                  <hr>
-                </div>
-                <p class="mb-4 pb-0 login-card-description">Opprett en ny konto</p>
-               <form class = "container" method="post" v-on:submit.prevent="bliMedlem();">
-                  <div class="form-group mb-2">
-
-                    <!--Velg profilbilde -->
-                    <!--<div class="avatar-upload gjørTilClickable">
-                        <div class="avatar-edit">
-                            <input v-on:change="readURL($event.target)" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                            <label for="imageUpload"></label>
-                        </div>
-                        <label for="imageUpload" class = "gjørTilClickable">
-                          <div class="avatar-preview">
-                              <div id="imagePreview" style="background-image: url(happydog.jpg">
-                              </div>
-                          </div>
-                        </label>
-                    </div>-->
-
-                  </div>
-                  <div class="form-group mb-2">
-                    <label for="email" class="sr-only">Email</label>
-                    <input required type="email" v-model="email" name="email" id="email" class="form-control" placeholder="E-postadresse">
-                  </div>
-                  <div class="form-group mb-2">
-                    <label for="username" class="sr-only">Brukernavn</label>
-                    <input required type="username" v-model="brukernavn" name="username" id="username" class="form-control" placeholder="Brukernavn">
-                  </div>
-                  <div class="form-group mb-2">
-                    <label for="password" class="sr-only">Password</label>
-                    <input required type="password" v-model="password" name="password" id="password" class="form-control" placeholder="Passord">
-                  </div>
-                   <div class="form-group mb-2">
-                    <label for="bekreftPassord" class="sr-only">Bekreft passord</label>
-                    <input type="password" name="bekreftPassord" id="bekreftPassord" class="form-control" placeholder="Bekreft passord">
-                  </div>
-                    <div class="error" v-if="error">{{ error }}</div>           
-                    <br>
-                  <button type="submit" id="bliMedlem" class="logRegGreier btn btn-block login-btn mb-4" >
-                    <spinner v-if="settings.loading" class = "loadingSpinner"></spinner>
-                    <span v-else>Opprett Konto</span>
-                  </button>
-                </form>
-                <nav class="login-card-footer-nav logRegGreier">
-                  <router-link to="/retningslinjer">Retningslinjer og personvern</router-link>
-                </nav>
+  <main>
+    <section class="login-clean loginRegister fyllSkjermen d-flex align-items-center">
+      <div class="container">
+        <div class="row no-gutters row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 justify-content-center" style="padding-right: 40px;padding-left: 40px;">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" style="border-bottom-left-radius: 30px; border-top-left-radius: 30px; padding-right: 0px;padding-left: 0px; background: url(assets/img/rom.jpg) no-repeat center center; 
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;"></div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="padding-right: 0px;padding-left: 0px;">
+            <form v-on:submit.prevent="opprettBruker();" class="d-flex flex-column justify-content-center align-content-center loginRegisterFormene" id="loginBoks" method="post">
+              <h2 class="sr-only">Login Form</h2>
+              <div class="illustration">
+                <p class="animate__animated animate__slower animate__swing" style="font-family: 'Goudy Bookletter 1911', serif;color: rgb(45,45,45);font-weight: 900;margin-bottom: 0px;">&amp;</p>
+                <hr>
+                <p style="color: rgb(20,20,20);font-family: Spectral, serif;font-size: 20px;font-style: italic;text-align: center;"><strong>Opprett en konto</strong></p>
+                <hr>
               </div>
-            </div>
+              <div class="form-group"><input required type="email" v-model="email" class="form-control" name="email" placeholder="E-post" style="font-family: Lato, sans-serif;font-weight: normal;"></div>
+              <div class="form-group"><input required type="text" v-model="brukernavn" class="form-control" name="brukernavn" placeholder="Brukernavn" style="font-family: Lato, sans-serif;font-weight: normal;"></div>
+              <div class="form-group d-flex flex-row">
+                <input id="passord" required type="password" class="form-control" v-model="password" name="password" placeholder="Passord" style="font-family: Lato, sans-serif;font-weight: normal;" />
+                <div @click="visPassord" id="visPassord" class="d-flex justify-content-center align-items-center" tabindex="0" style="cursor:pointer; background: rgb(247,249,252); border-bottom: 1px solid rgb(223,231,241);width: 50px;">
+                  <i id = "showPasswordEye" class="fas fa-eye-slash"></i>
+                </div>
+              </div>
+              <p class="error mb-0 mt-2 py-0 text-center text-danger" v-if="true">{{ error }}</p>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit" style="color: rgb(255, 255, 255);background: #212529;font-family: Lato, sans-serif;font-weight: bold;">
+                  <spinner v-if="loading" class="loadingSpinner"></spinner>
+                  <span v-else>Opprett konto</span>
+                </button>
+                <p style="color:red;" class="text-center error mb-1 mt-4 py-0">{{ errorTekst }}</p>
+              </div>
+              <router-link class="forgot hitLinks" to="/retningslinjer">Ved å registrere deg så godtar du <b><br>Retningslinjer og personvern</b></router-link>
+            </form>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
-  import firebase from "../main.js";  
+  import firebaseApp from "../../../firebase/firebaseconfig.js";
+  import firestore from 'firebase/firestore';
   import { ref } from "vue";
   import spinner from "../components/spinner.vue";
   import { settings } from "../settings.js";
 
   //Noen reffer vi trenger 
-    var email = ref("");
-    var password = ref("");
-    var brukernavn = ref("");
-    var error = ref("");
+  var email = ref("");
+  var password = ref("");
+  var brukernavn = ref("");
+  var errorTekst = ref("");
+  var user = ref("");
+  var db = firebaseApp.firestore();
+  var usersRef;
+  var loading = ref(false);
+
+  //OpprettBruker
+  async function opprettBruker() {
+    loading.value = true;
+    if(await finnesBrukernavn(brukernavn.value) == false) await bliMedlem();
+    loading.value = false;
+  }
+
+  //Legg til i feeden funksjon
+  async function addToFeed(type, uid, timestamp) {
+    try {
+      await db.collection("feed").doc("registrationFeed").collection("allRegistrations").doc(uid).set({
+        type: type,
+        uid: uid,
+        timestamp: timestamp,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Vis passord funksjon
+  function visPassord(element) {
+    var passordElement = document.querySelector("#passord");
+    var passordØye = document.querySelector("#showPasswordEye");
+
+    if (passordElement.type == "password"){
+      passordElement.type = "text";
+      passordØye.classList.remove("fa-eye-slash");
+      passordØye.classList.add("fa-eye");
+    }
+    else{
+      passordElement.type = "password";
+      passordØye.classList.remove("fa-eye");
+      passordØye.classList.add("fa-eye-slash");
+    }
+  }
+
+  //Finnes bruker funksjon
+  async function finnesBrukernavn(verdi) {
+    var bruker = await db.collection("usersIndex").doc(verdi).get();
+    if(bruker.exists){
+      errorTekst.value = "Det brukernavnet finnes fra før, velg et annet";
+      return true;
+    }
+    else{
+      console.log("den brukeren finnes ikke");
+      return false;
+    }
+  }
+
+  //Legg bruker til usersIndex
+  async function addToUsersIndex(str){
+    await db.collection("usersIndex").doc(str).set({});
+  }
+
+  //Lag ny bruker funksjon
+  async function bliMedlem() {
+    try {
+      await firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value);
+      user.value = await firebaseApp.auth().currentUser;
+      await db.collection("users").doc(user.value.uid).set({
+        brukernavn: brukernavn.value,
+        fornavn: "",
+        etternavn: "",
+        profilbilde: "https://i.redd.it/b5xmgi712hs51.jpg",
+        omMeg: "Apparently, this user prefers to keep an air of mystery about them.",
+        linkedIn: "",
+        gitHub: "",
+        nettside: "",
+        passord: password.value,
+        epost: email.value,
+        uid: user.value.uid,
+        lagret: [],
+      })
+      await addToUsersIndex(brukernavn.value);
+      await addToFeed("registrering", user.value.uid, new Date().getTime());
+      window.location = window.location.origin + '/konto';
+    } 
+    catch (error) {
+      if (error.code == "auth/email-already-in-use") errorTekst.value = "Den eposten er allerede i bruk";
+      else if (error.code == "auth/weak-password") errorTekst.value = "Passordet ditt må være minst 6 tegn langt";
+      else {
+        console.log(error);
+        errorTekst.value = "Det har oppstått en uventet feil. Kontakt Igor eller Luka.";
+      }
+    } 
+    finally {
+      loading.value = false;
+    }
+  }
 
   export default {
     setup() {
-      //Lag ny bruker funksjon
-      async function bliMedlem() {
-        try{
-          settings.value.loading = true;
-          var creds = await firebase.default.auth().createUserWithEmailAndPassword(email.value, password.value);
-          var user = await firebase.default.auth().currentUser;
-          var db = await firebase.firestore();
-          console.log(brukernavn);
-          await db.collection("users").doc(user.uid).set({
-            username: brukernavn.value,
-            fornavn: "",
-            etternavn: "",
-            profilbilde: "https://i.redd.it/b5xmgi712hs51.jpg",
-            sosialt: "",
-            omMeg: "Apparently, this user prefers to keep an air of mystery about them.",
-            linkedn: "",
-            github: "",
-            nettside: "",
-          })
-        .then(() => {
-            console.log("Document successfully written!");
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        });
-          window.location = window.location.origin + `/konto`;
-        }
-        catch(e){
-          console.log(e);
-          error.value = e ;
-        }
-        finally{
-          settings.value.loading = false;
-        }
-      }
+
       return {
         bliMedlem,
         email,
         password,
         brukernavn,
-        error,
+        errorTekst,
         spinner,
-        settings,
+        loading,
+        visPassord,
+        opprettBruker,
       }
     }
   }

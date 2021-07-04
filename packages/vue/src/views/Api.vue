@@ -1,7 +1,8 @@
 <template>
- <main class="pt-5 homepage container">
-    <div class="stackedit__html">
-      <h2>
+ <main class=" container">
+    <div class="row beholder">
+      <div class="col-10">
+        <h2>
         <strong style="font-family: 'Goudy Bookletter 1911', serif !important">
           API
         </strong>
@@ -9,10 +10,11 @@
         <hr>
         <h3 id="entry-pointsene-for-api-en">Entry-pointsene for API-en:</h3>
         <hr>
-        <pre><code>/api/ifievents
-/api/jobs
-/api/tekna
-</code></pre>
+        <pre><code>
+        /api/ifievents
+          /api/jobs
+          /api/tekna
+        </code></pre>
         <p>|⇒ Direkte bruk av disse vil returnere alle lagrede elementer for dets gitte kategori.</p>
         <p
           id="det-er-også-mulig-å-utføre-mer-spesifikke-søk-av-de-indekserte-elementene-ved-å-ta-i-bruk-følgende-paramtere">
@@ -133,9 +135,6 @@
           <strong><em>JSON</em></strong>-format.</h3>
         <hr>
       </div>
-      <br>
-      <br>
-      <br>
-      <br>
+      </div>
   </main>
 </template>

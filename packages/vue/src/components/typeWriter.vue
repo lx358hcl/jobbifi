@@ -1,8 +1,10 @@
 <!-- Dette skriver teksten på velkommen-siden -->
 
 <template>
-    <div class="skrivUtContainer d-flex justify-content-center align-items-center row">
-        <p id="skrivUt"></p>
+    <div class = "d-flex align-items-center">
+        <p id="skrivUt" style = "font-size:0.75em !important;">
+        
+        </p>
     </div>
 </template>
 
@@ -19,7 +21,7 @@
                     loop: true,
                 });
                 typewriter
-                    .typeString('Trenger du jobb?')
+                    .typeString('Studerer du informatikk/design?')
                     .pauseFor(1000)
                     .deleteAll(20)
                     .typeString('Er du utvikler/designer?')
@@ -36,9 +38,7 @@
                     .deleteAll(20)
                     .start();
             });
-            return {
-
-            }
+            return {  }
         }
     }
 </script>

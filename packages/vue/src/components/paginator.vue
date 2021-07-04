@@ -1,69 +1,30 @@
 <template>
-  <div class = "d-flex justify-content-center">
-    <div style class = "d-flex justify-content-center align-items-center">
-      <!-- Til Venstre-->
-      <div @click="forrige();" class = "venstre paginatorBoks gjørTilClickable">
-        <i style="font-size:30px;" class="bi gjørTilClickable bi-chevron-left"></i>
-      </div>
-      
-      <!-- Paginator Elementet-->
-      <div class = "paginatorBoks">
-        <div class = "paginatorBoks border-0">{{ page }}</div>
-      </div>
-      
-
-      <!--Av-->
-      <div class = "paginatorBoks">
-        <p style ="font-size:24px;"> av </p>
-      </div>
-
-      <!--Høyre -->
-      <div class = "paginatorBoks">
-        <div class = "paginatorBoks border-0">{{ totalt ? totalt : "..." }}</div>
-      </div>
-
-      <!-- Til Høyre -->
-      <div @click="neste();" class = "høyre paginatorBoks gjørTilClickable">
-        <i style="font-size:30px;" class="bi gjørTilClickable bi-chevron-right"></i>
-      </div>
+  <div class="row d-flex flex-row justify-content-center align-items-center align-content-center">
+    <div class="col d-flex justify-content-center align-items-center align-content-center" style="font-size: 18px;margin-bottom: 9px; margin-top:9px;">
+      <div></div>
+      <div class="list-group list-group-horizontal"><a class="list-group-item list-group-item-action d-flex justify-content-center align-items-center" tabindex="0" target="_parent"><span></span><i class="fa fa-chevron-left"></i></a>
+        <a class="list-group-item list-group-item-action disabled d-flex justify-content-center align-items-center">
+          <p style="margin-bottom: 0px;">{{ page + 1 }}</p><span></span>
+        </a>
+        <a class="list-group-item list-group-item-action disabled d-flex justify-content-center align-items-center">
+          <p style="margin-bottom: 0px;">av</p><span></span>
+        </a>
+        <a class="list-group-item list-group-item-action disabled d-flex justify-content-center align-items-center">
+          <p style="margin-bottom: 0px;">{{ totalPages }}</p><span></span>
+        </a><a class="list-group-item list-group-item-action d-flex justify-content-center align-items-center"><span></span><i class="fa fa-chevron-right"></i></a></div>
     </div>
   </div>
 </template>
 
 <script>
-var axios = require("axios");
-import { settings } from "../settings.js";
-import { axiosMe } from "../views/Stillinger.vue";
-import spinner from "../components/spinner.vue";
-
-export default {
-  props: {
-  	totalt: {
-      type: Number,
-  	},
-    page:{
-      type: Number,
-    }
+export default{
+  props:{
+    page: String,
+    totalPages: String,
   },
-setup(props){
-  console.log(settings.value);
-  async function neste(){
-    if(!props.totalt) return null;
-    else if(settings.value.page == props.totalt) return null;
-    settings.value.page = settings.value.page + 1;
-    await axiosMe();
-  }
-  async function forrige(){
-    if(!props.totalt) return null;
-    else if(settings.value.page == 1) return null;
-    settings.value.page = settings.value.page - 1;
-    await axiosMe();
-  }
+  setup() {
     return{
-      neste,
-      forrige,
-      settings,
-      spinner,
+      
     }
   }
 }

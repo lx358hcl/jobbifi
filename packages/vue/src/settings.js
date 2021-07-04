@@ -27,7 +27,7 @@ else localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
 
 //Lagr settingsene i settings i localStorage
 var lagreEndringer = () => {
-    localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
+    // localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
     console.log(settings.value)
 }
 

@@ -15,14 +15,16 @@ import Stilling from "@/views/Stilling.vue";
 
 import Secret from "../views/Secret.vue";
 import Bruker from "../views/Bruker.vue";
-import About from "../views/About.vue";
 import Logout from "../views/Logout.vue";
 import Lagrede from "../views/Lagrede.vue";
 import Innstillinger from "../views/Innstillinger.vue";
 import Meldinger from "../views/Meldinger.vue";
 import Varsler from "../views/Varsler.vue";
+import GlemtPassord from "../views/GlemtPassord.vue";
+import Feed from "../views/Feed.vue";
 
-import * as firebase from "firebase";
+import firebaseApp from "../../../firebase/firebaseconfig.js";
+
 
 const routes = [
   {
@@ -34,6 +36,16 @@ const routes = [
     path: "/kontakt",
     name: "Kontakt",
     component: Kontakt,
+  },
+  {
+    path: "/feed",
+    name: "Feed",
+    component: Feed,
+  },
+  {
+    path: "/glemtpassord",
+    name: "GlemtPassord",
+    component: GlemtPassord,
   },
   {
     path: "/retningslinjer",
@@ -51,7 +63,7 @@ const routes = [
     component: Om,
   },
   {
-    path: "/stillinger",
+    path: "/stillinger/:searchQuery?",
     name: "Stillinger",
     component: Stillinger,
   },
@@ -65,7 +77,7 @@ const routes = [
     name: "Bli Medlem",
     component: BliMedlem,
     beforeEnter: async (to, from, next) => {
-      if(firebase.default.auth().currentUser) next("secret");
+      if(firebaseApp.auth().currentUser) next("konto");
       else next(); 
     }
   },
@@ -91,23 +103,19 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: "/bruker/",
+    path: "/bruker/:brukernavn",
     name: "Bruker",
     component: Bruker,
+    props: true,
   },
   {
     path: "/login",
     name: "login",
     component: Login,
     beforeEnter: async (to, from, next) => {
-        if(firebase.default.auth().currentUser) next("secret");
-        else next(); 
+      if(firebaseApp.auth().currentUser) next("konto");
+      else next(); 
     }
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: About
   },
   {
     path: "/logout",
@@ -149,7 +157,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const isAuthenticated = firebase.default.auth().currentUser;
+  const isAuthenticated = firebaseApp.auth().currentUser;
   if (requiresAuth && !isAuthenticated) {
     next("/login");
   } 
