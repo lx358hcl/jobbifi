@@ -1,5 +1,5 @@
 <template >
-<main class="page contact-us-page" style="min-height: calc(100vh - 294px);">
+<main class="page contact-us-page d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 294px);">
 <div v-if="loading" class = "d-flex justify-content-center">
     <spinner class = "d-flex justify-content-center"></spinner>
 </div>

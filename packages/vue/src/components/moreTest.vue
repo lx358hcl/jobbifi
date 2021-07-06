@@ -1,5 +1,5 @@
 <template class = "mt-3">
-    <div :id="id" class="content d-flex justify-content-center m-0">
+    <div v-if="stilling" :id="stilling.id" class="content d-flex justify-content-center m-0">
         <button @click="visMenu" class="shareButton buttonIcon d-flex align-items-center justify-content-center main m-0">
             <spinnerFont class = "spinIt d-flex align-items-center justify-content-center" v-if="loading"></spinnerFont>
             <i v-else class="fas fa-ellipsis-h"></i>
@@ -25,7 +25,6 @@
 
     export default {
         props: {
-            id: String,
             stilling: Object,
         },
         setup(props) {
@@ -35,29 +34,33 @@
             var loading = ref(false);
             var opened = ref(false);
 
+            console.log(props)
+
             async function lagreStilling() {
+                console.log(props.stilling)
                 var user = await firebaseApp.auth().currentUser;
                 var db = await firebaseApp.firestore();
                 var stillingKopi = props.stilling;
                 delete stillingKopi["_highlightResult"];
-                await db.collection("users").doc(user.uid).collection("lagret").doc(props.stilling.objectID).set(props.stilling);
+                console.log(props.stilling.id);
+                await db.collection("users").doc(user.uid).collection("lagret").doc(props.stilling.id).set(props.stilling);
             }
 
             async function like(){
                 console.log(props.stilling);
                 var user = await firebaseApp.auth().currentUser;
                 var db = await firebaseApp.firestore();
-                var likaStilling = await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.objectID).get();
+                var likaStilling = await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).get();
                 lika.value = likaStilling.exists;
                 if(lika.value == true){
-                    await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.objectID).delete();
-                    await db.collection("jobs").doc(props.stilling.objectID).update({
+                    await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).delete();
+                    await db.collection("jobs").doc(props.stilling.id).update({
                         "likes": firebase.firestore.FieldValue.increment(-1)
                     })
                 }
                 else{
-                    await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.objectID).set({});
-                    await db.collection("jobs").doc(props.stilling.objectID).update({
+                    await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).set({});
+                    await db.collection("jobs").doc(props.stilling.id).update({
                         "likes": firebase.firestore.FieldValue.increment(1)
                     })
                 }
@@ -69,9 +72,9 @@
                 loading.value = true;
                 var user = await firebaseApp.auth().currentUser;
                 var db = await firebaseApp.firestore();
-                var bookmark = await db.collection("users").doc(user.uid).collection("lagret").doc(props.stilling.objectID);
+                var bookmark = await db.collection("users").doc(user.uid).collection("lagret").doc(props.stilling.id);
                 var bookmarkData = await bookmark.get();
-                var likaStilling = await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.objectID).get();
+                var likaStilling = await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).get();
                 lika.value = likaStilling.exists;
                 console.log(lika.value);
                 bookmarka.value = await bookmarkData.exists;

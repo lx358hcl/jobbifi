@@ -16,7 +16,7 @@ export default{
     },
     setup(props, context){
         onMounted(() => {
-            focusInput.value.focus();
+            // focusInput.value.focus();
         })
         const route = useRoute();
         console.log(route.query.search);

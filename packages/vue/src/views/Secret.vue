@@ -66,7 +66,7 @@
                                 <p style="margin: 0px;margin-top: 10px;margin-bottom: 10px;font-family: Lato;font-size: 20px;font-weight: 900;">E-post</p><input v-model="email" type="text" style="width: 100%;padding-top: 5px;padding-bottom: 5px;border-radius: 3px;border: 1px solid rgb(200,200,200);height: 40px;padding-left: 10px;margin-left: 0px;">
                             </div>
                             <div class="col d-flex d-sm-flex flex-column justify-content-center justify-content-sm-center">
-                                <p style="margin: 0px;margin-top: 10px;margin-bottom: 10px;font-family: Lato;font-size: 20px;font-weight: 900;">Passord</p><input v-model="password" type="text" style="width: 100%;padding-top: 5px;padding-bottom: 5px;border-radius: 3px;border: 1px solid rgb(200,200,200);padding-left: 10px;height: 40px;" placeholder="Passord">
+                                <p style="margin: 0px;margin-top: 10px;margin-bottom: 10px;font-family: Lato;font-size: 20px;font-weight: 900;">Passord</p><input v-model="password" type="text" style="width: 100%;padding-top: 5px;padding-bottom: 5px;border-radius: 3px;border: 1px solid rgb(200,200,200);padding-left: 10px;height: 40px;" placeholder="Skriv inn nytt password her og trykk Lagre">
                             </div>
                         </div>
                         <p style="margin: 0px;margin-top: 10px;margin-bottom: 10px;font-family: Lato;font-size: 20px;font-weight: 900;">Lenker</p>

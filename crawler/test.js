@@ -55,7 +55,8 @@ async function pushToFirestore(){
         "teknologier": jobbData.teknologier ? jobbData.teknologier : [],
         "title": jobbData.title ? jobbData.title : "Ingen tittel",
         "url": jobbData.url ? jobbData.url : "null",
-      })
+      },
+      {merge: true})
     }
     else if(jobb.exists == false){
       await db.collection("jobs").doc(dataRawParsed[i].id).set(dataRawParsed[i]);

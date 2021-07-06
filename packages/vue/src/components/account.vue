@@ -19,9 +19,6 @@
                 <div style = "letter-spacing:0px" v-if="user">
                     <router-link class="accountText py-1 dropdown-item" to="/konto" href="#" >Konto </router-link>
 
-                    <router-link class="accountText py-1 dropdown-item" to="/varsler"> Varsler
-                        <span class="badge badge-danger">32</span>
-                    </router-link>
                     <!--<router-link class="dropdown-item" to="/meldinger"> Meldinger
                         <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
                     </router-link>-->

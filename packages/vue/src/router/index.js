@@ -22,6 +22,7 @@ import Meldinger from "../views/Meldinger.vue";
 import Varsler from "../views/Varsler.vue";
 import GlemtPassord from "../views/GlemtPassord.vue";
 import Feed from "../views/Feed.vue";
+import BesteSelskaper from "../views/BesteSelskaper.vue";
 
 import firebaseApp from "../../../firebase/firebaseconfig.js";
 
@@ -82,9 +83,9 @@ const routes = [
     }
   },
   {
-    path: "/bedrifter",
-    name: "Bedrifter",
-    component: Bedrifter,
+    path: "/besteselskaper",
+    name: "BesteSelskaper",
+    component: BesteSelskaper,
   },
   {
     path: "/api/:query",

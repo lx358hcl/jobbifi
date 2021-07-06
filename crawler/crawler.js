@@ -26,6 +26,7 @@ admin.initializeApp({
 
 //Firestore pusher
 async function pushToFirestore(){
+
   var db = admin.firestore();
   var dataRaw = fs.readFileSync("./crawler/data.json");
   var dataRawParsed = JSON.parse(dataRaw);
@@ -433,6 +434,9 @@ var dato = `${dag}.${måned}.${år}`;
   //Gi alle stillingene en antall Likes og gjør typen jobb mer ensformig
   jobs = jobs.filter(e => e);
   jobs.forEach((e, i) =>  e["likes"] = 0);
+  jobs.forEachh(e => {
+    e["lastmodified"] = new Date().getTime();
+  })
   jobs.forEach(e => {
     if(!e.position) console.log(e);
     e.originalPosition = e.position.toLowerCase();

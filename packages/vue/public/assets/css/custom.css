@@ -24,6 +24,11 @@
     padding:5px !important;
   }
 
+  .logo{
+    font-weight: 100 !important;
+    text-shadow: 1px 0px 0px #000;
+  }
+
   .clean-navbar{
     padding-top:5px !important;
     padding-bottom:5px !important;
@@ -1463,8 +1468,16 @@ i:hover{
   transform: scale(0);
 }
 
-/* @media (min-width: 100px) {
-  .collapse {
-    display: none !important;
-  }
-} */
+.shareButton{
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.backButton{
+  color:black;
+  cursor:pointer;
+}
+
+.backButton:hover{
+  filter: invert(1);
+}

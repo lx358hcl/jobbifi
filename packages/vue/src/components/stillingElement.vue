@@ -21,8 +21,8 @@
                         <span class="recipe-rating">★★★★<span>☆</span></span>
                         <span class="recipe-votes">(12 stemmer)</span>
                     </p>
-                    <p style = "word-break: break-word;" class="recipe m-0">{{ teaser }}</p>
-                    <more v-if="user" :stilling="stilling" :id = "id"></more>
+                    <p style = "word-break: break-word;" class="recipe m-0 mb-1">{{ teaser }}</p>
+                    <more class = "mt-3 mb-3" v-if="user" :stilling="stilling" :id = "id"></more>
                 </div>
             </div>
         </div>
