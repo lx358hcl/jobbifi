@@ -14,7 +14,7 @@
                     <h1 style = "text-shadow: 0px 0px 1px #000; letter-spacing:-1px; font-weight: 500;" class="mt-2 recipe-title">
                         <router-link :to="'/stilling/' + id">{{ title }}</router-link>
                     </h1>
-                    <p class="recipe-metadata">
+                    <p class="recipe-metadata py-1">
                         <span class="recipe-votes">av 
                             <router-link :to="'/' + id" class = "text-dark" href="#">{{ companyName + " "}}</router-link> 
                         </span>

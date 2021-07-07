@@ -4,13 +4,19 @@
             <spinnerFont class = "spinIt d-flex align-items-center justify-content-center" v-if="loading"></spinnerFont>
             <i v-else class="fas fa-ellipsis-h"></i>
         </button>
-        <button @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton fb m-0">
+        <a :href = "stilling.originalURL">
+            <button style = "color:#17171b; font-size: 16px;" :class = "{ open: opened }" class="btn btn-light p-3 font-weight-bold">
+                <span><i style = "font-size:14px;" class="fas fa-feather"></i></span>
+                <span class = "ml-2 text-dark">Søk på stillingen</span>
+            </button>
+        </a>
+        <button v-if="user" @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton fb m-0">
             <i :class = "{ bolded: bookmarka }" class="far fa-bookmark"></i>
         </button>
-        <button @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton tw m-0">
+        <button v-if="user" @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton tw m-0">
             <i :class = "{ bolded: lika }" class="far fa-thumbs-up"></i>
         </button>
-        <button @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton ig m-0">
+        <button @click="user ? click : null" :class = "{ open: true }" class="buttonIcon d-flex align-items-center justify-content-center shareButton ig m-0">
             <i class="far fa-flag"></i>
         </button>
     </div>
@@ -33,33 +39,35 @@
             var lika = ref(false);
             var loading = ref(false);
             var opened = ref(false);
+            var user = ref("");
 
             console.log(props)
 
             async function lagreStilling() {
                 console.log(props.stilling)
-                var user = await firebaseApp.auth().currentUser;
+                user.value = await firebaseApp.auth().currentUser;
                 var db = await firebaseApp.firestore();
                 var stillingKopi = props.stilling;
                 delete stillingKopi["_highlightResult"];
                 console.log(props.stilling.id);
-                await db.collection("users").doc(user.uid).collection("lagret").doc(props.stilling.id).set(props.stilling);
+                console.log(user.value);
+                await db.collection("users").doc(user.value.uid).collection("lagret").doc(props.stilling.id).set(props.stilling);
             }
 
             async function like(){
                 console.log(props.stilling);
-                var user = await firebaseApp.auth().currentUser;
+                user.value = await firebaseApp.auth().currentUser;
                 var db = await firebaseApp.firestore();
-                var likaStilling = await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).get();
+                var likaStilling = await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).get();
                 lika.value = likaStilling.exists;
                 if(lika.value == true){
-                    await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).delete();
+                    await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).delete();
                     await db.collection("jobs").doc(props.stilling.id).update({
                         "likes": firebase.firestore.FieldValue.increment(-1)
                     })
                 }
                 else{
-                    await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).set({});
+                    await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).set({});
                     await db.collection("jobs").doc(props.stilling.id).update({
                         "likes": firebase.firestore.FieldValue.increment(1)
                     })
@@ -70,11 +78,20 @@
             async function visMenu(event) {
                 //Viser meny
                 loading.value = true;
-                var user = await firebaseApp.auth().currentUser;
+
+                 setTimeout(function(){
+                    
+                if(opened.value == true) opened.value = false;
+                else if(opened.value == false) opened.value = true;
+                }, 10)
+                
+                user.value = await firebaseApp.auth().currentUser;
+                
+               
                 var db = await firebaseApp.firestore();
-                var bookmark = await db.collection("users").doc(user.uid).collection("lagret").doc(props.stilling.id);
+                var bookmark = await db.collection("users").doc(user.value.uid).collection("lagret").doc(props.stilling.id);
                 var bookmarkData = await bookmark.get();
-                var likaStilling = await db.collection("users").doc(user.uid).collection("likaStillinger").doc(props.stilling.id).get();
+                var likaStilling = await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).get();
                 lika.value = likaStilling.exists;
                 console.log(lika.value);
                 bookmarka.value = await bookmarkData.exists;
@@ -96,8 +113,6 @@
                     console.log("liker");
                     await like();
                 }
-                if(opened.value == true) opened.value = false;
-                else if(opened.value == false) opened.value = true;
 
                 loading.value = false;
             }
@@ -109,6 +124,7 @@
                 spinnerFont,
                 opened,
                 lika,
+                user,
             }
 
         }

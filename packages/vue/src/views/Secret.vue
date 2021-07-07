@@ -3,7 +3,7 @@
   <section class="clean-block clean-form dark w-100" style="padding-bottom: 0px;min-height: calc(100vh - 200px);background: rgb(255,255,255);">
       <div class="container">
         <div v-if="brukernavn" class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1 justify-content-center" style="margin-top: 50px;margin-bottom: 50px;">
-            <div class="mt-3 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 d-flex justify-content-center" id="profilSideBilde" style="padding-right: 20px;padding-left: 20px;border-radius: 5px;height: 100%;">
+            <div class="mt-5 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 d-flex justify-content-center" id="profilSideBilde" style="padding-right: 20px;padding-left: 20px;border-radius: 5px;height: 100%;">
                 <div class="card mb-0 pb-0" style="border-style: none;">
                     <div class="card-body d-flex flex-column justify-content-center">
                         <div class="d-flex justify-content-center imagePreview">
