@@ -371,7 +371,7 @@ var dato = `${dag}.${måned}.${år}`;
 
       //Amerikansk dato - Gjør fristen om til amerikansk dato
       if(isNaN(parseInt(obj.frist))){
-        obj["americanDate"] = JSON.stringify(new Date());
+        obj["americanDate"] = new Date().getTime();
       }
       else{
         obj["americanDate"] = obj.frist.split(".");

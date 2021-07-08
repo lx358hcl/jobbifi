@@ -3,9 +3,8 @@
     <div v-if="stilling2" class="row beholder center pt-0">
       <div class="container mt-4 mb-5 px-0">
         <div class = "row">
-
           <div class = "col-12 mb-3 mx-0 px-0 d-flex justify-content-start align-items-center">
-            <button @click = "back" type="button" class="btn btn-link">
+            <button style = "color: #2b2fc5; font-weight: 900;" @click = "back" type="button" class="btn btn-link">
               <i class="fas fa-angle-left"></i> Tilbake til stillinger
             </button>          
           </div>
@@ -13,14 +12,16 @@
         </div>
         <div class="row" style="border-top-right-radius: 20px;border-top-left-radius: 20px;">
           <div class="col-12" style="padding: 0px;border-top-left-radius: 20px;border-top-right-radius: 20px;">
-            <div v-bind:style="{ backgroundImage: 'url(' + stilling2.companyImage + ')' }" style="background-color: transparent; background-size: cover; background-position:center; background-repeat: no-repeat; height: 250px;border-top-left-radius: 20px;border-top-right-radius: 20px;"></div>
+            <div class = "d-flex justify-content-center" v-bind:style="{ backgroundImage: 'url(' + stilling2.companyImage + ')' }" style="background-color: transparent; background-size: contain; background-position:center; background-repeat: no-repeat; height: 250px;border-top-left-radius: 20px;border-top-right-radius: 20px;">
+              <img style = "background-color:#f8f9fa;" width = "90" height = "90" class = "stillingsLogo" :src = "bilde">
+            </div>
           </div>
         </div>
         <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
           <div class="col-12 pt-4 px-0">
-            <div class = "row">
-              <div class = "col-6">
-                <h4 class="d-inline-block mt-4" style="font-family: 'Lato', sans-serif;font-weight: bold;margin: 0px;">{{ stilling2.title }}</h4>
+            <div class = "row mt-4">
+              <div class = "col-6 d-flex align-items-center">
+                <h4 class="d-inline-block" style="font-family: 'Lato', sans-serif;font-weight: bold;margin: 0px;">{{ stilling2.title }}</h4>
               </div>
               <div class = "col-6">
                 <more :stilling = "stilling2"></more>
@@ -288,6 +289,7 @@
   }
 
   var dato = ref("");
+  var bilde = ref("");
   
   //Legg localen til timeago
   TimeAgo.addLocale(norsk)
@@ -302,17 +304,21 @@
       const router = useRouter();
       var stilling2 = ref(null);
       console.log(route);
+
       async function getInfo() {
         console.log(route.params);
         var db = await firebaseApp.firestore();
         var result = await db.collection("jobs").doc(route.params.id).get();
         stilling2.value = result.data();
         console.log(stilling2);
+        console.log(`https://www.google.com/s2/favicons?sz=256&domain_url=${new URL(stilling2.value.url).hostname}`);
+        bilde.value = `https://www.google.com/s2/favicons?sz=256&domain_url=${new URL(stilling2.value.url).hostname}`;
       }
 
       function back(){
         router.go(-1);
       }
+
       getInfo();
       return {
         stilling2,
@@ -320,6 +326,7 @@
         more,
         spinner,
         back,
+        bilde,
       }
     }
   }
@@ -328,6 +335,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
   .card {
+    border-top:4px solid black !important;
     position: relative;
     display: flex;
     justify-content: center;
@@ -345,7 +353,6 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: #000;
     height: 4px;
   }
   .card::before {

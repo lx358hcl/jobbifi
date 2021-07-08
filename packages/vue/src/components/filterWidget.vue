@@ -43,7 +43,7 @@
         <hr style="margin-top: 7px;margin-bottom: 7px;">
         <!-- Start: Ekstra -->
         <div>
-            <p style="margin-bottom: 0px;font-size: 14px;">Type stilling</p>
+            <p class = "font-weight-bold" style="margin-bottom: 0px;font-size: 14px;">Type stilling</p>
             <div style="margin-left: 8px;">
                 <div class="form-check">
                     <input :checked="settings.position.find(e => e.split(':')[1] == 'fulltid')" class="form-check-input clickable" @click="changeFacet('fulltid')" type="checkbox" id="fulltid">
@@ -72,7 +72,7 @@
         <hr style="margin-top: 7px;margin-bottom: 7px;">
         <!-- Start: Ekstra -->
         <div class="filterBoks">
-            <p style="margin-bottom: 0px;font-size: 14px;">Ferdigheter/Egenskaper</p>
+            <p class = "font-weight-bold" style="margin-bottom: 0px;font-size: 14px;">Ferdigheter/Egenskaper</p>
             <div style="margin-left: 8px;">
                 <span v-if="!facets.teknologier"><em>Ingenting å vise for dette søket</em></span>
                 <div v-else v-for="(antall, tekno) in facets.teknologier" :key="tekno" class="form-check">
@@ -85,7 +85,7 @@
         </div>
         <hr style="margin-top: 7px;margin-bottom: 7px;">
         <div class="filterBoks">
-            <p style="margin-bottom: 0px;font-size: 14px;">Firma/Selskap</p>
+            <p class = "font-weight-bold" style="margin-bottom: 0px;font-size: 14px;">Firma/Selskap</p>
             <div style="margin-left: 8px;">
                 <span v-if="!facets.companyName"><em>Ingenting å vise for dette søket</em></span>
                 <div v-else v-for="(antall, firma) in facets.companyName" :key="firma" class="form-check">
@@ -99,7 +99,7 @@
         </div>
         <hr style="margin-top: 7px;margin-bottom: 7px;">
         <div class="filterBoks">
-            <p style="margin-bottom: 0px;font-size: 14px;">Sted</p>
+            <p class = "font-weight-bold" style="margin-bottom: 0px;font-size: 14px;">Sted</p>
             <div style="margin-left: 8px;">
                 <span v-if="!facets.sted"><em>Ingenting å vise for dette søket</em></span>
                 <div v-else v-for="(antall, sted) in facets.sted" :key="sted" class="form-check">

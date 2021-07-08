@@ -1,16 +1,16 @@
 <template style>
   <main class="fyllSkjermen">
-  <video playsinline autoplay muted loop poster="catmid.jpg" id="bgvid">
-        <source src = "assets/img/video3.mp4" type="video/mp4">
+  <video playsinline muted loop poster="assets/img/pot.png" id="bgvid">
+    <source src = "assets/img/33.mp4" type="video/mp4">
   </video>
-        <section class="p-2 d-flex justify-content-center align-items-center align-content-center" style="background: url(&quot;assets/img/3.jpg&quot;); background-position: 50% 40%; background-size: cover; background-repeat: no-repeat; border-style: none;border-color: rgb(9,162,255);color: rgba(33,37,41,0);min-height: inherit;font-family: Spectral, serif;font-size: 30px;/*display: flex;*//*justify-content: center;*/">
+        <section class="p-2 d-flex justify-content-center align-items-center align-content-center" style="background: url(&quot;assets/img/wallie.png&quot;); background-position: center; background-size: cover; background-repeat: no-repeat; border-style: none;border-color: rgb(9,162,255);color: rgba(33,37,41,0);min-height: inherit;font-family: Spectral, serif;font-size: 30px;/*display: flex;*//*justify-content: center;*/">
             <div class="d-flex justify-content-center" style="padding: 47px;padding-left: 0;padding-right: 0;z-index: 2;">
                 <div class="container d-flex flex-column justify-content-center align-items-center align-items-xl-center">
                     <div class="row">
                         <div class="col">
                             <h2 style="color: rgb(0,0,0);font-weight: bold;font-family: Spectral, serif;margin-bottom: 0px;text-align: center;">
-                              <strong style="color: aliceblue;font-weight: 900;border-bottom-color: #212529;">Jobbifi</strong>
-                              <span style="border-bottom-color: #212529;text-shadow: 0px 0px;color: aliceblue;font-weight: 300;">&nbsp;| For informatikkstudenter
+                              <strong style="color: black; font-size:30px; font-weight: 900;border-bottom-color: #212529;">Jobbifi</strong>
+                              <span style="border-bottom-color: #212529;text-shadow: 0px 0px;color: black;font-weight: 300;">&nbsp;| For informatikkstudenter
                               </span>
                             </h2>
                         </div>
@@ -24,7 +24,7 @@
                     </div>
 
                     <!--Søkeboksen-->
-                    <søkeboksen></søkeboksen>
+                    <søkeboksen style = "transform:scale(1.1);"></søkeboksen>
                 </div>
             </div>
         </section>
@@ -37,9 +37,19 @@
   import søkeboksen from "../components/søkeboksen.vue";
   import algoliasearch from 'algoliasearch';
   import søkeIndex from "../../../algolia/algoliaconfig.js";
+  import { onMounted } from "vue";
 
   export default {
     setup() {
+      onMounted(() => {
+        var video = document.querySelector("video");
+          video.addEventListener("canplay", function() {
+            setTimeout(function() {
+              video.play();
+            }, 1000);
+        });
+      })
+
       return {
         typeWriter,
         søkeboksen

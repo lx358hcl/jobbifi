@@ -14,7 +14,7 @@
         </div>
 
         <div v-if="searchQuery" style="top: inherit;left: inherit; margin-top: 80px !important; box-shadow: rgb(0 0 0 / 15%) 0px 0px 5px 3px; max-width:400px;" class="søkeTreffBoks m-0 p-0 dropdown-menu w-auto border-0 show" aria-labelledby="dropdownMenuButton">
-            <div v-for="hit in results" class="card m-1 p-0">
+            <div style = "border-top: none !important;" v-for="hit in results" class="card m-1 p-0">
                 <div style="max-height:100px !important; min-height:100px !important; height: 100px !important;" class="row no-gutters">
                     <div style="max-height:100px;" class="col-4 d-flex justify-content-center align-items-center p-3">
                         <img style="max-height:65px; transform:scale(1);" :src="hit.companyImage" class="card-img" alt="...">

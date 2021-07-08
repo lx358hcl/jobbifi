@@ -1,54 +1,65 @@
 <template>
-  <nav style = "z-index:100" ref = "nav" class="pr-3 navbar navbar-light navbar-expand-lg d-flex d-sm-flex d-md-flex align-items-center align-content-center align-items-sm-end clean-navbar">
-    <div style="max-width: 1100px; " class="container">
-      <a href = "/" class="d-flex align-items-center navbar-brand logo font-weight-bold" to="/" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
-        <span style="font-size:40px; color: black">jobbifi</span>
-      </a>
-      <div class="collapse navbar-collapse" id="navcol-1" style="font-family: Lato;letter-spacing: 1px;padding-left: 0;">
-        <ul class="py-3 navbar-nav d-flex ml-auto mr-0" style="/*min-width: 100wh !Important;*/">
-          <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link class="hitLinks nav-link" to="/">HJEM</router-link>
-          </li>
-          <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link class="nav-link hitLinks d-flex align-items-center justify-content-end" to="/stillinger">
-              Stillinger
-            </router-link>
-          </li>
-          <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link class="nav-link hitLinks d-flex align-items-center justify-content-end" to="/besteselskaper">
-              Beste selskaper
-            </router-link>
-          </li>
-          <li>
-            <router-link class="nav-link hitLinks d-flex align-items-center justify-content-end" to="/arrangementer">
-              Events
-            </router-link>
-          </li>
-          <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link class="nav-link hitLinks" to="/feed">FEED</router-link>
-          </li>
-          <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <account class="account"></account>
-            <router-link v-if="user" class="nav-link profile hitLinks" to="/konto">PROFIL</router-link>
-          </li>
-          <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link v-if="user" to="/login" @click="logOut" class="nav-link profile hitLinks">LOGG UT</router-link>
-          </li>
-          <li v-if="!user" class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link to="/login" class="nav-link profile hitLinks">LOGG IN</router-link>
-          </li>
-          <li v-if="!user" class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
-            <router-link to="/blimedlem" class="nav-link profile hitLinks">BLI MEDLEM</router-link>
-          </li>
-        </ul>
+  <nav ref="nav" class="m-0 p-0 w-100 container-fluid py-0 navbar navbar-light navbar-expand-lg d-flex d-sm-flex d-md-flex align-items-center align-content-center align-items-sm-end clean-navbar justify-content-center">
+    <div class="row w-100">
+      <div :class="{venstreSide: $router.currentRoute.value.path == '/dashboard'}" class="col-2 py-2 px-0 d-flex justify-content-center m-0 p-0">
+        <a href="/" class="d-flex align-items-center navbar-brand logo font-weight-bold" to="/" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
+          <span style="font-size:40px; color: black">jobbifi</span>
+        </a>
+      </div>
+      <div class="col-9 d-flex justify-content-end m-0 p-0">
+        <div class="container m-0 p-0">
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navcol-1" style="font-family: Lato;letter-spacing: 1px;padding-left: 0;">
+            <ul class="py-3 navbar-nav" style="/*min-width: 100wh !important;*/">
+              <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link class="hitLinks nav-link" to="/">HJEM</router-link>
+              </li>
+              <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link class="nav-link hitLinks d-flex align-items-center justify-content-end" to="/stillinger">
+                  Stillinger
+                </router-link>
+              </li>
+              <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link class="nav-link hitLinks d-flex align-items-center justify-content-end" to="/besteselskaper">
+                  Beste selskaper
+                </router-link>
+              </li>
+              <li>
+                <router-link class="nav-link hitLinks d-flex align-items-center justify-content-end" to="/arrangementer">
+                  Events
+                </router-link>
+              </li>
+              <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link class="nav-link hitLinks" to="/feed">FEED</router-link>
+              </li>
+              <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <account class="account"></account>
+              </li>
+              <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link v-if="user" to="/login" @click="logOut" class="nav-link profile hitLinks">LOGG UT</router-link>
+              </li>
+              <li v-if="!user" class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link to="/login" class="nav-link profile hitLinks">LOGG IN</router-link>
+              </li>
+              <li v-if="!user" class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
+                <router-link to="/blimedlem" class="nav-link profile hitLinks">BLI MEDLEM</router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-  import { getInfo } from "../views/Secret.vue";
-  import { ref, onUpdated, watch } from "vue";
+  import {
+    getInfo
+  } from "../views/Secret.vue";
+  import {
+    ref,
+    onUpdated,
+    watch
+  } from "vue";
   import account from "./account.vue";
   import router from '../router/index.js';
   import søkeFelt from './søkeFelt.vue';
@@ -56,7 +67,6 @@
   import firebaseApp from "firebase";
   var user = ref("");
   var nav = ref(null)
-
   export default {
     setup() {
       onUpdated(() => {

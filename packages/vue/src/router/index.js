@@ -16,7 +16,7 @@ import Stilling from "@/views/Stilling.vue";
 import Secret from "../views/Secret.vue";
 import Bruker from "../views/Bruker.vue";
 import Logout from "../views/Logout.vue";
-import Lagrede from "../views/Lagrede.vue";
+import Dashboard from "../views/Dashboard.vue";
 import Innstillinger from "../views/Innstillinger.vue";
 import Meldinger from "../views/Meldinger.vue";
 import Varsler from "../views/Varsler.vue";
@@ -124,9 +124,9 @@ const routes = [
     component: Logout,
   },
   {
-    path: "/lagrede",
-    name: "Lagrede",
-    component: Lagrede,
+    path: "/dashboard/:query?",
+    name: "Dashboard",
+    component: Dashboard,
   },
   {
     path: "/innstillinger",

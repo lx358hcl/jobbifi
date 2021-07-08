@@ -1,12 +1,12 @@
 <template >
-<main class="page contact-us-page d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 294px);">
+<main class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 294px);">
 <div v-if="loading" class = "d-flex justify-content-center">
     <spinner class = "d-flex justify-content-center"></spinner>
 </div>
   <section v-else class="clean-block clean-form dark d-flex align-items-center" style="padding-bottom: 0px;min-height: calc(100vh - 200px);background: rgb(255,255,255);">
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1 justify-content-center" style="margin-top: 50px;margin-bottom: 50px;">
-            <div class="d-flex justify-content-center mt-0 col-12 col-sm-12 col-md-10 col-lg-5 col-xl-5" id="profilSideBilde" style="padding-right: 20px;padding-left: 20px;border-radius: 5px;height: 100%;">
+            <div class="d-flex justify-content-center mt-0 col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8" id="profilSideBilde" style="padding-right: 20px;padding-left: 20px;border-radius: 5px;height: 100%;">
                 <div class="card m-0 p-0" style="border-style: none;">
                     <div class="card-body m-0 p-0 d-flex flex-column justify-content-center text-center">
                         <div class = "py-5 px-3">

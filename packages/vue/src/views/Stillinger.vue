@@ -8,7 +8,7 @@
                     <filterWidget v-if="filterRes" @stedChanged="byttSted" @companyChangeOccurred="changeCompany" @filteringOccurred="changeFacet" @filtering="changeFacetTeknoCompany" :settings="settings.facetFilters" :facets="filterRes.facets"></filterWidget>
                     <div class="col-12 col-sm-11 col-md-8 col-lg-8 col-xl-9 animate__animated stillingsContainer">
                         <!--Info-->
-                        <antallTreff class = "mt-3 pb-4" :treff = "results.nbHits" :kjøretid="results.processingTimeMS" :søket="results.query"></antallTreff>
+                        <antallTreff class = "mt-3 pb-4" :treff = "results.nbHits" :kjøretid="results.processingTimeMS" :søket="settings.searchQuery"></antallTreff>
                         <sorteringsWidget @byttIndex="byttIndex" @endrAntall="byttAntall" class = "mb-3"></sorteringsWidget>
                         <filterBubbles v-bind:facets = "settings.facetFilters"></filterBubbles>
                         <søkeFelt class = "pt-3" :searchQuery="$router.currentRoute.value.query.søk" @searchOccurred="changeSearch"></søkeFelt>
@@ -269,6 +269,7 @@ export default {
             byttIndex,
             byttSted,
             user,
+            settings
         }
     },
 }
