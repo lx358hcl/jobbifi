@@ -1,10 +1,11 @@
 <template>
   <Nav />
-  <router-view :key="$route.fullPath"></router-view>
+  <router-view class = "router-view"></router-view>
   <Footer />
 </template>
 
 <script>
+//:key="$route.fullPath"<----
   // //Fikser navbar som ikke forsvinner upon bodyclick
   // $("body").click(function(event) {
   //   if (document.querySelector(".navbar-collapse.collapse.show") != null) {

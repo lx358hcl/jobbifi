@@ -1,9 +1,9 @@
 <template>
-  <nav ref="nav" class="m-0 p-0 w-100 container-fluid py-0 navbar navbar-light navbar-expand-lg d-flex d-sm-flex d-md-flex align-items-center align-content-center align-items-sm-end clean-navbar justify-content-center">
+  <nav ref="nav" :class = "{'fixed-top': $router.currentRoute.value.path == '/'}" class="m-0 p-0 w-100 container-fluid py-0 navbar navbar-light navbar-expand-lg d-flex d-sm-flex d-md-flex align-items-center align-content-center align-items-sm-end clean-navbar justify-content-center">
     <div class="row w-100">
       <div :class="{venstreSide: $router.currentRoute.value.path == '/dashboard'}" class="col-2 py-2 px-0 d-flex justify-content-center m-0 p-0">
-        <a href="/" class="d-flex align-items-center navbar-brand logo font-weight-bold" to="/" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
-          <span style="font-size:40px; color: black">jobbifi</span>
+        <a href="/" class="d-flex align-items-center navbar-brand font-weight-bold" to="/" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
+          <span class = "logo">jobbifi</span>
         </a>
       </div>
       <div class="col-9 d-flex justify-content-end m-0 p-0">

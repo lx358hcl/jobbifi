@@ -1,43 +1,36 @@
 <template>
-    <div class="row my-0 py-0" style="padding-top: 14px;padding-bottom: 14px;border-radius: 2px;">
-        <div class="col-12">
-            <div class="row py-2" style="padding-bottom: 0px;padding-top: 8px;">
-                <div class="col-3 p-0 pl-3 pr-2 m-0 rounded mt-0 d-flex justify-content-center align-items-center">
-                    <div class="w-100 h-100 p-0 m-0" v-bind:style="{ backgroundImage: 'url(' + ting.companyImage + ')' }" style="width: 70px !important; min-width: 70px !important;border-radius:10px; background-repeat: no-repeat; border: 3px solid white; background-position: center; background-size: cover;">
-                    </div>
-                </div>
-                <div class="col-9 p-2" style="padding-left: 0px;">
-                    <p class="mb-0 small text-left" style="font-weight: bold;font-family: Lato;">{{ ting.title }} </p>
-                    <p class="small text-left" style="font-family: Lato;color: rgb(126,126,126);">{{ ting.sted }}</p>
-                </div>
+    <div class="p-2 row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 d-flex flex-row justify-content-center align-items-center" style="margin-bottom: 0;">
+        <div class="col-11 col-sm-12 col-md-11 col-lg-4 col-xl-5 p-0">
+            <div style="min-width:80px; min-height:80px;" class="d-flex align-items-center justify-content-center">
+                <img class="w-75" :src="ting.companyImage">
             </div>
         </div>
-        <div class="col-12" style="padding-top: 3px;padding-bottom: 9px;">
-            <div class="btn-group w-100" role="group">
-                <button type="button" class="btn btn-light rounded mr-1 d-flex align-items-center justify-content-center flex-row lagredeStillingerKnapp">
-                    <i class="fas fa-trash-alt"></i>
-                    <p class = "small font-weight-bold m-0">Fjern</p>
-                </button>
-                <button type="button" class="btn btn-light rounded mr-1 d-flex align-items-center justify-content-center flex-row lagredeStillingerKnapp">
-                    <i class="fas fa-thumbs-up"></i>
-                    <p class = "small font-weight-bold m-0">Unlike</p>
-                </button>
+        <div class="col-12 col-sm-12 col-md-11 col-lg-8 col-xl-7 h-100">
+            <div class="d-flex align-items-start flex-column p-0">
+                <p class="mb-0 small text-left" style="font-weight: bold;font-family: Lato;">
+                    {{ ting.title }}
+                </p>
+                <p class="recipe-metadata py-1 text-left">
+                    <span class="recipe-votes">av 
+                        {{ ting.companyName }}
+                    </span>
+                </p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
-    export default{
-        props:{
+    import more from "../components/moreTest.vue";
+    
+    export default {
+        props: {
             ting: Object
         },
-        setup(){
-            return{
-
+        setup() {
+            return {
+                more,
             }
         }
     }
-
 </script>

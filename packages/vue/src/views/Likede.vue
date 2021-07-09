@@ -22,7 +22,7 @@
                 </div>
 
                 <div v-else class = "col-12 d-flex align-items-center justify-content-center">
-                    <p>Du har ikke lagret noe</p>
+                    <p>Du har ikke lika noe</p>
                 </div>
             </div>
         </div>
@@ -47,12 +47,11 @@
 
             function velg(id){
                 valgtTing.value = allSaved.value[id];
-                router.replace({ path: 'dashboard', query: { side: 'lagrede', "stilling": valgtTing.value.id }})
+                router.replace({ path: 'dashboard', query: { side: 'likede', "prop": valgtTing.value.id }})
             }
 
             function oppdaterAllSaved(obj){
                 delete allSaved.value[obj.id];
-                console.log(allSaved);
                 getInfo();
             }
 
@@ -60,7 +59,7 @@
                 loading.value = true; 
                 var user = await firebaseApp.auth().currentUser;
                 var db = await firebaseApp.firestore();
-                var data = await db.collection("users").doc(user.uid).collection("lagret").get();
+                var data = await db.collection("users").doc(user.uid).collection("likaStillinger").get();
                 data.forEach(e => {
                     console.log(e.id);
                     allSaved.value[e.id] = e.data();

@@ -1,9 +1,9 @@
 <template style>
-  <main class="fyllSkjermen">
-  <video playsinline muted loop poster="assets/img/pot.png" id="bgvid">
+  <main style = "min-height:100vh;" >
+  <video playsinline muted loop poster="assets/img/13.jpg" id="bgvid">
     <source src = "assets/img/33.mp4" type="video/mp4">
   </video>
-        <section class="p-2 d-flex justify-content-center align-items-center align-content-center" style="background: url(&quot;assets/img/wallie.png&quot;); background-position: center; background-size: cover; background-repeat: no-repeat; border-style: none;border-color: rgb(9,162,255);color: rgba(33,37,41,0);min-height: inherit;font-family: Spectral, serif;font-size: 30px;/*display: flex;*//*justify-content: center;*/">
+        <section class="p-2 d-flex justify-content-center align-items-center align-content-center" style="background: url(&quot;assets/img/pot.png&quot;); background-position: center; background-size: cover; background-repeat: no-repeat; border-style: none;border-color: rgb(9,162,255);color: rgba(33,37,41,0);min-height: inherit;font-family: Spectral, serif;font-size: 30px;/*display: flex;*//*justify-content: center;*/">
             <div class="d-flex justify-content-center" style="padding: 47px;padding-left: 0;padding-right: 0;z-index: 2;">
                 <div class="container d-flex flex-column justify-content-center align-items-center align-items-xl-center">
                     <div class="row">

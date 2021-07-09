@@ -5,7 +5,7 @@
             <i v-else class="fas fa-ellipsis-h"></i>
         </button>
         <a :href = "stilling.originalURL">
-            <button style = "color:#17171b; font-size: 16px;" :class = "{ open: opened }" class="btn btn-light p-3 font-weight-bold">
+            <button style = "color:#17171b; font-size: 16px;" :class = "{ open: opened }" class="btn btn-light p-3 font-weight-bold float-left">
                 <span><i style = "font-size:14px;" class="fas fa-feather"></i></span>
                 <span class = "ml-2 text-dark">Søk på stillingen</span>
             </button>
@@ -16,7 +16,7 @@
         <button v-if="user" @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton tw m-0">
             <i :class = "{ bolded: lika }" class="far fa-thumbs-up"></i>
         </button>
-        <button @click="user ? click : null" :class = "{ open: true }" class="buttonIcon d-flex align-items-center justify-content-center shareButton ig m-0">
+        <button @click="user ? click : null" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton ig m-0">
             <i class="far fa-flag"></i>
         </button>
     </div>
@@ -40,24 +40,20 @@
             var loading = ref(false);
             var opened = ref(false);
             var user = ref("");
+            var db = firebaseApp.firestore();
 
-            console.log(props)
+            async function getInfo(){
+                user.value = await firebaseApp.auth().currentUser;
+            }
+            getInfo();
 
             async function lagreStilling() {
-                console.log(props.stilling)
-                user.value = await firebaseApp.auth().currentUser;
-                var db = await firebaseApp.firestore();
                 var stillingKopi = props.stilling;
                 delete stillingKopi["_highlightResult"];
-                console.log(props.stilling.id);
-                console.log(user.value);
                 await db.collection("users").doc(user.value.uid).collection("lagret").doc(props.stilling.id).set(props.stilling);
             }
 
             async function like(){
-                console.log(props.stilling);
-                user.value = await firebaseApp.auth().currentUser;
-                var db = await firebaseApp.firestore();
                 var likaStilling = await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).get();
                 lika.value = likaStilling.exists;
                 if(lika.value == true){
@@ -71,29 +67,24 @@
                     await db.collection("jobs").doc(props.stilling.id).update({
                         "likes": firebase.firestore.FieldValue.increment(1)
                     })
+                    await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).set(props.stilling);
                 }
-                console.log(likaStilling.exists);
             }
 
             async function visMenu(event) {
                 //Viser meny
                 loading.value = true;
 
-                 setTimeout(function(){
-                    
-                if(opened.value == true) opened.value = false;
-                else if(opened.value == false) opened.value = true;
+                setTimeout(function(){
+                    if(opened.value == true) opened.value = false;
+                    else if(opened.value == false) opened.value = true;
                 }, 10)
-                
-                user.value = await firebaseApp.auth().currentUser;
-                
-               
-                var db = await firebaseApp.firestore();
+
                 var bookmark = await db.collection("users").doc(user.value.uid).collection("lagret").doc(props.stilling.id);
                 var bookmarkData = await bookmark.get();
                 var likaStilling = await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).get();
+
                 lika.value = likaStilling.exists;
-                console.log(lika.value);
                 bookmarka.value = await bookmarkData.exists;
 
                 if(event.target.classList.contains("fa-ellipsis-h")){

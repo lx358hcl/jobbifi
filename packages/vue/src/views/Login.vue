@@ -64,7 +64,7 @@
         try {
           settings.value.loading = true;
           await firebaseApp.auth().signInWithEmailAndPassword(email.value, password.value);
-          window.location = window.location.origin + "/konto";
+          window.location = window.location.origin + "/dashboard";
         } catch (e) {
           switch(e.code){
             case "auth/user-not-found":
