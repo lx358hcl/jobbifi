@@ -21,8 +21,6 @@ import { settings } from "../views/Stillinger.vue";
 
 
 function changeFacet(facet){
-    console.log(facet);
-    console.log(settings);
     switch (facet) {
         case 'ifijobs':
             if(settings.value.facetFilters.opprinnelse.includes(("opprinnelse:" + facet))){
@@ -67,7 +65,6 @@ function changeFacet(facet){
 
 //Change TeknoCompany
 function changeFacetTeknoCompany(str){
-    console.log(str);
     if(settings.value.facetFilters.teknologier.includes("teknologier:" + str)){
         settings.value.facetFilters.teknologier = settings.value.facetFilters.teknologier.filter(e => e != ("teknologier:" + str));
     }
@@ -77,7 +74,6 @@ function changeFacetTeknoCompany(str){
 
 //Change company
 function changeCompany(str){
-    console.log(str);
     if(settings.value.facetFilters.companyName.includes("companyName:" + str)){
         settings.value.facetFilters.companyName = settings.value.facetFilters.companyName.filter(e => e != ("companyName:" + str));
     }
@@ -85,7 +81,6 @@ function changeCompany(str){
 }
 
 function changeSted(str){
-    console.log(str);
     if(settings.value.facetFilters.sted.includes("sted:" + str)){
         settings.value.facetFilters.sted = settings.value.facetFilters.sted.filter(e => e != ("sted:" + str));
     }

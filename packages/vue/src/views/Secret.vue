@@ -37,12 +37,12 @@
                         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 d-flex flex-row-reverse justify-content-center justify-content-sm-center">
                           <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-5 d-flex justify-content-center align-items-center align-content-center" style="padding-bottom: 15px;padding-top: 15px;">
                                 <div class="d-flex justify-content-center align-items-center align-content-center" style="margin-top: 0px;margin-right: 0px;height: 100%;width: 100%;">
-                                    <div v-on:change="readURL($event.target)" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" v-bind:style="{ backgroundImage: 'url(' + profilbilde + ')' }" style="background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 160px;border-width: 0px;border-style: solid;box-shadow: 0px 0px 2px 2px rgba(47,47,47,0.45);height: 150px;">
+                                    <div v-on:change="readURL($event.target)" type='file' id="imageUpload" v-bind:style="{ backgroundImage: 'url(' + profilbilde + ')' }" style="background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 160px;border-width: 0px;border-style: solid;box-shadow: 0px 0px 2px 2px rgba(47,47,47,0.45);height: 150px;">
                                       <label for = "filOpplastning">
                                         <i class="fas fa-camera lastOppBildeKnapp" style="text-align: right;margin-left: 112px;font-size: 16px;background: #f5f5f5;padding: 10px;border-radius: 51px;color: rgb(35,39,42);margin-top: 6px;border-width: 1px;border-color: rgb(103,103,103);box-shadow: 0px 0px 3px 1px rgb(84,84,84);">
                                         </i>
                                       </label>
-                                      <input id = "filOpplastning" type = "file">
+                                      <input id = "filOpplastning" type = "file" accept=".png, .jpg, .jpeg, .webp">
                                     </div>
                                 </div>
                             </div>
@@ -130,8 +130,7 @@
   import spinner from "../components/spinner.vue";
   import slettKonto from "../components/slettKonto.vue";
   import { settings } from "../settings.js";
-  
-  var toast = require('vue-izitoast');
+
   var email = ref("");
   var brukernavn = ref("");
   var fornavn = ref("");
@@ -149,6 +148,7 @@
   var userInfo = ref(""); 
   var password = ref("");
   var user = ref("");
+  var loadaBefore = false;
 
   function omMegTeller(omMegTekst){
     console.log(omMegTekst.length - 500);
@@ -168,11 +168,12 @@
       brukernavn.value = dbInfo.brukernavn;
       fornavn.value = dbInfo.fornavn;
       etternavn.value = dbInfo.etternavn;
-      profilbilde.value = dbInfo.profilbilde;
+      profilbilde.value = loadaBefore == false ? dbInfo.profilbilde + new Date().getTime() : profilbilde.value;
       omMeg.value = dbInfo.omMeg;
       linkedIn.value = dbInfo.linkedIn;
       gitHub.value = dbInfo.gitHub;
       nettside.value = dbInfo.nettside;
+      loadaBefore = true;
       omMegTeller(dbInfo.omMeg);
       return dbInfo;
     }
@@ -221,8 +222,11 @@
               }
               
               if(fil != null){
-                storageRef = await firebaseApp.storage().ref("/profilBilder/" + fil.name);
+                var del1 = fil.name.slice(0, fil.name.lastIndexOf("."));
+                var del2 = fil.name.slice(fil.name.lastIndexOf("."));
 
+                storageRef = firebaseApp.storage().ref(`/${user.uid}${del2 }`);
+              
                 await storageRef.put(fil).then((snapshot) => {
                   snapshot.ref.getDownloadURL().then((downloadURL) => {
                     profilePicURL = downloadURL;
@@ -231,7 +235,7 @@
                         fornavn: fornavn.value,
                         brukernavn: brukernavn.value,
                         etternavn: etternavn.value,
-                        profilbilde: profilePicURL,
+                        profilbilde: "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + user.uid + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
                         omMeg: omMeg.value,
                         linkedIn: linkedIn.value,
                         gitHub: gitHub.value,
@@ -254,6 +258,8 @@
                 })
               }
       }
+
+      //ok
       function readURL(input) {
         fil = input;
         console.log(input.files);

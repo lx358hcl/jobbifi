@@ -7,7 +7,15 @@
         </a>
       </div>
       <div class="col-9 d-flex justify-content-end m-0 p-0">
-        <div class="container m-0 p-0">
+        <div class = "container-fluid">
+          <div v-bind:style="{ visibility: $router.currentRoute.value.path == '/' ? 'hidden' : 'visible' }" class = "col-2 d-flex align-items-center m-0">
+            <form class = "m-0 d-flex align-items-center">
+              <div class="form-group m-0">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Søk jobbifi">
+              </div>
+            </form>
+          </div>
+        <div class="container col-10 m-0 p-0">
           <div class="collapse navbar-collapse d-flex justify-content-end" id="navcol-1" style="font-family: Lato;letter-spacing: 1px;padding-left: 0;">
             <ul class="py-3 navbar-nav" style="/*min-width: 100wh !important;*/">
               <li class="nav-item d-flex align-items-center justify-content-end" style="padding-right: 0px;">
@@ -46,6 +54,7 @@
             </ul>
           </div>
         </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -70,13 +79,12 @@
   export default {
     setup() {
       onUpdated(() => {
-        console.log(nav);
+
       })
       getInfo().then(e => {
-        console.log(e);
         user.value = e;
       }).catch(function(error) {
-        console.log("IDGAF");
+
       })
       //Logg ut funksjon
       function logOut() {

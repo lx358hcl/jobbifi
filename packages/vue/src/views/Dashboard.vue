@@ -3,7 +3,7 @@
         <div class="container-fluid m-0 p-0" style="margin-top: 28px;">
             <div class = "row w-100 h-100 m-0 p-0 d-flex">
                 <div class = "venstreSide col-2 m-0 p-0 w-100 h-100 ">
-                    <div class="btn-group-vertical float-right p-3 pt-5" role="group" aria-label="Basic example">
+                    <div class="btn-group-vertical float-right p-3 pt-1" role="group" aria-label="Basic example">
                         <button :class = "{valgtSide: valgtStr == 'profil', aktivtIkon: valgtStr == 'profil'}" @click = "velgKomponent('profil')" type="button" class="sideBarButton d-flex align-items-center btn btn-link text-dark font-weight-bold rounded my-2">
                             <i class="mr-4 sideBarIkon fas fa-user-circle"></i>
                             Profil
@@ -16,7 +16,7 @@
                             <i class="mr-4 sideBarIkon fas fa-thumbs-up"></i>
                             Likede
                         </button>
-                        <button :class = "{valgtSide: valgtStr == 'meldinger', aktivtIkon: valgtStr == 'meldinger'}"  @click = "velgKomponent('lagrede')" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
+                        <button :class = "{valgtSide: valgtStr == 'meldinger', aktivtIkon: valgtStr == 'meldinger'}"  @click = "velgKomponent('meldinger')" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
                             <i class="mr-4 sideBarIkon fas fa-inbox"></i>
                             Meldinger
                         </button>
@@ -42,6 +42,7 @@
 <script>
     import more from "../components/moreTest.vue";
     import Secret from "./Secret.vue";
+    import Meldinger from "./Meldinger.vue";
     import LagredeStillinger from "./LagredeStillinger.vue";
     import Likede from "./Likede.vue";
     import { ref } from "vue";
@@ -83,6 +84,10 @@
                 else if(str == "likede") {
                     valgt.value = Likede;
                     router.push({ path: 'dashboard', query: { side: 'likede' } })
+                }
+                else if(str == "meldinger") {
+                    valgt.value = Meldinger;
+                    router.push({ path: 'dashboard', query: { side: 'meldinger' } })
                 }
 
                 valgtStr.value = str;

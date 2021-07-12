@@ -63,7 +63,7 @@
                     db = await firebaseApp.firestore();
                     dbInfo = await db.collection("users").doc(user.value.uid).get();
                     dbInfo = await dbInfo.data();
-                    profilBilde.value = dbInfo.profilbilde;
+                    profilBilde.value = dbInfo.profilbilde + new Date().getTime();
                     console.log(profilBilde);
                     loading.value = false;
                 }

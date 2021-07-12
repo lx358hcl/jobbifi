@@ -21,8 +21,8 @@
                     <spinner></spinner>
                 </div>
 
-                <div v-else class = "col-12 d-flex align-items-center justify-content-center">
-                    <p>Du har ikke lagret noe</p>
+                <div v-if = "loading == false && Object.values(allSaved).length == 0" class = "col-12 d-flex align-items-center justify-content-center">
+                    <p>Du har ingenting lagret</p>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
             var allSaved = ref({});
             var valgtTing = ref("");
             var router = useRouter();
-            var loading = ref(false);
+            var loading = ref(null);
 
             function velg(id){
                 valgtTing.value = allSaved.value[id];
@@ -51,9 +51,13 @@
             }
 
             function oppdaterAllSaved(obj){
-                delete allSaved.value[obj.id];
-                console.log(allSaved);
-                getInfo();
+                if(obj.type == "delete"){
+                    console.log(allSaved.value);
+                    console.log(obj.id);
+                    delete allSaved.value[obj.id];
+                    console.log(allSaved);
+                }
+                valgtTing.value = Object.values(allSaved.value)[0];
             }
 
             async function getInfo(){

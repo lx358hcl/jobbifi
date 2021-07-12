@@ -123,7 +123,7 @@
         brukernavn: brukernavn.value,
         fornavn: "",
         etternavn: "",
-        profilbilde: "https://i.redd.it/b5xmgi712hs51.jpg",
+        profilbilde: "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_200x200.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00",
         omMeg: "Apparently, this user prefers to keep an air of mystery about them.",
         linkedIn: "",
         gitHub: "",

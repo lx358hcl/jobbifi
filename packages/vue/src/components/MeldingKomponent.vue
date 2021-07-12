@@ -1,71 +1,46 @@
 <template>
-  <main class="container center d-flex align-items-center p-0">
-    <div class="row beholder center pt-0">
-      <div class="container mt-4 mb-5 px-0">
-        <div class="row d-flex justify-content-center" style="border-top-right-radius: 20px;border-top-left-radius: 20px;">
-          <div class="col-9" style="padding: 0px;border-top-left-radius: 20px;border-top-right-radius: 20px;">
-            <div class = "d-flex justify-content-center" v-bind:style="{ backgroundImage: 'url(' + stilling.companyImage + ')' }" style="background-color: transparent; background-size: contain; background-position:center; background-repeat: no-repeat; height: 250px;border-top-left-radius: 20px;border-top-right-radius: 20px;">
-            </div>
-          </div>
-        </div>
-        <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
-          <div class="col-12 pt-4 px-0">
-            <div class = "row mt-4">
-              <div class = "col-12 d-flex align-items-center">
-                <h4 class="d-inline-block" style="font-family: 'Lato', sans-serif;font-weight: bold;margin: 0px;">{{ stilling.title }}</h4>
-              </div>
-            </div>
-            <div class="row justify-content-md-end align-items-md-center justify-content-xl-start">
-              <div class="col-12" style="margin-top: 0px;margin-bottom: 0px;">
-                <div class = "row">
-                  <div class="col-12 py-2 ml-3 pl-0 mt-2 d-flex align-items-center">
-                    <p class = "mt-0 py-0 d-inline-block" style="font-weight: bold;font-family: 'Lato', sans-serif; color: #2b2fc5; margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;padding-right: 10px;">{{ stilling.companyName }}</p>
-                    <p class = "font-weight-bold d-inline-block text-left p-0" style="margin-bottom: 0px;padding: 0px; color: rgb(139,139,139); font-family: 'Lato', sans-serif;padding-left: 10px;">-&nbsp;&nbsp;{{ stilling.sted }}</p>
-                  </div>                
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="container px-3 py-2 m-0">
+    <div class="row">
+      <div class="col-2 bilde animate__animated animate__fadeIn" style="border: 2px solid #d4d4d4;" v-bind:style="{ backgroundImage: 'url(' + (melding.thisUser == melding.mottaker ? melding.starterProfilBilde : melding.mottakerProfilBilde) + '), url(https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_200x200.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00)' }">
+      </div>
+      <div :class="{'d-flex': !melding.meldinger, 'align-items-center':!melding.meldinger}" class="col-9">
         <div class="row">
-          <div class="col-12" style="padding: 0px;">
-            <div class="list-group list-group-horizontal">
-              <a class="col-4 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
-                <p style="color: #313437;margin-bottom: 6px;font-weight: bold;">Frist
-                </p>
-                  <span style="color: var(--gray-dark);">{{ stilling.frist }}
-                  </span>
-              </a>
-              <a class="col-4 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
-                <p style="color: #313437;font-weight: bold;margin-bottom: 6px;">Type stilling</p><span>Fulltid</span>
-              </a>
-              <a class="col-4 border-0 list-group-item list-group-item-action noHover pl-0">
-                <p class="d-block" style="color: var(--gray-dark);font-weight: bold; margin-bottom: 6px;">Firma rangering</p>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star-o d-inline"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class = "col-12 m-0 p-0 d-flex justify-content-start">
-            <more @endringSkjeddeEvent = "sendAtEndringSkjedde" :stilling = "stilling"></more>
-          </div>
-          <div style = "font-size: 14px !important; word-wrap: break-word; white-space: pre-wrap; word-break: break-word;" class="col mt-4 px-0 d-flex align-items-start flex-column justify-content-start text-left" v-html="stilling.about ? stilling.about.trim() : stilling.teaser">
+          <div class="col-12 text-left">
+            <p class="m-0 mb-1 name"> {{ melding.thisUser == melding.starterBrukernavn ? melding.mottakerBrukernavn : melding.starterBrukernavn }}</p>
+            <p v-if="melding.meldinger" class="m-0 small" style="text-overflow: ellipsis !important;white-space: nowrap;overflow: hidden;">
+              {{ melding.meldinger[melding.meldinger.length - 1].content}}
+            </p>
           </div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
+<style>
+  .bilde {
+    border-radius: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 46px;
+    min-width: 46px;
+    max-width: 46px;
+    height: 46px;
+  }
+  .name {
+    color: #5791ea;
+  }
+  .time {
+    color: #a7a7a7;
+  }
+</style>
+
 <script>
+  import {
+    ref
+  } from "vue";
+  var mottaker = ref(null);
   import TimeAgo from 'javascript-time-ago'
-  import spinner from "../components/spinner.vue";
-  import more from "../components/more.vue";
   //Timeago localen for norsk
   var norsk = {
     "locale": "nb",
@@ -268,27 +243,21 @@
       }
     }
   }
-
   //Legg localen til timeago
   TimeAgo.addLocale(norsk)
-
   //Lag en timeago instans
   const timeAgo = new TimeAgo("nb");
-
-export default{
-    props:{
-        stilling: Object,
+  export default {
+    props: {
+      id: Object,
+      melding: Object,
     },
-    setup(props, context){
-      function sendAtEndringSkjedde(obj) {
-        context.emit("endringSkjeddeEvent", obj);
+    setup(props) {
+      console.log(props.melding);
+      return {
+        mottaker,
+        timeAgo,
       }
-        return{
-            timeAgo,
-            more,
-            sendAtEndringSkjedde,
-        }
     }
-}
-
+  }
 </script>

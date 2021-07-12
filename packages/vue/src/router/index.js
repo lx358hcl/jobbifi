@@ -26,7 +26,6 @@ import BesteSelskaper from "../views/BesteSelskaper.vue";
 
 import firebaseApp from "../../../firebase/firebaseconfig.js";
 
-
 const routes = [
   {
     path: "/",
@@ -134,7 +133,7 @@ const routes = [
     component: Innstillinger,
   },
   {
-    path: "/meldinger",
+    path: "/dashboard/meldinger",
     name: "Meldinger",
     component: Meldinger,
   },

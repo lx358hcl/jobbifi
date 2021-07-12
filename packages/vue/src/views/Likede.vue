@@ -21,7 +21,7 @@
                     <spinner></spinner>
                 </div>
 
-                <div v-else class = "col-12 d-flex align-items-center justify-content-center">
+                <div v-if = "loading == false && Object.values(allSaved).length == 0" class = "col-12 d-flex align-items-center justify-content-center">
                     <p>Du har ikke lika noe</p>
                 </div>
             </div>

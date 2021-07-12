@@ -17,6 +17,7 @@ var settings = ref({
     "data": "",
     "entireResponse": "",
     "source": ["ifijobs", "arbeidsplassen", "finn"],
+    "nyttBildeOpplastet": false,
 });
 
 //Last inn fra localStorage

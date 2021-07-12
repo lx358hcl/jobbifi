@@ -1,11 +1,11 @@
 <template>
-  <div :key="true" class="px-0 row center mobilFeed">
-    <div class="col-md-6 col-xs-12 col-md-offset-3">
-      <div class="panel">
-        <div class="panel-body mt-5">
-          <h2 class = "pl-4 ml-1">Feed (de siste 24 timene)</h2>
+  <div class="px-0 row center mobilFeed">
+    <div class="col-md-6 col-xs-12 col-md-offset-3 d-flex justify-content-start align-items-center flex-column">
+      <div class="w-100">
+        <div class="w-100">
+          <h2 class = "w-100 text-center">Feed (de siste 24 timene)</h2>
           <hr class = "cleanBeholder">
-          <ul class="list-group list-group-dividered list-group-full mb-5">
+          <ul v-if="Object.values(feedObjekt).length > 0" class="list-group list-group-dividered list-group-full mb-5">
             <spinner v-if="loading" class = "m-auto"></spinner>
             <li v-for="(value, key) in feedObjekt" class="list-group-item">
               <div class="media d-flex align-items-center">
@@ -26,6 +26,7 @@
           </ul>
         </div>
       </div>
+        <p>Ingenting i feeden de siste 7-dagene</p>
     </div>
   </div>
 </template>
