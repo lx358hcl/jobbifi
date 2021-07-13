@@ -3,14 +3,12 @@
     <div class="row">
       <div class="col-2 bilde animate__animated animate__fadeIn" style="border: 2px solid #d4d4d4;" v-bind:style="{ backgroundImage: 'url(' + (melding.thisUser == melding.mottaker ? melding.starterProfilBilde : melding.mottakerProfilBilde) + '), url(https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_200x200.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00)' }">
       </div>
-      <div :class="{'d-flex': !melding.meldinger, 'align-items-center':!melding.meldinger}" class="col-9">
-        <div class="row">
-          <div class="col-12 text-left">
-            <p class="m-0 mb-1 name"> {{ melding.thisUser == melding.starterBrukernavn ? melding.mottakerBrukernavn : melding.starterBrukernavn }}</p>
-            <p v-if="melding.meldinger" class="m-0 small" style="text-overflow: ellipsis !important;white-space: nowrap;overflow: hidden;">
-              {{ melding.meldinger[melding.meldinger.length - 1].content}}
-            </p>
-          </div>
+      <div :class="{'d-flex': !melding.meldinger, 'align-items-center':!melding.meldinger}" class="col-8">
+        <div class="col-10 text-left p-0 m-0">
+          <p class="m-0 mb-1 name"> {{ melding.thisUser == melding.mottaker ? melding.starterBrukernavn : melding.mottakerBrukernavn }}</p>
+          <p v-if="melding.meldinger" class="m-0 small text-secondary" style="text-overflow: ellipsis !important;white-space: nowrap;overflow: hidden;">
+            {{ melding.lastMessage }}
+          </p>
         </div>
       </div>
     </div>
@@ -28,7 +26,8 @@
     height: 46px;
   }
   .name {
-    color: #5791ea;
+    color: #263254;
+    font-weight:bold;
   }
   .time {
     color: #a7a7a7;

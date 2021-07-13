@@ -49,6 +49,7 @@
     import firestore from 'firebase/firestore';
 	import router from '../router/index.js';
     import spinner from "../components/spinner.vue";
+    import firebase from 'firebase';
     import commentSection from "../components/commentSection.vue";
     import { settings } from "../settings.js";
 
@@ -115,6 +116,8 @@
                 mottaker: mottakerID,
                 mottakerBrukernavn: mottakerData.brukernavn,
                 deltakere: [senderID, mottakerID],
+                lastSentMessage: firebase.firestore.FieldValue.serverTimestamp(),
+                lastMessage: "",
             });
 
             window.location = window.location.origin + "/dashboard?side=meldinger";

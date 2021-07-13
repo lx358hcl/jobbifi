@@ -11,7 +11,7 @@
           <div v-bind:style="{ visibility: $router.currentRoute.value.path == '/' ? 'hidden' : 'visible' }" class = "col-2 d-flex align-items-center m-0">
             <form class = "m-0 d-flex align-items-center">
               <div class="form-group m-0">
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Søk jobbifi">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Søk på Jobbifi">
               </div>
             </form>
           </div>

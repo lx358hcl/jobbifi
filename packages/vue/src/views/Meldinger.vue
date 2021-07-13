@@ -13,7 +13,7 @@
                             <div v-if="Object.values(allSaved).length > 0" class="col-12 py-2 mx-0 px-0" role="group" aria-label="Basic example">
                                 <div v-for="(val, k) in allSaved" class="row w-100 m-0 p-0">
                                     <button @click="hentChat(k, val);" type="button" class="btn m-0 p-0 w-100 d-flex align-items-center meldingKomponent" :key="k">
-                                        <div class = "col-12 mt-0 py-0 d-flex flex-column pl-3">
+                                        <div v-if="valgtChatDetails" :class = "{ aktivSamtale: k == valgtChatDetails.chatID }" class = "col-12 mt-0 py-0 d-flex flex-column">
                                             <MeldingKomponent :id = "k" :melding = "val"></MeldingKomponent>
                                         </div>
                                     </button>
@@ -52,19 +52,51 @@
         setup(props) {
             var valgtChat = ref([]);
             var valgtChatDetails = ref(null);
-
             var user = firebaseApp.auth().currentUser;
+            var now = new Date().getTime();
+
+            //New Message listener
+            var query = db.collection('chats').where("deltakere", "array-contains", user.uid).where('lastSentMessage', '!=', now);
+            const observer = query.onSnapshot(querySnapshot => {
+                console.log(`Received query snapshot of size ${querySnapshot}`);
+                console.log(querySnapshot);
+                getInfo();
+            }, err => {
+                console.log(`Encountered error: ${err}`);
+            });
+
+            //New chat listener
+            var query2 = db.collection('chats').where("deltakere", "array-contains", user.uid);
+            const observer2 = query2.onSnapshot(querySnapshot => {
+                console.log("AAAAAAAAAAAAAAAAAH");
+                getInfo();
+            }, err => {
+                console.log(`Encountered error: ${err}`);
+            });
+
+            async function startUp(){
+                await getInfo();
+                var firstEntry = Object.entries(allSaved.value)[0];
+                var id = firstEntry[0];
+                var val = firstEntry[1];
+                await hentChat(id, val);
+            }
+
             async function hentChat(id, val) {
+                console.log(id);
+                console.log(val);
                 valgtChat.value = [];
-                var innhold = await chatsRef.doc(id).collection("meldinger").get();
+                var innhold = await chatsRef.doc(id).collection("meldinger").orderBy("sentAt", "desc").limit(20).get();
                 for (let j = 0; j < innhold.docs.length; j++) {
                     valgtChat.value.push(innhold.docs[j].data());
                 }
+                valgtChat.value.reverse();
                 valgtChatDetails.value = val;
                 console.log(valgtChat.value);
             }
+            
             async function getInfo() {
-                var chats = await chatsRef.where("deltakere", "array-contains", user.uid).get();
+                var chats = await chatsRef.where("deltakere", "array-contains", user.uid).orderBy("lastSentMessage", "desc").get();
                 var chatsData = {};
                 var mottakerProfilBilde;
                 var starterProfilBilde;
@@ -84,14 +116,15 @@
                         starterProfilBilde = profilBilder[starter];
                     } else {
                         mottakerProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.mottaker + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
-                            starterProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.starter + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
-                            profilBilder[mottaker] = mottakerProfilBilde;
+                        starterProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.starter + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
+                        profilBilder[mottaker] = mottakerProfilBilde;
                         profilBilder[starter] = starterProfilBilde;
                     }
                     chatsData[chats.docs[i].id] = chatInnhold;
                     chatsData[chats.docs[i].id]["mottakerProfilBilde"] = (alleredeHentet == false) ? profilBilder[mottaker] + "1" : profilBilder[mottaker];
                     chatsData[chats.docs[i].id]["starterProfilBilde"] = (alleredeHentet == false) ? profilBilder[starter] + "1" : profilBilder[starter];
                     chatsData[chats.docs[i].id]["thisUser"] = user.uid;
+                    chatsData[chats.docs[i].id]["chatID"] = chats.docs[i].id;
                 }
                 console.log(chatsData);
                 //Hent id-en til alle samtalene til den gitte brukeren 
@@ -108,7 +141,7 @@
                 console.log(chatsData);
                 allSaved.value = chatsData;
             }
-            getInfo();
+            startUp();
             return {
                 allSaved,
                 MeldingKomponent,
