@@ -21,10 +21,10 @@
                     loop: true,
                 });
                 typewriter
-                    .typeString('Studerer du informatikk/design?')
+                    .typeString('Er du utvikler/designer?')
                     .pauseFor(1000)
                     .deleteAll(20)
-                    .typeString('Er du utvikler/designer?')
+                    .typeString('Studerer du informatikk/design?')
                     .pauseFor(1000)
                     .deleteAll(20)
                     .typeString('Jobbifi aggregerer finn, nav og ifinavet daglig')

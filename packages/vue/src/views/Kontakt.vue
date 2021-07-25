@@ -44,9 +44,15 @@
 
 <script>
   import axios from "axios";
-  import { ref } from "vue";
+  import { ref, onMounted, onUpdated } from "vue";
   export default {
     setup() {
+      onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
       var [navn, emne, senderEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
       async function sendEpost() {
         document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt og vi gleder oss til å lese den :)</p>";

@@ -104,7 +104,6 @@
                         <hr>
                         <p class="text-muted card-subtitle mt-1" style="color: rgb(37,37,37) !important; text-align: left;font-family: Lato;"><b>Din UID:</b> {{ user.uid }} </p>
                         <hr>
-                        <slettKonto></slettKonto>
                         <div class="row">
                             <div class="col d-flex justify-content-end" style="margin-top: 15px;margin-bottom: 5px;">
                               <button type="submit" class="p-3 d-flex align-items-center btn btn-primary" style="background: rgb(40,167,69);border-style: none;padding-top: 7px;padding-bottom: 7px;padding-right: 14px;padding-left: 14px;font-size: 18px;">
@@ -162,7 +161,6 @@
     if(user){
       var dbInfo = await db.collection("users").doc(user.uid).get();
       dbInfo = await dbInfo.data();
-      console.log(dbInfo);
       dbInfoRef.value = dbInfo;
       email.value = user.email;
       brukernavn.value = dbInfo.brukernavn;
@@ -198,7 +196,6 @@
     setup() { 
       userInfo = firebaseApp.auth().currentUser;
       placeHolder.value = userInfo.emailVerified ? "Du er verifisert :)" : "Du er ikke verifisert enda";
-      console.log(userInfo.emailVerified);
       settings.value.loading = false;
       
       async function lagre(){
@@ -211,7 +208,6 @@
               var profilePicURL;
 
               if(password.value){
-                console.log(password.value);
                 try{
                   await user.updatePassword(password.value);
                   console.log("Passord oppdatert");

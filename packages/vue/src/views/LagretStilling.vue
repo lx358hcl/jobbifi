@@ -56,12 +56,8 @@
                 <p style="color: #313437;font-weight: bold;margin-bottom: 6px;">Type stilling</p><span>Fulltid</span>
               </a>
               <a class="col-4 border-0 list-group-item list-group-item-action noHover pl-0">
-                <p class="d-block" style="color: var(--gray-dark);font-weight: bold; margin-bottom: 6px;">Firma rangering</p>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star-o d-inline"></i>
+                <p class="d-block" style="color: var(--gray-dark);font-weight: bold; margin-bottom: 6px;">Opprinnelse</p>
+                <p style = "text-transform: capitalize;" >{{ stilling2.opprinnelse }} </p>
               </a>
             </div>
           </div>

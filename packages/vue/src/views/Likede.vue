@@ -2,7 +2,7 @@
     <div class="col-12 m-0 p-0 d-flex justify-content-start w-100 h-100">
         <div class="container-fluid m-0 p-0 h-100">
             <div class="row w-100 m-0 h-100">
-                <div v-if = "Object.values(allSaved).length > 0" class="col-3 py-0 h-100" style="max-height:100vh !important; overflow-y: scroll !important; overflow-x: hidden; border-right:2px solid #eaeaea;" role="group" aria-label="Basic example">
+                <div v-if = "Object.values(allSaved).length > 0" class="col-3 py-0 h-100" style="max-height:100% !important; overflow-y: scroll !important; overflow-x: hidden; border-right:2px solid #eaeaea;" role="group" aria-label="Basic example">
                     <div v-for = "(val, k) in allSaved" class="row">
                         <button type="button" class="btn m-0 p-0" :key = "k" @click = "velg(k)">
                             <div :class = "{valgtStillingsElement: k == valgtTing.id}" class = "col-12 mt-0 py-3 d-flex flex-column">

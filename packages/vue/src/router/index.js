@@ -23,6 +23,7 @@ import Varsler from "../views/Varsler.vue";
 import GlemtPassord from "../views/GlemtPassord.vue";
 import Feed from "../views/Feed.vue";
 import BesteSelskaper from "../views/BesteSelskaper.vue";
+import Selskap from "../views/Selskap.vue";
 
 import firebaseApp from "../../../firebase/firebaseconfig.js";
 
@@ -46,6 +47,10 @@ const routes = [
     path: "/glemtpassord",
     name: "GlemtPassord",
     component: GlemtPassord,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/retningslinjer",
@@ -76,15 +81,16 @@ const routes = [
     path: "/blimedlem",
     name: "Bli Medlem",
     component: BliMedlem,
-    beforeEnter: async (to, from, next) => {
-      if(firebaseApp.auth().currentUser) next("konto");
-      else next(); 
-    }
   },
   {
     path: "/besteselskaper",
     name: "BesteSelskaper",
     component: BesteSelskaper,
+  },
+  {
+    path: "/selskap/:navn",
+    name: "Selskap",
+    component: Selskap,
   },
   {
     path: "/api/:query",
@@ -100,7 +106,11 @@ const routes = [
     path: "/konto",
     name: "konto",
     component: Secret,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/bruker/:brukernavn",
@@ -113,7 +123,7 @@ const routes = [
     name: "login",
     component: Login,
     beforeEnter: async (to, from, next) => {
-      if(firebaseApp.auth().currentUser) next("konto");
+      if(firebaseApp.auth().currentUser) next();
       else next(); 
     }
   },
@@ -121,11 +131,19 @@ const routes = [
     path: "/logout",
     name: "Logout",
     component: Logout,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next("konto");
+      else next(); 
+    }
   },
   {
     path: "/dashboard/:query?",
     name: "Dashboard",
     component: Dashboard,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/innstillinger",
@@ -136,6 +154,10 @@ const routes = [
     path: "/dashboard/meldinger",
     name: "Meldinger",
     component: Meldinger,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/varsler",

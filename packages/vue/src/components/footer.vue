@@ -17,8 +17,7 @@
                         <h5>Lenker for nerder</h5>
                         <ul>
                             <li><a href="https://github.com/lukamo1996">Andre prosjekter</a></li>
-                            <li><a href="https://github.com/lukamo1996/jobbifi">Kildekoden</a></li>
-                            <li><router-link class = "hitLinks" to="/api">API</router-link></li>
+                            <li><span class = "font-italic" style = "color: #53595f">12t og 40min til ny runde...</span></li>
                         </ul>
                     </div>
                 </div>

@@ -1,12 +1,13 @@
 <template>
     <div class="col d-block d-md-none">
-        <button @click="visFilter" class="btn btn-primary" id="filterMenyKnapp" type="button" style="width: 100%;background: rgb(235,235,235);color: rgb(69,69,69);margin-bottom: 6px;border-color: #d6d6d6;padding: 10px;">Filtrer stillinger</button>
+        <button @click="visFilter()" class="btn btn-primary" id="filterMenyKnapp" type="button" style="width: 100%;background: rgb(235,235,235);color: rgb(69,69,69);margin-bottom: 6px;border-color: #d6d6d6;padding: 10px;">Filtrer stillinger</button>
     </div>
     <!--Filtermeny-->
-    <div ref="filter" class="selveFilteret col-11 col-sm-12 col-md-4 col-lg-4 col-xl-3 animate__animated d-none d-md-block mt-2" role="dialog" aria-hidden="true">
+    <div ref="filter" class="selveFilteret col-11 col-sm-12 col-md-4 col-lg-4 col-xl-3 d-none d-md-block mt-2 animate__animated" role="dialog" aria-hidden="true">
         <filterBubbles :facets = "settings"></filterBubbles>
         <div>
-            <h1 class="d-flex justify-content-between align-items-center align-content-center" style="font-size: 26px;margin-bottom: 4px;">Filtrer stillinger<i class="fa fa-close d-block d-md-none" id="lukkFilter" style="font-size: 31px;" tabindex="0"></i></h1>
+            <h1 class="d-flex justify-content-between align-items-center align-content-center" style="font-size: 26px;margin-bottom: 4px;">Filtrer stillinger
+            <i @click="visFilter" class="fa fa-close d-block d-md-none" id="lukkFilter" style="font-size: 31px;" tabindex="0"></i></h1>
             <!-- Start: Ekstra -->
         </div>
         <!-- End: Ekstra -->
@@ -128,7 +129,34 @@
     var fjernFilter = ref(null);
 
     function visFilter(){
-        filter.value.classList.toggle("d-none");
+        console.log(filter.value);
+        filter.value.style.cssText = `
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width:100%;
+            min-width:100%;
+            padding-top:10px;
+            padding-bottom:10px;
+            background-color: white !important;
+            overflow-y: scroll;
+            `
+        if(filter.value.classList.contains("animate__slideInLeft")){
+            filter.value.classList.toggle("animate__slideOutRight");
+        }
+        else{
+            filter.value.classList.toggle("animate__slideInLeft");
+        }
+        if(filter.value.classList.contains("d-none")){
+            filter.value.classList.toggle("d-none");
+        }
+        else{
+            setTimeout(function(){
+                filter.value.classList.toggle("d-none");
+            }, 700);
+        }     
     }
 
     function gjemFilter(){

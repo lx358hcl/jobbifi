@@ -1,23 +1,23 @@
 <template>
-  <div class="px-0 row center mobilFeed">
+  <div class="px-0 row center mobilFeed zoom">
     <div class="col-md-6 col-xs-12 col-md-offset-3 d-flex justify-content-start align-items-center flex-column">
       <div class="w-100">
         <div class="w-100">
-          <h2 class = "w-100 text-center">Feed (de siste 24 timene)</h2>
-          <hr class = "cleanBeholder">
-          <ul v-if="Object.values(feedObjekt).length > 0" class="list-group list-group-dividered list-group-full mb-5">
-            <spinner v-if="loading" class = "m-auto"></spinner>
-            <li v-for="(value, key) in feedObjekt" class="list-group-item">
+          <h2 class="w-100 text-center">FEED (siste 10 events)</h2>
+          <hr class="cleanBeholder">
+          <ul v-if="!loading && Object.keys(feedObjekt).length > 0" class="list-group list-group-dividered list-group-full mb-5">
+            <spinner v-if="loading" class="m-auto"></spinner>
+            <li v-for="(val, key) in feedObjekt" class="list-group-item">
               <div class="media d-flex align-items-center">
                 <div class="media-left p-2">
-                  <router-link :to="'/bruker/' + value.user.brukernavn" class="avatar avatar-online">
-                    <img class = "loadingImageSpinner" :src="value.user.profilbilde" style = "min-width: 40px; width:40px; min-height:40px; height:40px;" :alt="'Profilbilde til ' + value.user.brukernavn">
+                  <router-link :to="'/bruker/' + val.user.brukernavn" class="avatar avatar-online">
+                    <img class = "loadingImageSpinner" :src="val.user.profilbilde" style = "min-width: 40px; width:40px; min-height:40px; height:40px;" :alt="'Profilbilde til ' + val  .user.brukernavn">
                   </router-link>
                 </div>
                 <div class="media-body p-2">
-                  <small class="text-muted pull-right">{{ timeAgo.format(new Date(value.timestamp)) }}</small>
-                  <router-link :to="'/bruker/' + value.user.brukernavn">
-                    <p class="media-heading mb-0">{{ value.user.brukernavn }}</p>
+                  <small class="text-muted pull-right">{{ timeAgo.format(new Date(val.timestamp)) }}</small>
+                  <router-link :to="'/bruker/' + val.user.brukernavn">
+                    <p class="media-heading mb-0">{{ val.user.brukernavn }}</p>
                   </router-link>
                   <div>Har joinet Jobbifi-squaden 💪</div>
                 </div>
@@ -26,20 +26,25 @@
           </ul>
         </div>
       </div>
-        <p>Ingenting i feeden de siste 7-dagene</p>
+      <div v-if="loading">
+        <spinner v-if="Object.values(feedObjekt).length == 0"></spinner>
+        <p v-else>Ingenting i feed objektet</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   //Import stuff
-  import { ref, reactive } from "vue";
+  import {
+    ref,
+    reactive
+  } from "vue";
   import firebaseApp from "../../../firebase/firebaseconfig.js";
   import firestore from 'firebase/firestore';
   import router from '../router/index.js';
   import spinner from "../components/spinner.vue";
   import TimeAgo from 'javascript-time-ago'
-
   //Timeago localen for norsk
   var norsk = {
     "locale": "nb",
@@ -242,54 +247,53 @@
       }
     }
   }
-
   //Legg localen til timeago
   TimeAgo.addLocale(norsk)
-
   //Lag en timeago instans
   const timeAgo = new TimeAgo("nb");
-
   //Variabler
   var feedObjekt = ref({});
   var loading = ref(true);
   var db = firebaseApp.firestore();
-
   //Feedgetter
   async function getFeed() {
     //Resetter feed-objektet og loading-variabelen
     loading.value = true;
     feedObjekt.value = {};
-
-    //Henter vi hele userfeeden
-    var dbInfo = await db.collection("feed").doc("registrationFeed").collection("allRegistrations").get();
-
     //Ting vi trenger
     var feedEntry = null;
-
     //Vi lager feedEntriene først med bare feeden
-    dbInfo.forEach(e => {
+    var feed = await db.collection("feed").doc("registrationFeed").collection("allRegistrations").orderBy("timestamp", "desc").limit(10).get();
+    var feedObjektStatisk = {};
+    feed.forEach(e => {
       feedEntry = e.data();
-      if(feedEntry.uid){
-        feedObjekt.value[feedEntry.uid] = {
-          type: feedEntry.type,
-          timestamp: feedEntry.timestamp,
-          user: null
-        }
+
+      feedObjektStatisk[feedEntry.uid] = {
+        type: feedEntry.type,
+        timestamp: feedEntry.timestamp,
+        user: null,
+        uid: feedEntry.uid,
       }
+
     });
 
     //Vi oppdaterer feed-objektet med user-info, keys = uids
-    Object.keys(feedObjekt.value).forEach(uid => {
+    Object.keys(feedObjektStatisk).forEach(uid => {
       db.collection("users").doc(uid).get().then(doc => {
-        feedObjekt.value[uid].user = doc.data();
+        if(doc.exists == true){
+          if (uid == doc.data()["uid"]) {
+            feedObjekt.value[uid] = feedObjektStatisk[uid];
+            feedObjekt.value[uid].user = doc.data();
+          }
+        }
+        else delete feedObjekt.value[uid];
       })
     })
+
     console.log(feedObjekt.value);
-    
     //Slå av loaderen
     loading.value = false;
   }
-  
   //Export shit
   export default {
     setup() {

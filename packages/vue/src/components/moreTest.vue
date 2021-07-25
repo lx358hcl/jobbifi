@@ -1,24 +1,24 @@
 <template class = "mt-3">
-    <div v-if="stilling" :id="stilling.id" class="content d-flex justify-content-center m-0">
-        <button @click="visMenu" class="shareButton buttonIcon d-flex align-items-center justify-content-center main m-0">
-            <spinnerFont class = "spinIt d-flex align-items-center justify-content-center" v-if="loading"></spinnerFont>
-            <i v-else class="fas fa-ellipsis-h"></i>
-        </button>
+    <div v-if="stilling" :id="stilling.id" class="content d-flex justify-content-center m-0" style = "z-index: 100">
         <a :href = "stilling.originalURL">
             <button style = "color:#17171b; font-size: 16px;" :class = "{ open: opened }" class="btn btn-light p-3 font-weight-bold float-left">
                 <span><i style = "font-size:14px;" class="fas fa-feather"></i></span>
-                <span class = "ml-2 text-dark">Søk på stillingen</span>
+                <span class = "ml-2 text-dark d-none d-sm-inline-block">Søk på stilling</span>
             </button>
         </a>
+        <button v-if="user" @click="visMenu" class="shareButton buttonIcon d-flex align-items-center justify-content-center main m-0">
+            <spinnerFont class = "spinIt d-flex align-items-center justify-content-center" v-if="loading"></spinnerFont>
+            <i v-else class="fas fa-ellipsis-h"></i>
+        </button>
         <button v-if="user" @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton fb m-0">
             <i :class = "{ bolded: bookmarka }" class="far fa-bookmark"></i>
         </button>
         <button v-if="user" @click="visMenu" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton tw m-0">
             <i :class = "{ bolded: lika }" class="far fa-thumbs-up"></i>
         </button>
-        <button @click="user ? click : null" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton ig m-0">
+        <!--<button @click="user ? click : null" :class = "{ open: opened }" class="buttonIcon d-flex align-items-center justify-content-center shareButton ig m-0">
             <i class="far fa-flag"></i>
-        </button>
+        </button>-->
     </div>
 </template>
 

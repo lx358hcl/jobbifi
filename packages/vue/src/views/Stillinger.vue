@@ -79,12 +79,6 @@ var totaltAntallSider = ref(0);
 var loading = ref(false);
 var user = ref("");
 
-document.body.addEventListener("click", noeBleTrykketPå, false);
-
-function noeBleTrykketPå(event){
-    console.log(event.target)
-}
-
 var indexes = {
     "søkeIndex": søkeIndex,
     "newestFirstindex": newestFirstIndex,

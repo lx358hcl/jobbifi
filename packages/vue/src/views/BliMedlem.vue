@@ -132,10 +132,11 @@
         epost: email.value,
         uid: user.value.uid,
         lagret: [],
+        active: new Date(),
       })
       await addToUsersIndex(brukernavn.value);
       await addToFeed("registrering", user.value.uid, new Date().getTime());
-      window.location = window.location.origin + '/konto';
+      window.location = window.location.origin + '/dashboard?side=profil';
     } 
     catch (error) {
       if (error.code == "auth/email-already-in-use") errorTekst.value = "Den eposten er allerede i bruk";

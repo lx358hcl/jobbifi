@@ -42,3 +42,21 @@
     </div>
   </main>
 </template>
+
+<script>
+  import { onMounted, onUpdated } from "vue";
+  export default{
+    setup(){
+      onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
+      return{
+
+      }
+    }
+  }
+
+</script>

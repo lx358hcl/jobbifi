@@ -2,7 +2,7 @@
     <div class="dropdown bossButton" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <a class="outerButton h-100 d-flex justify-content-center align-items-center" href="#">
             <div class="innerButton d-flex justify-content-center ">
-                <i class="fas fa-bars moreIcon float-left"></i>
+                <i style = "margin-top: 1px; padding-left:13px;" class="fas fa-bars moreIcon float-left"></i>
                 <div>
                     <div v-if="loading">
                         <spinner></spinner>
@@ -17,14 +17,9 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div class="d-flex justify-content-center">
                 <div style = "letter-spacing:0px" v-if="user">
-                    <router-link class="accountText py-1 dropdown-item" to="/dashboard" href="#" >Dashboard </router-link>
-
-                    <!--<router-link class="dropdown-item" to="/meldinger"> Meldinger
-                        <span class="badge badge-danger" style="position: relative; bottom: 10px; padding-top: 3px; padding-right: 3px; right: 3px; padding-left: 5px; border-radius: 0px;">32</span>
-                    </router-link>-->
+                    <router-link class="accountText py-1 dropdown-item" to="/dashboard" href="#" >Konto </router-link>
                     <hr style="" class="mx-3 my-2">
-                    <router-link class="accountText py-1 dropdown-item" to="/lagrede"> Lagret </router-link>
-                    <a href="#" @click="logOut();" class="dropdown-item"> Logg ut </a>
+                    <a href="#" @click="logOut();" class="dropdown-item accountText"> Logg ut </a>
                 </div>
                 <div v-else>
                     <router-link class="accountText py-1 dropdown-item" to="/login"> Login </router-link>

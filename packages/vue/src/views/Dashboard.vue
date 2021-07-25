@@ -1,38 +1,61 @@
 <template>
     <main class="d-flex justify-content-center page contact-us-page" style="min-height: calc(100vh - 294px);">
         <div class="container-fluid m-0 p-0" style="margin-top: 28px;">
-            <div class = "row w-100 h-100 m-0 p-0 d-flex">
-                <div class = "venstreSide col-2 m-0 p-0 w-100 h-100 ">
-                    <div class="btn-group-vertical float-right p-3 pt-1" role="group" aria-label="Basic example">
-                        <button :class = "{valgtSide: valgtStr == 'profil', aktivtIkon: valgtStr == 'profil'}" @click = "velgKomponent('profil')" type="button" class="sideBarButton d-flex align-items-center btn btn-link text-dark font-weight-bold rounded my-2">
-                            <i class="mr-4 sideBarIkon fas fa-user-circle"></i>
-                            Profil
-                        </button>
-                        <button :class = "{valgtSide: valgtStr == 'lagrede', aktivtIkon: valgtStr == 'lagrede'}"  @click = "velgKomponent('lagrede')" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
-                            <i class="mr-4 sideBarIkon fas fa-bookmark"></i>
-                            Lagrede
-                        </button>
-                        <button :class = "{valgtSide: valgtStr == 'likede', aktivtIkon: valgtStr == 'likede'}"  @click = "velgKomponent('likede')" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
-                            <i class="mr-4 sideBarIkon fas fa-thumbs-up"></i>
-                            Likede
-                        </button>
-                        <button :class = "{valgtSide: valgtStr == 'meldinger', aktivtIkon: valgtStr == 'meldinger'}"  @click = "velgKomponent('meldinger')" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
-                            <i class="mr-4 sideBarIkon fas fa-inbox"></i>
-                            Meldinger
-                        </button>
-                        <button :class = "{valgtSide: valgtStr == 'innstillinger', aktivtIkon: valgtStr == 'innstillinger'}"  @click = "velgKomponent('lagrede')" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
-                            <i class="mr-4 sideBarIkon fas fa-sliders-h"></i>
-                            Innstillinger
-                        </button>
-                        <button @click = "logOut()" type="button" class="sideBarButton d-flex align-items-center btn btn-link rounded text-dark font-weight-bold my-2">
-                            <i class="mr-4 sideBarIkon fas fa-sign-out-alt"></i>
-                            Logg ut
-                        </button>
-
+            <div class="row w-100 h-100 m-0 p-0 d-flex">
+                <div class="venstreSide col-2 m-0 p-0 w-100 h-100">
+                    <div class="row w-100 px-0 m-0">
+                        <div class="col-12 m-0 p-0 d-flex justify-content-center">
+                            <button class = "btn btn-link text-dark font-weight-bold rounded my-3 py-0" :class="{valgtSide: valgtStr == 'profil', aktivtIkon: valgtStr == 'profil'}" @click="velgKomponent('profil')" type="button">
+                                <div class = "row d-flex justify-content-center align-items-center">
+                                    <div class = "col-3 d-flex justify-content-center">
+                                        <i style = "font-size:18px;" class="mr-0 sideBarIkon fas fa-user-circle"></i>
+                                    </div>
+                                    <div class = "col-8 d-none d-md-block">
+                                        <span class = "d-none d-md-block">Profil</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-12 m-0 p-0 d-flex justify-content-center">
+                            <button class = "btn btn-link text-dark font-weight-bold rounded my-3 py-0" :class="{valgtSide: valgtStr == 'lagrede', aktivtIkon: valgtStr == 'lagrede'}" @click="velgKomponent('lagrede')" type="button">
+                                <div class = "row d-flex justify-content-center align-items-center">
+                                    <div class = "col-3 d-flex justify-content-center">
+                                        <i style = "font-size:18px;" class="mr-0 sideBarIkon fas fa-bookmark"></i>
+                                    </div>
+                                    <div class = "col-8 d-none d-md-block">
+                                        <span class = "d-none d-md-block">Lagrede</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-12 m-0 p-0 d-flex justify-content-center">
+                            <button class = "btn btn-link text-dark font-weight-bold rounded my-3 py-0" :class="{valgtSide: valgtStr == 'likede', aktivtIkon: valgtStr == 'likede'}" @click="velgKomponent('likede')" type="button">
+                                <div class = "row d-flex justify-content-center align-items-center">
+                                    <div class = "col-3 d-flex justify-content-center">
+                                        <i style = "font-size:18px;" class="mr-0 sideBarIkon fas fa-thumbs-up"></i>
+                                    </div>
+                                    <div class = "col-8 d-none d-md-block">
+                                        <span class = "d-none d-md-block">Likede</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-12 m-0 p-0 d-flex justify-content-center">
+                            <button class = "btn btn-link text-dark font-weight-bold rounded my-3 py-0" @click="logOut()" type="button">
+                                <div class = "row d-flex justify-content-center align-items-center">
+                                    <div class = "col-3 d-flex justify-content-center">
+                                         <i style = "font-size:20px;" class="mr-0 sideBarIkon fas fa-sign-out-alt"></i>
+                                    </div>
+                                    <div class = "col-8 d-none d-md-block">
+                                        <span class = "d-none d-md-block">Logg ut</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div style = "border-top: 2px solid rgb(243, 243, 245)" class = "col-10 m-0 p-0 pb-5">
-                    <component ref = "valgtKomponent" :is = "valgt"></component>
+                <div style="border-top: 2px solid rgb(243, 243, 245)" class="col-10 m-0 p-0 pb-5">
+                    <component ref="valgtKomponent" :is="valgt"></component>
                 </div>
             </div>
         </div>
@@ -45,55 +68,84 @@
     import Meldinger from "./Meldinger.vue";
     import LagredeStillinger from "./LagredeStillinger.vue";
     import Likede from "./Likede.vue";
-    import { ref } from "vue";
-    import { useRouter, useRoute } from 'vue-router'
+    import {
+        ref, onMounted,
+    } from "vue";
+    import {
+        useRouter,
+        useRoute
+    } from 'vue-router'
     import firebaseApp from "../../../firebase/firebaseconfig.js";
-
     var valgt = ref(Secret);
     var valgtStr = ref("profil");
     var valgtKomponent = ref(null);
-
-    export default{
-        setup(){
-            //Logg ut funksjon
-            function logOut() {
-                firebaseApp.auth().signOut();
-                window.location = window.location.origin + "/login";
-            }
+    //Logg ut funksjon
+    function logOut() {
+        firebaseApp.auth().signOut();
+        window.location = window.location.origin + "/login";
+    }
+    export default {
+        setup() {
             var router = useRouter();
-            var currentRoute;
-
-            if(router.currentRoute.value.query.side) {
-                currentRoute = router.currentRoute.value.query.side;
-                velgKomponent(currentRoute);
-            }
-            else{
+            var query = router.currentRoute.value.query;
+            console.log(router.currentRoute);
+            if (Object.keys(query).length > 0) {
+                velgKomponent(query);
+            } else {
                 velgKomponent("profil");
             }
-            
-            function velgKomponent(str){
-                console.log(str);
-                if(str == "profil") {
+            function velgKomponent(query) {
+                var str = null;
+                if (query.side) {
+                    str = query.side;
+                } else {
+                    str = query;
+                }
+                if (str == "profil") {
                     valgt.value = Secret;
-                    router.push({ path: 'dashboard', query: { side: 'profil' } })
-                }
-                else if(str == "lagrede") {
+                    router.push({
+                        name: 'Dashboard',
+                        query: {
+                            side: 'profil'
+                        }
+                    })
+                } else if (str == "lagrede") {
                     valgt.value = LagredeStillinger;
-                    router.push({ path: 'dashboard', query: { side: 'lagrede' } })
-                }
-                else if(str == "likede") {
+                    router.push({
+                        name: 'Dashboard',
+                        query: {
+                            side: 'lagrede'
+                        }
+                    })
+                } else if (str == "likede") {
                     valgt.value = Likede;
-                    router.push({ path: 'dashboard', query: { side: 'likede' } })
-                }
-                else if(str == "meldinger") {
+                    router.push({
+                        name: 'Dashboard',
+                        query: {
+                            side: 'likede'
+                        }
+                    })
+                } else if (str == "meldinger") {
                     valgt.value = Meldinger;
-                    router.push({ path: 'dashboard', query: { side: 'meldinger' } })
+                    var chatID2 = query.chatID;
+                    if (chatID2) router.push({
+                        name: 'Dashboard',
+                        query: {
+                            "side": 'meldinger',
+                            "chatID": chatID2
+                        }
+                    });
+                    else router.push({
+                        name: 'Dashboard',
+                        query: {
+                            side: 'meldinger'
+                        }
+                    })
                 }
-
                 valgtStr.value = str;
             }
-            return{
-                more, 
+            return {
+                more,
                 valgt,
                 Secret,
                 velgKomponent,
@@ -102,5 +154,4 @@
             }
         }
     }
-
 </script>

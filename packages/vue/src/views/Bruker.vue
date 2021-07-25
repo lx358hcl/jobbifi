@@ -14,8 +14,9 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="img-fluid" id = "" data-bss-hover-animate="pulse" v-bind:style="{ backgroundImage: 'url(' + profilbilde + ')' }" style="background-repeat: no-repeat; background-size: cover; width:220px; height:220px; border-radius: 156px;box-shadow: 0px 0px 4px 1px rgba(82,82,82,0.87);border: 1px none rgb(79,79,79);"></div>
                                 </div>
+                                <span style = "margin-left:130px; margin-top:-50px; border:5px solid white; width:50px !important; height:50px;" :class = "{'badge-success': active, 'badge-danger': !active}" class="badge d-inline-block badge-pill">&nbsp;&nbsp;&nbsp;</span>
                                 <h4 class="text-center card-title" style="margin-top: 20px;font-weight: 900;margin-bottom: 20px;font-family: lato;">{{ brukernavn }}</h4>
-                                <button @click = "startChat()" type="button" class="btn font-weight-bold btn-dark px-4" style = "font-family:Lato;">Chat med {{ brukernavn }}</button>
+                                <!--<button v-if = "user" @click = "startChat()" type="button" class="btn font-weight-bold btn-dark px-4" style = "font-family:Lato;"><i class="far fa-comment-dots"></i> Chat </button>-->
                                 <h6 class="text-muted card-subtitle mb-2 mt-4" style="color: rgb(37,37,37) !important;font-weight: 600;text-align: center;font-family: Lato;">OM MEG</h6>
                                 <hr>
                                 <p class="pb-3 pr-3 pl-3 pt-0 card-text text-center" style="text-align: left;" v-html="omMeg"></p>
@@ -30,7 +31,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <p v-else class = "d-flex justify-content-center">Denne brukeren finnes ikke. </p>
+                            <p v-else class = "d-flex justify-content-center">Denne brukeren finnes ikke/har blitt slettet. </p>
                         </div>
                     </div>
                 </div>
@@ -68,6 +69,7 @@
     var user = ref("");
     var loading = ref(true);
     var db = firebaseApp.firestore();
+    var active = ref(false);
 
     //Get info for the given user
     async function getInfoForUser(){
@@ -80,19 +82,26 @@
         console.log(users.docs);
         if(users.docs.length != 0){
             userInfo.value = users.docs[0].data();
+
+            //Set reffene til verdiene
+            email.value = userInfo.value.epost;
+            brukernavn.value = userInfo.value.brukernavn;
+            fornavn.value = userInfo.value.fornavn;
+            etternavn.value = userInfo.value.etternavn;
+            profilbilde.value = userInfo.value.profilbilde;
+            omMeg.value = userInfo.value.omMeg;
+            linkedIn.value = userInfo.value.linkedIn;
+            gitHub.value = userInfo.value.gitHub;
+            nettside.value = userInfo.value.nettside;
+
+            //Er bruker pålogget?
+            var currentDate = new Date().getTime();
+            var lastActiveTime = userInfo.value.active.toDate().getTime();
+            var diff = currentDate - lastActiveTime;
+            if(diff < 60000) active.value = true;
+            else active.value = false;
+
         }
-
-        //Set reffene til verdiene
-        email.value = userInfo.value.email;
-        brukernavn.value = userInfo.value.brukernavn;
-        fornavn.value = userInfo.value.fornavn;
-        etternavn.value = userInfo.value.etternavn;
-        profilbilde.value = userInfo.value.profilbilde;
-        omMeg.value = userInfo.value.omMeg;
-        linkedIn.value = userInfo.value.linkedIn;
-        gitHub.value = userInfo.value.gitHub;
-        nettside.value = userInfo.value.nettside;
-
         //Avslutt loading spinner
         loading.value = false;
     }
@@ -106,21 +115,54 @@
             var mottaker = await db.collection("users").where("brukernavn", "==", router.currentRoute.value.params.brukernavn).get();
             var mottakerData = mottaker.docs[0].data();
             var mottakerID = mottakerData.uid;
-            console.log();
 
-            //Start chat
-            var nyChat = await db.collection("chats").doc();
-            await nyChat.set({
-                starter: senderID,
-                starterBrukernavn: senderBrukernavn,
-                mottaker: mottakerID,
-                mottakerBrukernavn: mottakerData.brukernavn,
-                deltakere: [senderID, mottakerID],
-                lastSentMessage: firebase.firestore.FieldValue.serverTimestamp(),
-                lastMessage: "",
-            });
+            //Først sjekker vi om chatten finnes fra før
+            console.log(senderID);
+            console.log(mottakerID);
+            var res = await db.collection("chats").where(`deltakere.${senderID}`, "==", true).where(`deltakere.${mottakerID}`, "==", true).get();
+            var res2 = await db.collection("chats").where(`deltakere.${senderID}`, "==", false).where(`deltakere.${mottakerID}`, "==", true).get();
+            var res3 = await db.collection("chats").where(`deltakere.${senderID}`, "==", false).where(`deltakere.${mottakerID}`, "==", false).get();
 
-            window.location = window.location.origin + "/dashboard?side=meldinger";
+            if(res.docs.length > 0 && res.docs[0].exists){
+                console.log(res.docs);
+                router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res.docs[0].id }});
+            }
+            else if(res2.docs.length > 0 && res2.docs[0].exists){
+                await db.collection("chats").doc(res2.docs[0].id).update({
+                    [`deltakere.${senderID}`]:true,
+                    [`deltakere.${mottakerID}`]:true,
+                })
+                router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res2.docs[0].id }});
+            }
+            else if(res3.docs.length > 0 && res3.docs[0].exists){
+                await db.collection("chats").doc(res3.docs[0].id).update({
+                    [`deltakere.${senderID}`]:true,
+                    [`deltakere.${mottakerID}`]:true,
+                })
+                setTimeout(function(){
+                    router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res3.docs[0].id }});
+                }, 300)
+            }
+            else{
+                //Start chat
+                var nyChat = await db.collection("chats").doc();
+                await nyChat.set({
+                    starter: senderID,
+                    starterBrukernavn: senderBrukernavn,
+                    mottaker: mottakerID,
+                    mottakerBrukernavn: mottakerData.brukernavn,
+                    deltakere: {
+                        [senderID]: true,
+                        [mottakerID]: true,
+                    },
+                    lastSentMessage: firebase.firestore.FieldValue.serverTimestamp(),
+                    lastMessage: "",
+                    lastMessageID: "",
+                    lastMessageUser:"",
+                    lastMessageChatID:nyChat.id,
+                });
+                router.push({ name: 'Dashboard', query: { side: 'meldinger'}})
+            }
         }
 
         getInfoForUser();
@@ -140,6 +182,7 @@
             user,
             loading,
             startChat,
+            active,
         }
     }
 }

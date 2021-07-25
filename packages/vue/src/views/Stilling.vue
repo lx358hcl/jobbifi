@@ -1,7 +1,7 @@
 <template>
   <main class="container center d-flex align-items-center p-0">
     <div v-if="stilling2" class="row beholder center pt-0">
-      <div class="container mt-4 mb-5 px-0">
+      <div class="container mt-4 mb-5 px-3">
         <div class = "row">
           <div class = "col-12 mb-3 mx-0 px-0 d-flex justify-content-start align-items-center">
             <button style = "color: #2b2fc5; font-weight: 900;" @click = "back" type="button" class="btn btn-link">
@@ -20,11 +20,11 @@
         <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
           <div class="col-12 pt-4 px-0">
             <div class = "row mt-4">
-              <div class = "col-6 d-flex align-items-center">
+              <div class = "col-12 col-lg-6 my-3 d-flex align-items-center">
                 <h4 class="d-inline-block" style="font-family: 'Lato', sans-serif;font-weight: bold;margin: 0px;">{{ stilling2.title }}</h4>
               </div>
-              <div class = "col-6">
-                <more :stilling = "stilling2"></more>
+              <div class = "col-12 col-lg-6 my-3">
+                <more :stilling = "stilling2" class = "float-left"></more>
               </div>
             </div>
             <div class="row justify-content-md-end align-items-md-center justify-content-xl-start">
@@ -32,13 +32,11 @@
                 <div class = "row">
 
                   <div class="col-7 py-2 ml-3 pl-0 mt-2 d-flex align-items-center">
-                    <p class = "mt-0 py-0 d-inline-block" style="font-weight: bold;font-family: 'Lato', sans-serif; color: #2b2fc5; margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;padding-right: 10px;">{{ stilling2.companyName }}</p>
+                    <router-link :to = "'/selskap/' + stilling2.companyName">
+                      <p class = "mt-0 py-0 d-inline-block" style="font-weight: bold;font-family: 'Lato', sans-serif; color: #2b2fc5; margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;padding-right: 10px;">{{ stilling2.companyName }}</p>
+                    </router-link>
                     <p class = "font-weight-bold d-inline-block text-left p-0" style="margin-bottom: 0px;padding: 0px; color: rgb(139,139,139); font-family: 'Lato', sans-serif;padding-left: 10px;">-&nbsp;&nbsp;{{ stilling2.sted }}</p>
                   </div>
-                <div class="col-5 d-flex justify-content-end">
-
-                </div>
-                
                 </div>
               </div>
             </div>
@@ -57,12 +55,8 @@
                 <p style="color: #313437;font-weight: bold;margin-bottom: 6px;">Type stilling</p><span>Fulltid</span>
               </a>
               <a class="col-4 border-0 list-group-item list-group-item-action noHover pl-0">
-                <p class="d-block" style="color: var(--gray-dark);font-weight: bold; margin-bottom: 6px;">Firma rangering</p>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star d-inline"></i>
-                <i class="fa fa-star-o d-inline"></i>
+                <p class="d-block" style="color: var(--gray-dark);font-weight: bold; margin-bottom: 6px;">Opprinnelse</p>
+                <p style = "text-transform: capitalize;" >{{ stilling2.opprinnelse }} </p>
               </a>
             </div>
           </div>
@@ -82,7 +76,7 @@
   import firebaseApp from "../../../firebase/firebaseconfig.js";
   import more from "../components/moreTest.vue";
   import { useRouter, useRoute } from 'vue-router';
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted, onUpdated } from "vue";
   import TimeAgo from 'javascript-time-ago'
   import spinner from "../components/spinner.vue";
   //Timeago localen for norsk
@@ -300,9 +294,13 @@
       onMounted(() => {
         window.scrollTo(0, 0);
       })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
       const route = useRoute();
       const router = useRouter();
       var stilling2 = ref(null);
+      var user = firebaseApp.auth().currentUser;
       console.log(route);
 
       async function getInfo() {
@@ -327,6 +325,7 @@
         spinner,
         back,
         bilde,
+        user,
       }
     }
   }
