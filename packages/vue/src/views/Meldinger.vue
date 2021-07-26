@@ -190,8 +190,8 @@
                         starterProfilBilde = profilBilder[starter];
                     } 
                     else {
-                        mottakerProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.mottaker + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
-                        starterProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.starter + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
+                        mottakerProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.mottaker + "_400x400" + ".webp" + "?alt=media&token=" + new Date().getTime(),
+                        starterProfilBilde = "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + chatInnhold.starter + "_400x400" + ".webp" + "?alt=media&token=" + new Date().getTime(),
                         profilBilder[mottaker] = mottakerProfilBilde;
                         profilBilder[starter] = starterProfilBilde;
                     }

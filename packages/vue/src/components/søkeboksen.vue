@@ -38,7 +38,7 @@
     import { axiosMe } from "../views/Stillinger.vue";
     import { settings } from "../settings.js";
     import spinner from "./spinner.vue";
-    import { ref, onMounted } from "vue";
+    import { ref, onMounted, onUpdated } from "vue";
     import * as algoliasearch from 'algoliasearch';
     import søkeIndex from "../../../algolia/algoliaconfig.js";
     import router from "../router/index.js";
@@ -80,7 +80,7 @@
     export default {
         setup() {
             onMounted(() => {
-                searchInput.value.focus();
+                searchQuery.value = "";
             })
             return {
                 spinner,

@@ -59,13 +59,16 @@
             }
 
             function oppdaterAllSaved(obj){
-                if(obj.type == "delete"){
+                if(obj.type == "delete" && obj.type2 == "stilling"){
                     console.log(allSaved.value);
                     console.log(obj.id);
                     delete allSaved.value[obj.id];
                     console.log(allSaved);
                 }
-                valgtTing.value = Object.values(allSaved.value)[0];
+                try{
+                    valgtTing.value = Object.values(allSaved.value)[0];
+                }
+                catch{ };
             }
 
             async function getInfo(){

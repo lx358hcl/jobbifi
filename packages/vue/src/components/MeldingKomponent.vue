@@ -1,7 +1,7 @@
 <template>
   <div class="container px-3 py-2 m-0">
     <div class="row">
-      <div class="col-2 bilde animate__animated animate__fadeIn" style="border: 2px solid #d4d4d4;" v-bind:style="{ backgroundImage: 'url(' + (melding.thisUser == melding.mottaker ? melding.starterProfilBilde : melding.mottakerProfilBilde) + '), url(https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_200x200.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00)' }">
+      <div class="col-2 bilde animate__animated animate__fadeIn" style="border: 2px solid #d4d4d4;" v-bind:style="{ backgroundImage: 'url(' + (melding.thisUser == melding.mottaker ? melding.starterProfilBilde : melding.mottakerProfilBilde) + '), url(https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_400x400.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00)' }">
         <span style = "position:relative; top:25px; left:10px; margin-left:0px; margin-top:0px; border:3px solid white; width:20px !important; height:20px;" :class = "{'badge-success': brukerSistAktivTid, 'badge-danger': !brukerSistAktivTid }" class="badge d-inline-block badge-pill">&nbsp;&nbsp;&nbsp;</span>  
       </div>
       <div :class="{'d-flex': !melding.meldinger, 'align-items-center':!melding.meldinger}" class="col-8">

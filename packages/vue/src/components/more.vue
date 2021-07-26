@@ -74,6 +74,7 @@
                     context.emit("endringSkjeddeEvent", {
                         type: "delete",
                         id: props.stilling.id,
+                        type2: "stilling",
                     });
                     await db.collection("users").doc(user.value.uid).collection("lagret").doc(props.stilling.id).delete();
                 }
@@ -82,6 +83,7 @@
                     delete stillingKopi["_highlightResult"];
                     context.emit("endringSkjeddeEvent", {
                         type: "lagring",
+                        type2: "stilling",
                         id: props.stilling.id,
                     });
                     await db.collection("users").doc(user.value.uid).collection("lagret").doc(props.stilling.id).set(props.stilling);
@@ -95,6 +97,11 @@
                 var likaStilling = await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).get();
                 lika.value = likaStilling.exists;
                 if(lika.value == true){
+                    context.emit("endringSkjeddeEvent", {
+                        type: "delete",
+                        type2: "like",
+                        id: props.stilling.id,
+                    });
                     await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).delete();
                     try{
                         await db.collection("jobs").doc(props.stilling.id).update({
@@ -104,6 +111,11 @@
                     catch{}
                 }
                 else{
+                    context.emit("endringSkjeddeEvent", {
+                        type: "lagring",
+                        id: props.stilling.id,
+                        type2: "like",
+                    });
                     await db.collection("users").doc(user.value.uid).collection("likaStillinger").doc(props.stilling.id).set({});
                     
                     try{

@@ -4,7 +4,7 @@
         <div class = "row">
           <div class = "col-12 mb-3 mx-0 px-0 d-flex justify-content-start align-items-center">
             <button style = "color: #2b2fc5; font-weight: 900;" @click = "back" type="button" class="btn btn-link">
-              <i class="fas fa-angle-left"></i> Tilbake til stillinger
+              <i class="fas fa-angle-left"></i> Tilbake
             </button>          
           </div>
         

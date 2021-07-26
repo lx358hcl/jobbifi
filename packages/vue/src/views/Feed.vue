@@ -1,9 +1,9 @@
 <template>
-  <div class="px-0 row center mobilFeed zoom">
+  <div class="px-0 row center mobilFeed zoom m-0">
     <div class="col-md-6 col-xs-12 col-md-offset-3 d-flex justify-content-start align-items-center flex-column">
       <div class="w-100">
         <div class="w-100">
-          <h2 class="w-100 text-center">FEED (siste 10 events)</h2>
+          <h2 class="w-100 text-center" style = "font-family: Inter">Feed (siste 10)</h2>
           <hr class="cleanBeholder">
           <ul v-if="!loading && Object.keys(feedObjekt).length > 0" class="list-group list-group-dividered list-group-full mb-5">
             <spinner v-if="loading" class="m-auto"></spinner>

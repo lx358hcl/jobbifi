@@ -2,7 +2,7 @@
 
 <template>
     <div class = "d-flex align-items-center">
-        <p id="skrivUt" style = "color:black; font-size:0.8em !important; font-weight:normal;">
+        <p id="skrivUt">
         
         </p>
     </div>

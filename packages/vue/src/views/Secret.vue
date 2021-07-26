@@ -231,7 +231,7 @@
                         fornavn: fornavn.value,
                         brukernavn: brukernavn.value,
                         etternavn: etternavn.value,
-                        profilbilde: "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + user.uid + "_200x200" + ".webp" + "?alt=media&token=" + new Date().getTime(),
+                        profilbilde: "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/" + user.uid + "_400x400" + ".webp" + "?alt=media&token=" + new Date().getTime(),
                         omMeg: omMeg.value,
                         linkedIn: linkedIn.value,
                         gitHub: gitHub.value,

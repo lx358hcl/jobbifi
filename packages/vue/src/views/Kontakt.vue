@@ -43,7 +43,6 @@
 </template>
 
 <script>
-  import axios from "axios";
   import { ref, onMounted, onUpdated } from "vue";
   export default {
     setup() {
@@ -55,13 +54,21 @@
       })
       var [navn, emne, senderEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
       async function sendEpost() {
-        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt og vi gleder oss til å lese den :)</p>";
-        await axios.post('http://localhost:3000/api/privat/sendEpost', {
-          "navn": navn.value,
-          "emne": emne.value,
-          "senderEpost": senderEpost.value,
-          "melding": melding.value,
-          "mottaKopi": mottaKopi.value,
+        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt </p>";
+        
+        var APIKEY = "75786fce45949903b32feb1521acfabb-07bc7b05-348b640f";
+        var APIURL = "https://api.mailgun.net/v3/sandbox924f906f22f043a391c063ec30bd796f.mailgun.org";
+        const mailgun = require("mailgun-js");
+        const DOMAIN = 'YOUR_DOMAIN_NAME';
+        const mg = mailgun({apiKey: APIKEY, domain: APIURL});
+        const data = {
+          from: senderEpost.value,
+          to: "luka_momcilovic@hotmail.com",
+          subject: emne.value,
+          text: melding.value
+        };
+        mg.messages().send(data, function (error, body) {
+          console.log(body);
         });
       }
       return {

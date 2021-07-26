@@ -2,10 +2,10 @@
   <nav ref="nav" :class="{'fixed-top': $router.currentRoute.value.path == '/'}" class="zoom clean-navbar container-fluid m-0 p-0">
     <div class="row w-100 d-flex justify-content-center m-0">
       <div :class="{venstreSide: $router.currentRoute.value.path == '/dashboard'}" class="col-2 col-sm-2 col-md-2 col-lg-2 m-0 p-0">
-        <a href="/" class="d-flex align-items-center navbar-brand font-weight-bold justify-content-center" to="/" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
+        <router-link to="/" class="d-flex align-items-center navbar-brand font-weight-bold justify-content-center" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
           <span class="logo text-dark d-none d-lg-block">jobbifi</span>
           <span class="logo text-dark d-block d-lg-none">j</span>
-        </a>
+        </router-link>
       </div>
       <div class="col-10 col-sm-10 col-md-10 col-lg-10 d-flex justify-content-end m-0 p-0">
         <div class="container-fluid m-0 p-0">

@@ -227,9 +227,8 @@ div {
 }
 
 #skrivUt {
-  transform: scale(1.5);
   font-family: Spectral !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
   margin: 0;
 }
 
@@ -1707,4 +1706,15 @@ video {
 
 .aktivtIkon * {
   color: rgb(71, 71, 71) !important;
+}
+
+.text-that-needs-wrapping {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }

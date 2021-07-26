@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "run": "node algoliaconfig.js --experimental-specifier-resolution=node",
-    "build": "main.js"
+    "build": "node algoliaconfig.js --experimental-specifier-resolution=node"
   },
   "dependencies": {
     "algoliasearch": "^4.9.3",

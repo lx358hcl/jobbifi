@@ -19,7 +19,7 @@
             <div class="form-group">
               <div id="visPassord" class="d-flex justify-content-center align-items-center" style="cursor:pointer; background: rgb(247,249,252); border-bottom: 1px solid rgb(223,231,241);height: 100%;">
                 <input id = "passord" required type="password" class="form-control" v-model="password" name="password" placeholder="Passord" style="font-family: Lato, sans-serif;font-weight: normal; " />
-                <i @click="visPassord" style = "width:35px;" class="fas fa-eye" ></i>
+                <i @click="visPassord" id = "showPasswordEye" style = "width:35px;" class="fas fa-eye-slash" ></i>
               </div>
             </div>
             <div class="form-group">
@@ -44,10 +44,21 @@
   import { ref } from "vue";
   import { settings } from "../settings.js";
   import spinner from "../components/spinner.vue";
-  function visPassord(element){
-    console.log($("#passord"));
-    if($("#passord")[0].type == "password") $("#passord")[0].type = "text";
-    else $("#passord")[0].type = "password";
+  //Vis passord funksjon
+  function visPassord(element) {
+    var passordElement = document.querySelector("#passord");
+    var passordØye = document.querySelector("#showPasswordEye");
+
+    if (passordElement.type == "password"){
+      passordElement.type = "text";
+      passordØye.classList.remove("fa-eye-slash");
+      passordØye.classList.add("fa-eye");
+    }
+    else{
+      passordElement.type = "password";
+      passordØye.classList.remove("fa-eye");
+      passordØye.classList.add("fa-eye-slash");
+    }
   }
   export default {
     setup() {

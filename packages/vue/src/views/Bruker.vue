@@ -23,12 +23,13 @@
                                 <p style="display:block; margin: 12px 0px 16px;margin-top: 12px;font-size: 20px;font-family: Lato;font-weight: 900;margin-bottom: 12px;">Lenker og sånt</p>
                                 <hr>
                                 <div class="social-icons d-flex justify-content-center align-center">
-                                    <a href="https://www.linkedin.com/in/luka-momcilovic-835b37194/">
+                                    <a v-if = "linkedIn" :href="linkedIn">
                                         <i style = "color: #0a66c2;" class="icon ion-social-linkedin sosialKnapp d-flex align-items-center justify-content-center"></i>
                                     </a>
-                                    <a href="https://github.com/lukamo1996">
+                                    <a v-if = "gitHub" :href="gitHub">
                                         <i style = "color: #2f2f2f;" class="icon ion-social-github sosialKnapp d-flex align-items-center justify-content-center"></i>
                                     </a>
+                                    <p v-if = "!gitHub && !linkedIn">Brukeren har ikke oppgitt noen sosiale lenker</p>
                                 </div>
                             </div>
                             <p v-else class = "d-flex justify-content-center">Denne brukeren finnes ikke/har blitt slettet. </p>
@@ -36,7 +37,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
       </div>
   </section>

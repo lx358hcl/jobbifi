@@ -1,5 +1,5 @@
 <template>
-    <main class="d-flex justify-content-center page contact-us-page" style="min-height: calc(100vh - 294px);">
+    <main class="d-flex justify-content-center page contact-us-page" style="min-height: calc(100vh - 284px);">
         <div class="container-fluid m-0 p-0" style="margin-top: 28px;">
             <div class="row w-100 h-100 m-0 p-0 d-flex">
                 <div class="venstreSide col-2 m-0 p-0 w-100 h-100">

@@ -5,7 +5,7 @@
         <div class = "row">
           <div class = "col-12 mb-3 mx-0 px-0 d-flex justify-content-start align-items-center">
             <button style = "color: #2b2fc5; font-weight: 900;" @click = "back" type="button" class="btn btn-link">
-              <i class="fas fa-angle-left"></i> Tilbake til stillinger
+              <i class="fas fa-angle-left"></i> Tilbake
             </button>          
           </div>
         
@@ -24,7 +24,7 @@
                 <h4 class="d-inline-block" style="font-family: 'Lato', sans-serif;font-weight: bold;margin: 0px;">{{ stilling2.title }}</h4>
               </div>
               <div class = "col-12 col-lg-6 my-3">
-                <more :stilling = "stilling2" class = "float-left"></more>
+                <moreTest v-if = "stilling2" :stilling = "stilling2" class = "float-left"></moreTest>
               </div>
             </div>
             <div class="row justify-content-md-end align-items-md-center justify-content-xl-start">
@@ -45,16 +45,16 @@
         <div class="row">
           <div class="col" style="padding: 0px;">
             <div class="list-group list-group-horizontal">
-              <a class="col-4 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
+              <a class="col-4 p-2 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
                 <p style="color: #313437;margin-bottom: 6px;font-weight: bold;">Frist
                 </p>
                   <span style="color: var(--gray-dark);">{{ timeAgo.format(new Date(parseInt(stilling2.americanDate))) }}
                   </span>
               </a>
-              <a class="col-4 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
+              <a class="col-4 p-2 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
                 <p style="color: #313437;font-weight: bold;margin-bottom: 6px;">Type stilling</p><span>Fulltid</span>
               </a>
-              <a class="col-4 border-0 list-group-item list-group-item-action noHover pl-0">
+              <a class="col-4 p-2 border-0 list-group-item list-group-item-action noHover pl-0">
                 <p class="d-block" style="color: var(--gray-dark);font-weight: bold; margin-bottom: 6px;">Opprinnelse</p>
                 <p style = "text-transform: capitalize;" >{{ stilling2.opprinnelse }} </p>
               </a>
@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="row">
-          <div style = "font-size: 14px !important; word-wrap: break-word; white-space: pre-wrap; word-break: break-word;" class="col mt-4 px-0 d-flex align-items-start flex-column justify-content-start text-left" v-html="stilling2.about ? stilling2.about : stilling2.teaser">
+          <div class="col mt-2 px-0 d-flex align-items-start flex-column justify-content-start text-left" style = "font-family: Inter !important; font-size:14px;"  v-html="stilling2.about ? stilling2.about : stilling2.teaser">
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
 
 <script>
   import firebaseApp from "../../../firebase/firebaseconfig.js";
-  import more from "../components/moreTest.vue";
+  import moreTest from "../components/moreTest.vue";
   import { useRouter, useRoute } from 'vue-router';
   import { ref, onMounted, onUpdated } from "vue";
   import TimeAgo from 'javascript-time-ago'
@@ -304,10 +304,11 @@
       console.log(route);
 
       async function getInfo() {
-        console.log(route.params);
+        console.log(router.currentRoute.value.params.id);
         var db = await firebaseApp.firestore();
-        var result = await db.collection("jobs").doc(route.params.id).get();
+        var result = await db.collection("jobs").doc(router.currentRoute.value.params.id).get();
         stilling2.value = result.data();
+        stilling2.value["id"] = router.currentRoute.value.params.id;
         console.log(stilling2);
         console.log(`https://www.google.com/s2/favicons?sz=256&domain_url=${new URL(stilling2.value.url).hostname}`);
         bilde.value = `https://www.google.com/s2/favicons?sz=256&domain_url=${new URL(stilling2.value.url).hostname}`;
@@ -321,7 +322,7 @@
       return {
         stilling2,
         timeAgo,
-        more,
+        moreTest,
         spinner,
         back,
         bilde,

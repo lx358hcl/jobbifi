@@ -3,7 +3,7 @@
         <a :href = "stilling.originalURL">
             <button style = "color:#17171b; font-size: 16px;" :class = "{ open: opened }" class="btn btn-light p-3 font-weight-bold float-left">
                 <span><i style = "font-size:14px;" class="fas fa-feather"></i></span>
-                <span class = "ml-2 text-dark d-none d-sm-inline-block">Søk på stilling</span>
+                <span class = "ml-2 text-dark">Søk</span>
             </button>
         </a>
         <button v-if="user" @click="visMenu" class="shareButton buttonIcon d-flex align-items-center justify-content-center main m-0">
@@ -74,6 +74,7 @@
             async function visMenu(event) {
                 //Viser meny
                 loading.value = true;
+                console.log(props);
 
                 setTimeout(function(){
                     if(opened.value == true) opened.value = false;

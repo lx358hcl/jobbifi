@@ -2,8 +2,8 @@
   <main>
     <section class="login-clean loginRegister fyllSkjermen d-flex align-items-center">
       <div class="container">
-        <div class="row no-gutters row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 justify-content-center" style="padding-right: 40px;padding-left: 40px;">
-          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" style="border-bottom-left-radius: 30px; border-top-left-radius: 30px; padding-right: 0px;padding-left: 0px; background: url(assets/img/rom.jpg) no-repeat center center; 
+        <div class="row no-gutters p-0 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 justify-content-center" style="padding-right: 40px;padding-left: 40px;">
+          <div class="col-11 col-sm-10 col-md-6 col-lg-6 col-xl-6" style="border-bottom-left-radius: 30px; border-top-left-radius: 30px; padding-right: 0px;padding-left: 0px; background: url(assets/img/rom.jpg) no-repeat center center; 
           -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover;
@@ -34,6 +34,8 @@
                 <p style="color:red;" class="text-center error mb-1 mt-4 py-0">{{ errorTekst }}</p>
               </div>
               <router-link class="forgot hitLinks" to="/retningslinjer">Ved å registrere deg så godtar du <b><br>Retningslinjer og personvern</b></router-link>
+              <br>
+              <router-link to="/login" class="forgot hitLinks">Har du en konto fra før? Logg inn her</router-link>
             </form>
           </div>
         </div>
@@ -123,8 +125,8 @@
         brukernavn: brukernavn.value,
         fornavn: "",
         etternavn: "",
-        profilbilde: "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_200x200.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00",
-        omMeg: "Apparently, this user prefers to keep an air of mystery about them.",
+        profilbilde: "https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_400x400.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00",
+        omMeg: "Det virker som om denne denne brukeren foretrekker å være mystisk 🤔.",
         linkedIn: "",
         gitHub: "",
         nettside: "",
