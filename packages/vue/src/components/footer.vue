@@ -16,7 +16,7 @@
                     <div class="text-nowrap">
                         <h5>Lenker for nerder</h5>
                         <ul>
-                            <li><a href="https://github.com/lukamo1996">Andre prosjekter</a></li>
+                            <li><a href="">Andre prosjekter</a></li>
                             <li><span class = "font-italic" style = "color: #53595f">12t og 40min til ny runde...</span></li>
                         </ul>
                     </div>
@@ -24,8 +24,8 @@
             </div>
             <div class="row row-cols-1 justify-content-center align-items-center" style="height: 50px;">
                 <div class="col-11 col-sm-7 col-md-6 col-lg-5 col-xl-5 d-flex d-lg-flex justify-content-center align-items-center align-content-center justify-content-lg-center" style="height: 50px;border-top: 1px solid rgba(119,119,119,0.11) ;">
-                    <p style="color:#53595f; font-family: Lato, sans-serif;font-weight: 900;letter-spacing: 2px;font-size: 10px;margin-bottom: 0px;">© UTVIKLET AV <router-link class="hitLinks" to="/bruker/igormomc">SKJØNNHETEN</router-link>&nbsp;OG
-                    <router-link class="hitLinks" to="/bruker/lukasinos">UDYRET</router-link><br></p>
+                    <p style="color:#53595f; font-family: Lato, sans-serif;font-weight: 900;letter-spacing: 2px;font-size: 10px;margin-bottom: 0px;">© UTVIKLET AV <router-link class="hitLinks" to="/bruker/Kyrgios">SKJØNNHETEN</router-link>&nbsp;OG
+                    <router-link class="hitLinks" to="/bruker/martin">UDYRET</router-link><br></p>
                 </div>
             </div>
         </div>

@@ -45,7 +45,7 @@
 </template>
 <script>
     //Importer ting og sånn
-    import { ref } from "vue";
+    import { ref, watch } from "vue";
     import firebaseApp from "../../../firebase/firebaseconfig.js";
     import firestore from 'firebase/firestore';
 	import router from '../router/index.js';
@@ -107,6 +107,11 @@
     }
 
     export default {
+    watch:{
+        $route (to, from){
+            getInfoForUser();
+        }
+    } ,
     setup() {
         async function startChat(){
             var senderID = user.value.uid;
@@ -166,6 +171,7 @@
         }
 
         getInfoForUser();
+
         return {
             email,
             brukernavn,

@@ -24,10 +24,6 @@
           <div class="form-group">
             <textarea required class="form-control w-100" rows="12" id="melding" v-model="melding" placeholder="Melding"></textarea>
           </div>
-          <div class="form-check mt-4 mb-2">
-            <input type="checkbox" class="form-check-input" id="mottaKopi" v-model="mottaKopi">
-            <label class="gjørTilClickable form-check-label " for="mottaKopi">Motta kopi av meldingen til eposten din</label>
-          </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-12 p-0 w-100">
               <button type="submit" class="btn btn-dark p-3 mt-3">
@@ -44,6 +40,9 @@
 
 <script>
   import { ref, onMounted, onUpdated } from "vue";
+  import emailjs from 'emailjs-com';
+  emailjs.init("user_vU0ggARxWces5A4Fc7z00");
+
   export default {
     setup() {
       onMounted(() => {
@@ -54,22 +53,14 @@
       })
       var [navn, emne, senderEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
       async function sendEpost() {
-        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt </p>";
-        
-        var APIKEY = "75786fce45949903b32feb1521acfabb-07bc7b05-348b640f";
-        var APIURL = "https://api.mailgun.net/v3/sandbox924f906f22f043a391c063ec30bd796f.mailgun.org";
-        const mailgun = require("mailgun-js");
-        const DOMAIN = 'YOUR_DOMAIN_NAME';
-        const mg = mailgun({apiKey: APIKEY, domain: APIURL});
-        const data = {
-          from: senderEpost.value,
-          to: "luka_momcilovic@hotmail.com",
-          subject: emne.value,
-          text: melding.value
-        };
-        mg.messages().send(data, function (error, body) {
-          console.log(body);
-        });
+        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt og en kopi har blitt sendt til din epost. </p>";
+          var templateParams = {
+            navn: navn.value,
+            emne: emne.value,
+            senderEpost: senderEpost.value,
+            melding: melding.value,
+          };
+          emailjs.send("service_99wwis5","template_9m7qrpx", templateParams);
       }
       return {
         sendEpost,
