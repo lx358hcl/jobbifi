@@ -1,35 +1,35 @@
 {
-    "name": "vue",
-    "version": "1.0.0",
-    "description": "> TODO: description",
-    "author": "Luka Momcilovic <52632596+lukasinos@users.noreply.github.com>",
-    "homepage": "",
-    "license": "ISC",
-    "scripts": {
-      "lint": "vue-cli-service lint",
-      "run": "vue-cli-service serve",
-      "build": "vue-cli-service build && serve -s dist"
+  "name": "vue",
+  "version": "2.0.0",
+  "description": "> TODO: description",
+  "author": "Luka Momcilovic <52632596+lukasinos@users.noreply.github.com>",
+  "homepage": "",
+  "license": "ISC",
+  "scripts": {
+    "lint": "vue-cli-service lint",
+    "run": "vue-cli-service serve",
+    "build": "vue-cli-service build && serve -s dist"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
     },
-    "eslintConfig": {
-      "root": true,
-      "env": {
-        "node": true
-      },
-      "extends": [
-        "plugin:vue/vue3-essential",
-        "eslint:recommended"
-      ],
-      "parserOptions": {
-        "parser": "babel-eslint"
-      },
-      "rules": {}
-    },
-    "browserslist": [
-      "> 1%",
-      "last 2 versions",
-      "not dead"
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
     ],
-    "dependencies": {
-      "body-parser": "1.19.0"
-    }
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "dependencies": {
+    "body-parser": "1.19.0"
   }
+}
