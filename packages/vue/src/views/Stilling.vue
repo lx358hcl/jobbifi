@@ -23,7 +23,7 @@
               <div class = "col-12 col-lg-6 my-3 d-flex align-items-center">
                 <h4 class="d-inline-block" style="font-family: 'Lato', sans-serif;font-weight: bold;margin: 0px;">{{ stilling2.title }}</h4>
               </div>
-              <div class = "col-12 col-lg-6 my-3">
+              <div class = "col-12 col-lg-6 my-3 d-flex justify-content-end">
                 <moreTest v-if = "stilling2" :stilling = "stilling2" class = "float-left"></moreTest>
               </div>
             </div>
