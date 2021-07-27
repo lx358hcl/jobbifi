@@ -13,7 +13,6 @@
         <div class="row" style="border-top-right-radius: 20px;border-top-left-radius: 20px;">
           <div class="col-12" style="padding: 0px;border-top-left-radius: 20px;border-top-right-radius: 20px;">
             <div class = "d-flex justify-content-center" v-bind:style="{ backgroundImage: 'url(' + stilling2.companyImage + ')' }" style="background-color: transparent; background-size: contain; background-position:center; background-repeat: no-repeat; height: 250px;border-top-left-radius: 20px;border-top-right-radius: 20px;">
-              <img style = "background-color:#f8f9fa;" width = "90" height = "90" class = "stillingsLogo" :src = "bilde">
             </div>
           </div>
         </div>
