@@ -70,7 +70,7 @@
         try {
           settings.value.loading = true;
           await firebaseApp.auth().signInWithEmailAndPassword(email.value, password.value);
-          location = "/dashboard?side=profil";
+          router.push({ name: 'Dashboard', query: { side: 'profil' }});
         } catch (e) {
           switch(e.code){
             case "auth/user-not-found":
