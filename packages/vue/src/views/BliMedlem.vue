@@ -47,7 +47,7 @@
 <script>
   import firebaseApp from "../../../firebase/firebaseconfig.js";
   import firestore from 'firebase/firestore';
-  import { ref } from "vue";
+  import { ref, onMounted, onUpdated } from "vue";
   import spinner from "../components/spinner.vue";
   import { settings } from "../settings.js";
 
@@ -155,6 +155,12 @@
 
   export default {
     setup() {
+      onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
 
       return {
         bliMedlem,

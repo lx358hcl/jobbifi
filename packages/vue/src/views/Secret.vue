@@ -222,6 +222,12 @@
                 var del2 = fil.name.slice(fil.name.lastIndexOf("."));
 
                 storageRef = firebaseApp.storage().ref(`/${user.uid}${del2 }`);
+
+                if(fil.size > 2969600){
+                  alert("Filen er for stor, velg en mindre fil");
+                  settings.value.loading = false;
+                  return;
+                }
               
                 await storageRef.put(fil).then((snapshot) => {
                   snapshot.ref.getDownloadURL().then((downloadURL) => {

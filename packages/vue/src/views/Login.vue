@@ -41,7 +41,7 @@
 
 <script>
   import firebaseApp from "../../../firebase/firebaseconfig.js";
-  import { ref } from "vue";
+  import { ref, onMounted, onUpdated } from "vue";
   import { settings } from "../settings.js";
   import spinner from "../components/spinner.vue";
   //Vis passord funksjon
@@ -62,6 +62,12 @@
   }
   export default {
     setup() {
+      onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
       var email = ref("");
       var error = ref("");
       var password = ref("");

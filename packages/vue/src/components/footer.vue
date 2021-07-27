@@ -2,7 +2,7 @@
   <footer class="page-footer" style="/*content: none;*/padding-top: 0;font-family: Lato, sans-serif;background: rgb(245, 245, 245);border-width: 1px;border-top-style: solid;border-top-color: rgba(202,202,202,0.41); padding-top: 0px;">
         <div class="container">
             <div class="row d-xl-flex justify-content-center justify-content-xl-center" style="padding-bottom: 10px;border-radius: 0px;border-top-width: 0px;border-top-color: var(--red);">
-                <div class="col-auto col-sm-3 d-flex justify-content-center" style="font-family: Lato, sans-serif;">
+                <div class="col-6 px-2 col-sm-3 d-flex justify-content-center" style="font-family: Lato, sans-serif;">
                     <div class="flex-column" style="text-align: left;">
                         <h5 style="font-family: Lato, sans-serif;">Info</h5>
                         <ul style="/*list-style-type: none !important;*/">
@@ -12,12 +12,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-auto col-sm-3 text-left d-flex justify-content-center" style="font-family: Lato, sans-serif;">
+                <div class="col-6 px-2 col-sm-3 text-left d-flex justify-content-center" style="font-family: Lato, sans-serif;">
                     <div class="text-nowrap">
-                        <h5>Lenker for nerder</h5>
+                        <h5>Hurtiglenker</h5>
                         <ul>
-                            <li><a href="">Andre prosjekter</a></li>
-                            <li><span class = "font-italic" style = "color: #53595f">12t og 40min til ny runde...</span></li>
+                            <li><router-link class = "hitLinks" to="/login">Logg inn</router-link></li>
+                            <li><router-link class = "hitLinks" to="/blimedlem">Bli medlem</router-link></li>
                         </ul>
                     </div>
                 </div>

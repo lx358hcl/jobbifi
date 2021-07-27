@@ -45,7 +45,7 @@
 </template>
 <script>
     //Importer ting og sånn
-    import { ref, watch } from "vue";
+    import { ref, watch, onMounted, onUpdated } from "vue";
     import firebaseApp from "../../../firebase/firebaseconfig.js";
     import firestore from 'firebase/firestore';
 	import router from '../router/index.js';
@@ -113,6 +113,12 @@
         }
     } ,
     setup() {
+        onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
         async function startChat(){
             var senderID = user.value.uid;
             var sender = await db.collection("users").doc(senderID).get();
