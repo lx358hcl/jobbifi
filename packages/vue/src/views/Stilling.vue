@@ -47,7 +47,7 @@
               <a class="col-4 p-2 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
                 <p style="color: #313437;margin-bottom: 6px;font-weight: bold;">Frist
                 </p>
-                  <span style="color: var(--gray-dark);">{{ timeAgo.format(new Date(parseInt(stilling2.americanDate))) }}
+                  <span style="color: var(--gray-dark); text-transform: capitalize;">{{ new Date(parseInt(stilling2.americanDate)) < new Date() ? stilling2.frist : timeAgo.format(new Date(parseInt(stilling2.americanDate))) }}
                   </span>
               </a>
               <a class="col-4 p-2 border-0 list-group-item list-group-item-action noHover pr-0 pl-0">
