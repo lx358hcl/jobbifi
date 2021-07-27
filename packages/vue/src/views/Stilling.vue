@@ -62,7 +62,6 @@
           </div>
         </div>
         <div class="row">
-        {{ stilling2 }}
           <div class="col mt-2 px-0 d-flex align-items-start flex-column justify-content-start text-left" style = "font-family: Inter !important; font-size:14px;"  v-html="stilling2.about">
           </div>
         </div>
