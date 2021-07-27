@@ -1719,3 +1719,7 @@ video {
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+.panel{
+  font-size:14px !important;
+}

@@ -62,7 +62,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col mt-2 px-0 d-flex align-items-start flex-column justify-content-start text-left" style = "font-family: Inter !important; font-size:14px;"  v-html="stilling2.about ? stilling2.about : stilling2.teaser">
+        {{ stilling2 }}
+          <div class="col mt-2 px-0 d-flex align-items-start flex-column justify-content-start text-left" style = "font-family: Inter !important; font-size:14px;"  v-html="stilling2.about">
           </div>
         </div>
       </div>
@@ -308,6 +309,7 @@
         var db = await firebaseApp.firestore();
         var result = await db.collection("jobs").doc(router.currentRoute.value.params.id).get();
         stilling2.value = result.data();
+        console.log(stilling2.value);
         stilling2.value["id"] = router.currentRoute.value.params.id;
         
         

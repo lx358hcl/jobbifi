@@ -464,11 +464,4 @@ async function crawl() {
 
 }
 
-try {
     crawl()
-} 
-catch {
-  cron.schedule('0 15 * * *', () => {
-    crawl()
-  });
-}
