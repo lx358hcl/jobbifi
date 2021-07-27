@@ -5,6 +5,7 @@
 import admin from "firebase-admin";
 import puppeteer from "puppeteer";
 import fs from "fs";
+require("dotenv").config();
 
 var serviceAccount = {
   "type": "service_account",
@@ -215,7 +216,7 @@ var dato = `${dag}.${måned}.${år}`;
         obj["opprinnelse"] = "finn";
 
         //About
-        obj["about"] = document.querySelector(".import-decoration").textContent.trim();
+        obj["about"] = document.querySelector(".import-decoration").innerHTML;
 
         //About pure
         obj["aboutPure"] = obj["about"].replace(/<[^>]*>?/gm, '').replace(/(&nbsp;)/gi, " ");
@@ -434,7 +435,7 @@ var dato = `${dag}.${måned}.${år}`;
   //Gi alle stillingene en antall Likes og gjør typen jobb mer ensformig
   jobs = jobs.filter(e => e);
   jobs.forEach((e, i) =>  e["likes"] = 0);
-  jobs.forEachh(e => {
+  jobs.forEach(e => {
     e["lastmodified"] = new Date().getTime();
   })
   jobs.forEach(e => {
