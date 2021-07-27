@@ -18,8 +18,8 @@
       <p>Alle endringer av disse retningslinjene vil annonseres på nettsidens hjemmeside i form av en modal eller et nyhetsvindu. En revidering vil samtidig også ledsages av en oppdatering av “Sist oppdatering”-datoen øverst i retningslinjene.
       </p>
       <p><strong>Kontakt</strong></p>
-      <p>Utviklerne kan kontaktes angående retningslinjene på følgende epost: <a href="mailto:momcilovicbrothers@gmail.com">momcilovicbrothers@gmail.com</a></p>
-      <p>Luka Momcilovic and Igor Momcilovic</p>
+      <p>Send oss en epost via Kontakt-skjemaet hvis det er spørsmål </p>
+      <p>Skjønnheten og Udyret</p>
     </div>
     </div>
   </main>

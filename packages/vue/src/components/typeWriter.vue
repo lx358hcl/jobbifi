@@ -27,7 +27,7 @@
                     .typeString('Studerer du informatikk/design?')
                     .pauseFor(1000)
                     .deleteAll(20)
-                    .typeString('Jobbifi aggregerer finn, nav og ifinavet daglig')
+                    .typeString('Jobbifi aggregerer IT-stillinger fra finn, nav og ifinavet daglig')
                     .pauseFor(1000)
                     .deleteAll(20)
                     .typeString('Da blir det lettere for deg å søke jobb')

@@ -215,7 +215,7 @@ var dato = `${dag}.${måned}.${år}`;
         obj["opprinnelse"] = "finn";
 
         //About
-        obj["about"] = document.querySelector(".import-decoration").innerHTML;
+        obj["about"] = document.querySelector(".import-decoration").textContent.trim();
 
         //About pure
         obj["aboutPure"] = obj["about"].replace(/<[^>]*>?/gm, '').replace(/(&nbsp;)/gi, " ");
