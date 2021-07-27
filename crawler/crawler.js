@@ -5,7 +5,7 @@
 import admin from "firebase-admin";
 import puppeteer from "puppeteer";
 import fs from "fs";
-require("dotenv").config();
+import cron from "node-cron";
 
 var serviceAccount = {
   "type": "service_account",
@@ -26,7 +26,7 @@ admin.initializeApp({
 });
 
 //Firestore pusher
-async function pushToFirestore(){
+async function pushToFirestore() {
 
   var db = admin.firestore();
   var dataRaw = fs.readFileSync("./crawler/data.json");
@@ -35,17 +35,17 @@ async function pushToFirestore(){
   var settInnHistorikk = {};
 
   //Pusher vi ny data til database
-  
-  for(let i = 0; i < dataRawParsed.length; i++){
+
+  for (let i = 0; i < dataRawParsed.length; i++) {
     //Sjekk om dokumentet finnes
-    
+
     var jobb = await db.collection("jobs").doc(dataRawParsed[i].id).get();
     settInnHistorikk[dataRawParsed[i].id] = true;
-    
 
-    if(jobb.exists == true){
+
+    if (jobb.exists == true) {
       var jobbData = jobb.data();
-      
+
       // 
       await db.collection("jobs").doc(dataRawParsed[i].id).set({
         "americanDate": jobbData.americanDate ? jobbData.americanDate : "ingen dato",
@@ -63,30 +63,28 @@ async function pushToFirestore(){
         "title": jobbData.title ? jobbData.title : "Ingen tittel",
         "url": jobbData.url ? jobbData.url : "null",
       })
-    }
-    else if(jobb.exists == false){
+    } else if (jobb.exists == false) {
       await db.collection("jobs").doc(dataRawParsed[i].id).set(dataRawParsed[i]);
-      
-      
+
+
     }
   }
 
   //Fjerner det som ikke ble oppdatert eller lagt til 
   var keys = Object.keys(settInnHistorikk);
-  
-  
 
-  for(let i = 0; i < keys.length; i++){
+
+
+  for (let i = 0; i < keys.length; i++) {
     var bleDetLagtTil = await db.collection("jobs").doc(keys[i]).get();
-    
-    
-    if(bleDetLagtTil.exists == false){
-      
-      
+
+
+    if (bleDetLagtTil.exists == false) {
+
+
       await db.collection("jobs").doc(keys[i]).delete()
-    }
-    else{
-      
+    } else {
+
     }
   }
 }
@@ -109,22 +107,26 @@ var måned = dagensDato.getMonth() + 1;
 var år = dagensDato.getFullYear();
 
 //Sjekk om de er ensifret
-if(dag.toString().length == 1) dag = `0${dag}`;
-if(måned.toString().length == 1) måned = `0${måned}`;
+if (dag.toString().length == 1) dag = `0${dag}`;
+if (måned.toString().length == 1) måned = `0${måned}`;
 
 //Selve datoen for stillingen
 var dato = `${dag}.${måned}.${år}`;
 
-(async () => {
 
+async function crawl() {
   //Start Headless Chrome
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    headless: true
+  });
   const page = await browser.newPage();
 
-  try{
+  try {
     //ifinavet.no begynner her
     //Login i ifinavet
-    await page.goto("https://ifinavet.no/login", { waitUntil: 'domcontentloaded' });
+    await page.goto("https://ifinavet.no/login", {
+      waitUntil: 'domcontentloaded'
+    });
     await page.evaluate(() => {
       document.querySelector(".input-group.login-field").querySelector("input").value = "lukamo";
       document.querySelector(".input-group.password-field").querySelector("input").value = "InspiredElement24120019";
@@ -133,8 +135,10 @@ var dato = `${dag}.${måned}.${år}`;
     await page.waitFor(2000);
 
     //Gå gjennom alle jobbene (30 er satt vilkårlig, det blir aldri så mange stillinger)
-    for(let i = 0; i < 30; i++){
-      await page.goto(`https://ifinavet.no/api/jobs?page=${i}`, { waitUntil: 'domcontentloaded' });
+    for (let i = 0; i < 30; i++) {
+      await page.goto(`https://ifinavet.no/api/jobs?page=${i}`, {
+        waitUntil: 'domcontentloaded'
+      });
       var webpage = await page.evaluate(() => {
         return document.querySelector("body").textContent;
       });
@@ -171,29 +175,30 @@ var dato = `${dag}.${måned}.${år}`;
       f.id = f.id;
       f.sted = "Oslo";
     });
-  }
-  catch{
+  } catch {
 
   }
 
   //Finn.no begynner her
   //Gå gjennom alle jobbene (30 er satt vilkårlig, det blir aldri så mange stillinger)
-  for(let i = 1; i < 30; i++){
+  for (let i = 1; i < 30; i++) {
     //Finn hovedlink
-    await page.goto(`https://www.finn.no/job/fulltime/search.html?industry=65&industry=8&industry=33&industry=26&industry=23&industry=7&industry=25&industry=5&industry=21&industry=20&industry=4&industry=3&industry=9999&industry=64&industry=61&industry=62&industry=63&industry=6&industry=60&industry=59&industry=58&industry=57&industry=56&industry=55&industry=53&industry=52&industry=51&industry=49&industry=50&industry=48&industry=46&industry=66&industry=45&industry=67&industry=44&industry=43&industry=42&industry=41&industry=40&industry=39&industry=38&industry=69&industry=37&industry=36&industry=35&industry=34&industry=11&industry=68&industry=10&industry=9&industry=32&industry=70&industry=31&industry=30&industry=29&industry=27&industry=28&industry=24&industry=22&industry=19&industry=18&industry=17&industry=15&industry=16&industry=14&industry=2&industry=13&industry=12&industry=1&occupation=0.23&occupation=0.22&page=${i}&sort=PUBLISHED_DESC`, { waitUntil: 'networkidle2' });
+    await page.goto(`https://www.finn.no/job/fulltime/search.html?industry=65&industry=8&industry=33&industry=26&industry=23&industry=7&industry=25&industry=5&industry=21&industry=20&industry=4&industry=3&industry=9999&industry=64&industry=61&industry=62&industry=63&industry=6&industry=60&industry=59&industry=58&industry=57&industry=56&industry=55&industry=53&industry=52&industry=51&industry=49&industry=50&industry=48&industry=46&industry=66&industry=45&industry=67&industry=44&industry=43&industry=42&industry=41&industry=40&industry=39&industry=38&industry=69&industry=37&industry=36&industry=35&industry=34&industry=11&industry=68&industry=10&industry=9&industry=32&industry=70&industry=31&industry=30&industry=29&industry=27&industry=28&industry=24&industry=22&industry=19&industry=18&industry=17&industry=15&industry=16&industry=14&industry=2&industry=13&industry=12&industry=1&occupation=0.23&occupation=0.22&page=${i}&sort=PUBLISHED_DESC`, {
+      waitUntil: 'networkidle2'
+    });
 
     //Skaff alle linkene på gitt side og stedene på hver annonse også
     var linker = await page.evaluate(() => [...document.querySelectorAll(".ads__unit__link")].map(e => e.href));
     var steder = await page.evaluate(() => [...document.querySelectorAll(".ads__unit__content__details .u-stone")].map(e => e.textContent.split(" | ")[1]));
 
     //Loop gjennom linkene
-    for(let j = 1; j < linker.length; j++){
+    for (let j = 1; j < linker.length; j++) {
       //Åpne siden
-      if(linker[i]) await page.goto(`${linker[j]}`);
+      if (linker[i]) await page.goto(`${linker[j]}`);
       else continue;
 
-    //Vent litt for å unngå null-buggen
-    // await page.waitFor(1500);
+      //Vent litt for å unngå null-buggen
+      // await page.waitFor(1500);
 
       //Injiser scriptet nedenfor inn i siden
       var stilling = await page.evaluate((steder, j, dato, technologies) => {
@@ -235,10 +240,9 @@ var dato = `${dag}.${måned}.${år}`;
 
         //Gjør fristen om til amerikansk dato
         //Amerikansk dato - Gjør fristen om til amerikansk dato
-        if(isNaN(parseInt(obj.frist))) {
+        if (isNaN(parseInt(obj.frist))) {
           obj["americanDate"] = JSON.stringify(new Date().getTime());
-        }
-        else{
+        } else {
           obj["americanDate"] = obj.frist.split(".");
           obj["americanDate"] = new Date(switcharoo(obj["americanDate"]).join(".")).getTime();
         }
@@ -248,10 +252,9 @@ var dato = `${dag}.${måned}.${år}`;
 
         //Søkeknapp
         var søkeKnapp;
-        try{
+        try {
           søkeKnapp = document.querySelector("#job-apply-button").href;
-        }
-        catch{
+        } catch {
           søkeKnapp = window.location.href;
         }
         obj["url"] = søkeKnapp;
@@ -277,13 +280,11 @@ var dato = `${dag}.${måned}.${år}`;
         obj["teknologier"] = [...new Set(text.filter(e => technologies.includes(e.toLowerCase())))];
 
         //Bilde
-        if(document.querySelector(".img-format__img") && document.querySelector(".img-format__img").src){
+        if (document.querySelector(".img-format__img") && document.querySelector(".img-format__img").src) {
           bildeLink = document.querySelector(".img-format__img").src;
-        }
-        else if(document.querySelector(".extended-profile-job__branding-image") && document.querySelector(".extended-profile-job__branding-image").src){
+        } else if (document.querySelector(".extended-profile-job__branding-image") && document.querySelector(".extended-profile-job__branding-image").src) {
           bildeLink = document.querySelector(".extended-profile-job__branding-image").src;
-        }
-        else{
+        } else {
           bildeLink = "https://image.shutterstock.com/image-vector/no-user-profile-picture-hand-260nw-99335579.jpg";
         }
         obj["companyImage"] = bildeLink;
@@ -300,7 +301,9 @@ var dato = `${dag}.${måned}.${år}`;
 
   //Arbeidsplassen.no begynner her
   //Skaff alle linkene, 2000 er satt vilkårlig, det er aldri så mange IT-stillinger
-  await page.goto(`https://arbeidsplassen.nav.no/stillinger?to=2000&occupationFirstLevels[]=IT`, { waitUntil: 'networkidle2' });
+  await page.goto(`https://arbeidsplassen.nav.no/stillinger?to=2000&occupationFirstLevels[]=IT`, {
+    waitUntil: 'networkidle2'
+  });
 
   //Få tak i info fra stillingssiden infosiden
   var alleStillinger = await page.evaluate(() => [...document.querySelectorAll(".SearchResultItem > a")].filter(e => e.href.match(/(finn.no)/) == null).map(e => {
@@ -317,12 +320,14 @@ var dato = `${dag}.${måned}.${år}`;
   //Loop over linkene fra oppsamlede stillinger fra "alleStillinger"
   for (let i = 0; i < alleStillinger.length; i++) {
     //Åpne siden
-    await page.goto(`${alleStillinger[i]["link"]}`, { waitUntil: 'networkidle2' });
+    await page.goto(`${alleStillinger[i]["link"]}`, {
+      waitUntil: 'networkidle2'
+    });
 
     //Vent litt for å unngå null-buggen
     await page.waitFor(1500);
 
-    
+
 
     //Injiser scriptet nedenfor inn i siden
     var stilling = await page.evaluate((alleStillinger, i, technologies) => {
@@ -340,12 +345,11 @@ var dato = `${dag}.${måned}.${år}`;
 
       //Navn på stillingen
       var tittel = "null";
-      try{
+      try {
         tittel = document.querySelector(".Stilling__h1").textContent;
-      } 
-      catch{ 
-        
-        
+      } catch {
+
+
       };
       obj["title"] = tittel;
 
@@ -357,13 +361,13 @@ var dato = `${dag}.${måned}.${år}`;
 
       //CompanyName
       obj["companyName"] = alleStillinger[i].companyName;
-      
+
       //CompanyImage
       obj["companyImage"] = "https://arbeidsplassen.nav.no/public/arbeidsplassen-og-image.jpg";
-      
+
       //Frist
       obj["frist"] = alleStillinger[i].frist;
- 
+
       //Dato
       obj["date"] = alleStillinger[i].date;
 
@@ -371,45 +375,40 @@ var dato = `${dag}.${måned}.${år}`;
       obj["id"] = window.location.pathname.slice(window.location.pathname.indexOf("stilling/") + 9);
 
       //Amerikansk dato - Gjør fristen om til amerikansk dato
-      if(isNaN(parseInt(obj.frist))){
+      if (isNaN(parseInt(obj.frist))) {
         obj["americanDate"] = new Date().getTime();
-      }
-      else{
+      } else {
         obj["americanDate"] = obj.frist.split(".");
         obj["americanDate"] = new Date(switcharoo(obj["americanDate"]).join(".")).getTime();
       }
 
       //About
       var aboutText = null;
-      try{
+      try {
         obj["about"] = document.querySelector(".AdText").innerHTML;
-      }
-      catch { 
+      } catch {
 
       };
 
       //Teaser
-      try{
+      try {
         obj["teaser"] = obj["about"].replace(/(<([^>]+)>)/ig, '').replace(/(&nbsp;)/gi, " ").slice(0, 170) + " ...";
-      }
-      catch{
+      } catch {
         obj["teaser"] = "null";
       }
 
       //Stillingstype
       var index = [...document.querySelectorAll(".detail-section__body > .dl-flex.typo-normal > dt")].findIndex(e => e.textContent == "Heltid/deltid:");
-      if(index != -1 || !index){
+      if (index != -1 || !index) {
         obj["position"] = document.querySelectorAll(".detail-section__body > .dl-flex.typo-normal > dd")[index].textContent;
-      }
-      else {
+      } else {
         obj["position"] = "NoeAnnet";
       }
       var søkeKnapp = "";
       //Søkeknapp
-      if (document.querySelector("#job-apply-button") && document.querySelector("#job-apply-button").href){
+      if (document.querySelector("#job-apply-button") && document.querySelector("#job-apply-button").href) {
         søkeKnapp = document.querySelector("#job-apply-button").href;
-      }
-      else {
+      } else {
         søkeKnapp = `${alleStillinger[i]["link"]}`;
       }
       obj["url"] = søkeKnapp;
@@ -434,20 +433,20 @@ var dato = `${dag}.${måned}.${år}`;
 
   //Gi alle stillingene en antall Likes og gjør typen jobb mer ensformig
   jobs = jobs.filter(e => e);
-  jobs.forEach((e, i) =>  e["likes"] = 0);
+  jobs.forEach((e, i) => e["likes"] = 0);
   jobs.forEach(e => {
     e["lastmodified"] = new Date().getTime();
   })
   jobs.forEach(e => {
-    if(!e.position) 
-    e.originalPosition = e.position.toLowerCase();
+    if (!e.position)
+      e.originalPosition = e.position.toLowerCase();
   })
   jobs.forEach(e => {
     e.position = e.position.toLowerCase();
-    if(e.position == "parttime") e.position = "deltid";
-    else if(e.position == "fulltime") e.position = "fulltid";
-    else if(e.position == "fast") e.position = "fulltid";
-    else if(e.position == "heltid") e.position = "fulltid";
+    if (e.position == "parttime") e.position = "deltid";
+    else if (e.position == "fulltime") e.position = "fulltid";
+    else if (e.position == "fast") e.position = "fulltid";
+    else if (e.position == "heltid") e.position = "fulltid";
     else e.position = "annet";
   });
 
@@ -463,4 +462,13 @@ var dato = `${dag}.${måned}.${år}`;
   //Push to firebase
   pushToFirestore();
 
-})();
+}
+
+try {
+    crawl()
+} 
+catch {
+  cron.schedule('0 15 * * *', () => {
+    crawl()
+  });
+}

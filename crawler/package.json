@@ -4,6 +4,7 @@
     "description": "> TODO: description",
     "author": "Luka Momcilovic <52632596+lukasinos@users.noreply.github.com>",
     "homepage": "",
+    "type": "module",
     "license": "ISC",
     "scripts": {
       "test": "echo \"Error: run tests from root\" && exit 1",

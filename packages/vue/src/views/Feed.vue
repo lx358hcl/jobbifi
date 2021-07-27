@@ -11,7 +11,7 @@
               <div class="media d-flex align-items-center">
                 <div class="media-left p-2">
                   <router-link :to="'/bruker/' + val.user.brukernavn" class="avatar avatar-online">
-                    <img class = "loadingImageSpinner" :src="val.user.profilbilde" style = "min-width: 40px; width:40px; min-height:40px; height:40px;" :alt="'Profilbilde til ' + val  .user.brukernavn">
+                    <img class = "loadingImageSpinner" :src="val.user.profilbilde" onerror="this.onerror=null;this.src='https://firebasestorage.googleapis.com/v0/b/nevet-9e3ed.appspot.com/o/1_200x200.webp?alt=media&token=fabbcb0f-f836-4e8f-984b-34be3af85b00';" style = "min-width: 40px; width:40px; min-height:40px; height:40px;" :alt="'Profilbilde til ' + val  .user.brukernavn">
                   </router-link>
                 </div>
                 <div class="media-body p-2">
