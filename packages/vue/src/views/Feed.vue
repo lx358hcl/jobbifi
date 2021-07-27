@@ -290,7 +290,7 @@
       })
     })
 
-    console.log(feedObjekt.value);
+    
     //Slå av loaderen
     loading.value = false;
   }

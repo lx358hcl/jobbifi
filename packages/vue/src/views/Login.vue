@@ -70,12 +70,12 @@
         try {
           settings.value.loading = true;
           await firebaseApp.auth().signInWithEmailAndPassword(email.value, password.value);
-          window.location = window.location.origin + "/dashboard";
+          location = "/dashboard";
         } catch (e) {
           switch(e.code){
             case "auth/user-not-found":
               error.value = "Den brukeren finnes ikke";
-              console.log(e);
+              
             break;
             default:
             error.value = "Feil passord buddy. Har du glemt det igjen? :(";

@@ -20,7 +20,7 @@
                             {{ companyName }}
                         </span>
                     </p>
-                    <router-link :to="'/stilling/' + id"><p style="word-break: break-word;" class="recipe teaser m-0 mb-1 text-dark">{{ teaser }}</p></router-link>
+                    <router-link :to="'/stilling/' + id"><p style="word-break: break-word;" class="recipe teaser noHover m-0 mb-1 text-dark">{{ teaser }}</p></router-link>
                     <more class="mt-3 mb-3" :stilling="stilling" :id="id"></more>
                 </div>
             </div>

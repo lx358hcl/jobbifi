@@ -301,16 +301,16 @@
       const router = useRouter();
       var stilling2 = ref(null);
       var user = firebaseApp.auth().currentUser;
-      console.log(route);
+      
 
       async function getInfo() {
-        console.log(router.currentRoute.value.params.id);
+        
         var db = await firebaseApp.firestore();
         var result = await db.collection("jobs").doc(router.currentRoute.value.params.id).get();
         stilling2.value = result.data();
         stilling2.value["id"] = router.currentRoute.value.params.id;
-        console.log(stilling2);
-        console.log(`https://www.google.com/s2/favicons?sz=256&domain_url=${new URL(stilling2.value.url).hostname}`);
+        
+        
         bilde.value = `https://www.google.com/s2/favicons?sz=256&domain_url=${new URL(stilling2.value.url).hostname}`;
       }
 

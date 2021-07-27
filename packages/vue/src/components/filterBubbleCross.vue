@@ -88,9 +88,9 @@ function changeSted(str){
 }
 
 function fjernFacet(event){
-    console.log(event)
+    
     var params = event.split(":");
-    console.log(params);
+    
     if(params[0] == "position" || params[0] == "opprinnelse") changeFacet(params[1]);
     else if(params[0] == "companyName") changeCompany(params[1]);
     else if(params[0] == "teknologier") changeFacetTeknoCompany(params[1]);
@@ -107,7 +107,7 @@ export default{
         kategori: String,
     },
     setup(){
-        console.log(settings);
+        
         
         return{
             fjernFacet,

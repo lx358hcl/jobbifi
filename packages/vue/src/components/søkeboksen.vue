@@ -51,21 +51,21 @@
 
     //Search function
     async function search(str) {
-        console.log(str);
+        
         loading.value = true;
         results.value = await søkeIndex.search(
             searchQuery.value, {
                 hitsPerPage: 3
             }
         )
-        console.log(results.value);
+        
         results.value = results.value.hits;
-        console.log(results.value);
+        
         loading.value = false;
     }
 
     function submitSearch(){
-        console.log(searchQuery.value);
+        
         if(searchQuery.value != ""){
             router.push({
                 path: "stillinger",

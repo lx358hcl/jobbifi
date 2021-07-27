@@ -79,7 +79,7 @@
         //Get user-info
         user.value = await firebaseApp.auth().currentUser;
         var users = await db.collection("users").where("brukernavn", "==", router.currentRoute.value.params.brukernavn).get();
-        console.log(users.docs);
+        
         if(users.docs.length != 0){
             userInfo.value = users.docs[0].data();
 
@@ -122,14 +122,14 @@
             var mottakerID = mottakerData.uid;
 
             //Først sjekker vi om chatten finnes fra før
-            console.log(senderID);
-            console.log(mottakerID);
+            
+            
             var res = await db.collection("chats").where(`deltakere.${senderID}`, "==", true).where(`deltakere.${mottakerID}`, "==", true).get();
             var res2 = await db.collection("chats").where(`deltakere.${senderID}`, "==", false).where(`deltakere.${mottakerID}`, "==", true).get();
             var res3 = await db.collection("chats").where(`deltakere.${senderID}`, "==", false).where(`deltakere.${mottakerID}`, "==", false).get();
 
             if(res.docs.length > 0 && res.docs[0].exists){
-                console.log(res.docs);
+                
                 router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res.docs[0].id }});
             }
             else if(res2.docs.length > 0 && res2.docs[0].exists){

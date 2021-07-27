@@ -74,7 +74,7 @@
             async function visMenu(event) {
                 //Viser meny
                 loading.value = true;
-                console.log(props);
+                
 
                 setTimeout(function(){
                     if(opened.value == true) opened.value = false;
@@ -89,20 +89,20 @@
                 bookmarka.value = await bookmarkData.exists;
 
                 if(event.target.classList.contains("fa-ellipsis-h")){
-                    console.log(bookmarka.value)
+                    
                 }
                 else if(event.target.classList.contains("fa-bookmark")){
                     if(bookmarka.value){
                         await bookmark.delete();
-                        console.log("slettet");
+                        
                     }
                     else{
-                        console.log("lagrer");
+                        
                         await lagreStilling();
                     }
                 }
                 else if(event.target.classList.contains("fa-thumbs-up")){
-                    console.log("liker");
+                    
                     await like();
                 }
 

@@ -42,7 +42,7 @@ $(window).on("scroll", function() {
         if(stopMultiTrigger == false){
             if((entireHeight * 0.9) <= (scrollPosition + windowHeight)){
                 stopMultiTrigger = true
-                console.log("OK");
+                
                 paginateUp().then(e => {
                     stopMultiTrigger = false;
                 })
@@ -106,7 +106,7 @@ søkeIndex.search("",{
     facets: ["*"],
 }).then((response) => {
     filterRes.value = response;
-    console.log(filterRes.value);
+    
 });
 
 //Lytt til settings changes
@@ -115,7 +115,7 @@ watch(settings, search, { deep: true });
 //Paginate up funksjon
 async function paginateUp(){
     if(page.value > totaltAntallSider.value) {
-        console.log("ikke noe mer å vise");
+        
         return undefined;
     }
     page.value = page.value + 1;
@@ -130,18 +130,18 @@ async function paginateUp(){
 
     results.value.hits = ((results.value.hits) || []).concat(res.hits);
     totaltAntallSider.value = results.value.nbPages;
-    console.log(results.value);
+    
 }
 
 //Change search
 function changeSearch(str){
-    console.log("SØKER med: " + str);
+    
     settings.value.searchQuery = str;
 }
 
 function changeFacet(facet){
-    console.log(facet);
-    console.log(settings);
+    
+    
     switch (facet) {
         case 'ifijobs':
             if(settings.value.facetFilters.opprinnelse.includes(("opprinnelse:" + facet))){
@@ -186,7 +186,7 @@ function changeFacet(facet){
 
 //Change TeknoCompany
 function changeFacetTeknoCompany(str){
-    console.log(str);
+    
     if(settings.value.facetFilters.teknologier.includes("teknologier:" + str)){
         settings.value.facetFilters.teknologier = settings.value.facetFilters.teknologier.filter(e => e != ("teknologier:" + str));
     }
@@ -196,7 +196,7 @@ function changeFacetTeknoCompany(str){
 
 //Change company
 function changeCompany(str){
-    console.log(str);
+    
     if(settings.value.facetFilters.companyName.includes("companyName:" + str)){
         settings.value.facetFilters.companyName = settings.value.facetFilters.companyName.filter(e => e != ("companyName:" + str));
     }
@@ -212,7 +212,7 @@ function byttIndex(str){
 }
 
 function byttSted(str){
-    console.log(str);
+    
     if(settings.value.facetFilters.sted.includes("sted:" + str)){
         settings.value.facetFilters.sted = settings.value.facetFilters.sted.filter(e => e != ("sted:" + str));
     }
@@ -232,7 +232,7 @@ async function search(){
         page: 0,
         hitsPerPage: settings.value.hitsPerPage,
     });
-    console.log(results.value);
+    
     
     loading.value = false;
 }

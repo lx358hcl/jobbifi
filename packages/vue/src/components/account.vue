@@ -46,7 +46,7 @@
     //Logg ut funksjon
     function logOut() {
         firebaseApp.auth().signOut();
-        window.location = window.location.origin + "/login";
+        location.reload();
     }
     //Setup funksjon
     export default {
@@ -59,7 +59,7 @@
                     dbInfo = await db.collection("users").doc(user.value.uid).get();
                     dbInfo = await dbInfo.data();
                     profilBilde.value = dbInfo.profilbilde + new Date().getTime();
-                    console.log(profilBilde);
+                    
                     loading.value = false;
                 }
                 else loading.value = false;

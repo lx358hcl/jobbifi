@@ -34,18 +34,18 @@ async function pushToFirestore(){
   var settInnHistorikk = {};
 
   //Pusher vi ny data til database
-  console.log("kjører innleggelse");
+  
   for(let i = 0; i < dataRawParsed.length; i++){
     //Sjekk om dokumentet finnes
-    console.log(dataRawParsed[i].id)
+    
     var jobb = await db.collection("jobs").doc(dataRawParsed[i].id).get();
     settInnHistorikk[dataRawParsed[i].id] = true;
-    console.log(jobb.exists);
+    
 
     if(jobb.exists == true){
       var jobbData = jobb.data();
-      console.log("den finnes fra før, overskriver");
-      // console.log(jobbData);
+      
+      // 
       await db.collection("jobs").doc(dataRawParsed[i].id).set({
         "americanDate": jobbData.americanDate ? jobbData.americanDate : "ingen dato",
         "companyImage": jobbData.companyImage ? jobbData.companyImage : "null",
@@ -65,27 +65,27 @@ async function pushToFirestore(){
     }
     else if(jobb.exists == false){
       await db.collection("jobs").doc(dataRawParsed[i].id).set(dataRawParsed[i]);
-      console.log("den er ny, legger til");
-      console.log(jobbData.title)
+      
+      
     }
   }
 
   //Fjerner det som ikke ble oppdatert eller lagt til 
   var keys = Object.keys(settInnHistorikk);
-  console.log("FERDIG");
-  console.log(settInnHistorikk);
+  
+  
 
   for(let i = 0; i < keys.length; i++){
     var bleDetLagtTil = await db.collection("jobs").doc(keys[i]).get();
-    console.log(keys[i]);
-    console.log()
+    
+    
     if(bleDetLagtTil.exists == false){
-      console.log("den ble IKKE LAGT TIL TIDLIGERE, fjern den");
-      console.log()
+      
+      
       await db.collection("jobs").doc(keys[i]).delete()
     }
     else{
-      console.log("den ble lagt til fortsett");
+      
     }
   }
 }
@@ -321,7 +321,7 @@ var dato = `${dag}.${måned}.${år}`;
     //Vent litt for å unngå null-buggen
     await page.waitFor(1500);
 
-    console.log("done waiting");
+    
 
     //Injiser scriptet nedenfor inn i siden
     var stilling = await page.evaluate((alleStillinger, i, technologies) => {
@@ -343,8 +343,8 @@ var dato = `${dag}.${måned}.${år}`;
         tittel = document.querySelector(".Stilling__h1").textContent;
       } 
       catch{ 
-        console.log("en feil");
-        console.log("en feil");
+        
+        
       };
       obj["title"] = tittel;
 
@@ -438,7 +438,7 @@ var dato = `${dag}.${måned}.${år}`;
     e["lastmodified"] = new Date().getTime();
   })
   jobs.forEach(e => {
-    if(!e.position) console.log(e);
+    if(!e.position) 
     e.originalPosition = e.position.toLowerCase();
   })
   jobs.forEach(e => {

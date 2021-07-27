@@ -19,7 +19,7 @@ export default{
             // focusInput.value.focus();
         })
         const route = useRoute();
-        console.log(route.query.search);
+        
         
         //Send søkinfo til Stillinger fordi den er ansvarlig for søkingen
         function sendSearchString(str){

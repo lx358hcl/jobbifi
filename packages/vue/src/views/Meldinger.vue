@@ -90,7 +90,7 @@
                 query2.onSnapshot(async querySnapshot => {
                     var obj = {}
 
-                    console.log("HELLO");
+                    
 
                     //Getting all data from docs into obj-objekt
                     for (let i = 0; i < querySnapshot.docs.length; i++) {
@@ -103,11 +103,11 @@
                     for(let i = 0; i < keys.length; i++){
                         var id = keys[i];
                         if(id in allSaved.value == false){
-                            console.log("Denne feilen betyr at en id i querySnapshot finnes ikke i allSaved");
-                            console.log(id)
+                            
+                            
                             await getInfo();
-                            console.log(allSaved.value[id]);
-                            console.log(sorterteChatter);
+                            
+                            
                             await hentChat(id, allSaved.value[id]);
                         }
                         else{
@@ -156,7 +156,7 @@
                     catch{ }
                         
                 }, err => {
-                    console.log(`Encountered error: ${err}`);
+                    
                 });
 
             }
@@ -226,20 +226,20 @@
                     catch {};
                 }
                 allSaved.value = chatsData;
-                console.log(allSaved.value);
+                
             }
             
             //Denne henter alle brukere til en gitt bruker
             async function hentBrukere(obj){
                 obj[user.uid] = true;
-                console.log(obj);
+                
                 
                 Object.keys(obj).forEach(async function(e){
                     var data = await usersRef.doc(e).get();
                     allebrukereManChatterMed.value[e] = data.data();
                 })
 
-                console.log(allebrukereManChatterMed.value);
+                
             }
 
             //Første gang man åpner siden så skjer denne
@@ -291,7 +291,7 @@
 
                 //Oppdaterer visningspunkt
                 var datoNow = firebase.firestore.Timestamp.fromDate(new Date());
-                console.log(datoNow);
+                
                 //Oppdater chatten og active
                 try{
                     await chatsRef.doc(id).update({
@@ -304,7 +304,7 @@
                 }
 
                 allebrukereManChatterMed.value[user.uid].active = datoNow;
-                console.log(allSaved)
+                
 
                 router.push({ name: 'Dashboard', query: { side: 'meldinger', chat:id } })
             }

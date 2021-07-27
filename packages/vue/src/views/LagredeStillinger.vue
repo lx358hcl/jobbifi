@@ -60,10 +60,10 @@
 
             function oppdaterAllSaved(obj){
                 if(obj.type == "delete" && obj.type2 == "stilling"){
-                    console.log(allSaved.value);
-                    console.log(obj.id);
+                    
+                    
                     delete allSaved.value[obj.id];
-                    console.log(allSaved);
+                    
                 }
                 try{
                     valgtTing.value = Object.values(allSaved.value)[0];
@@ -77,12 +77,12 @@
                 var db = await firebaseApp.firestore();
                 var data = await db.collection("users").doc(user.uid).collection("lagret").get();
                 data.forEach(e => {
-                    console.log(e.id);
+                    
                     allSaved.value[e.id] = e.data();
                 })
                 valgtTing.value = Object.values(allSaved.value)[0];
-                console.log(valgtTing.value);
-                console.log(allSaved);
+                
+                
                 loading.value = false;
             }
             getInfo();

@@ -129,7 +129,7 @@
     var fjernFilter = ref(null);
 
     function visFilter(){
-        console.log(filter.value);
+        
         filter.value.style.cssText = `
             position: fixed;
             top: 0;
@@ -178,15 +178,15 @@
                 context.emit("filteringOccurred", str);
             }
             function changeTeknoCompany(str1) {
-                console.log(str1.id);
+                
                 context.emit("filtering", str1.id);
             }
             function changeCompany(str1) {
-                console.log(str1.id);
+                
                 context.emit("companyChangeOccurred", str1.id);
             }
             function changeSted(str1) {
-                console.log(str1.id);
+                
                 context.emit("stedChanged", str1.id);
             }
             return {

@@ -150,7 +150,7 @@
   var loadaBefore = false;
 
   function omMegTeller(omMegTekst){
-    console.log(omMegTekst.length - 500);
+    
     antallOrdIgjen.value = 500 - omMegTekst.length;
     omMeg.value = omMegTekst;
   }
@@ -181,13 +181,13 @@
   async function sendVerifiseringsEpost(){
     var user = await firebaseApp.auth().currentUser;
     user.sendEmailVerification().then(function(){
-      console.log("done");
+      
       document.querySelector(".verifiseringsEpost").outerHTML = "<p class = 'text-success mt-2'>Vi har sendt deg en ny verifiseringsepost :) Sjekk søppelposten din, mulig den blir plassert der</p>";
     })
     .catch(function(error){
       if(error.code == "auth/too-many-requests"){
         document.querySelector(".verifiseringsEpost").outerHTML = "<p class = 'text-danger mt-2'>Du kan ikke be om ny verifiseringsepost så mange ganger på rad, vent et øyeblikk.</p>";
-        console.log(error);
+        
       }
     })
   }
@@ -210,10 +210,10 @@
               if(password.value){
                 try{
                   await user.updatePassword(password.value);
-                  console.log("Passord oppdatert");
+                  
                 }
                 catch(error) {
-                  console.log(error);
+                  
                 }
               }
               
@@ -226,7 +226,7 @@
                 await storageRef.put(fil).then((snapshot) => {
                   snapshot.ref.getDownloadURL().then((downloadURL) => {
                     profilePicURL = downloadURL;
-                      console.log('File available at', downloadURL);
+                      
                       db.collection("users").doc(user.uid).update({
                         fornavn: fornavn.value,
                         brukernavn: brukernavn.value,
@@ -258,14 +258,14 @@
       //ok
       function readURL(input) {
         fil = input;
-        console.log(input.files);
+        
           if (input.files && input.files[0]) {
             reader.onload = function(e) {
               profilbilde.value = e.target.result;
               $('#imageUpload').hide();
               $('#imageUpload').fadeIn(650);
             }
-            console.log(reader);
+            
             fil = input.files[0];
             reader.readAsDataURL(input.files[0]);
         }

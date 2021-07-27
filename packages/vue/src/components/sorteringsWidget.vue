@@ -30,7 +30,7 @@ export default{
             context.emit("endrAntall", event.target.value);
         }
         function byttIndex(event){
-            console.log(event.target.selectedOptions[0].value);
+            
             context.emit("byttIndex", event.target.selectedOptions[0].value);
         }
         return{

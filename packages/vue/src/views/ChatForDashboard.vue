@@ -327,9 +327,9 @@
       // brukerSistAktivTid.value = props.allebrukereManChatterMed[mottaker.value].active.toDate();
       // var diff = props.now - brukerSistAktivTid.value;
 
-      // console.log(props.now);
-      // console.log(brukerSistAktivTid.value);
-      // console.log(diff);
+      // 
+      // 
+      // 
 
       // if(diff < 40000) activeUser.value = true;
       // else activeUser.value = false;

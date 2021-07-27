@@ -88,7 +88,7 @@
         setup() {
             var router = useRouter();
             var query = router.currentRoute.value.query;
-            console.log(router.currentRoute);
+            
             if (Object.keys(query).length > 0) {
                 velgKomponent(query);
             } else {

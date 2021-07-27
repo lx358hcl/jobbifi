@@ -1520,6 +1520,7 @@ i:hover {
 
 .noHover:hover {
   background-color: transparent !important;
+  text-decoration: none !important;
 }
 
 video {

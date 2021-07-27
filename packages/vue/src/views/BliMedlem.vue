@@ -77,7 +77,7 @@
         timestamp: timestamp,
       });
     } catch (error) {
-      console.log(error);
+      
     }
   }
 
@@ -106,7 +106,7 @@
       return true;
     }
     else{
-      console.log("den brukeren finnes ikke");
+      
       return false;
     }
   }
@@ -144,7 +144,7 @@
       if (error.code == "auth/email-already-in-use") errorTekst.value = "Den eposten er allerede i bruk";
       else if (error.code == "auth/weak-password") errorTekst.value = "Passordet ditt må være minst 6 tegn langt";
       else {
-        console.log(error);
+        
         errorTekst.value = "Det har oppstått en uventet feil. Kontakt Igor eller Luka.";
       }
     } 

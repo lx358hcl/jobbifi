@@ -46,9 +46,9 @@
               loading.value = true;
                 var auth = firebaseApp.auth().sendPasswordResetEmail(epost.value).then(function() {
                     document.querySelector(".glemtPassordMelding").textContent = "Vi har sendt deg en e-post for å tilbakestille passordet ditt. Sjekk søppelposten din, mulig den kommer der";
-                    console.log("password reset done");
+                    
                 }).catch(function(error) {
-                  console.log(error);
+                  
                   document.querySelector(".feilMelding").textContent = "Den brukeren finnes ikke";
                   loading.value = false;
                 });

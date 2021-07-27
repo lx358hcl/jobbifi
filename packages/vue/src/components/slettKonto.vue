@@ -55,7 +55,7 @@
         //Re-authenticate brukeren
         await firebaseApp.auth().signInWithEmailAndPassword(user.email, userInfo.passord).then((userCredential) => {
           user = userCredential.user;
-          console.log(userCredential);
+          
         });
         
         //Slett bruker fra selve firebasen
