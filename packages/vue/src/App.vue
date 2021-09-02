@@ -17,6 +17,15 @@
   var usersRef = db.collection("users");
 
   export default {
+    onMounted(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto'
+      });
+    })
+    onUpdated(() => {
+      window.scrollTo(0, 0);
+    }),
     setup() {
       var user = firebaseApp.auth().currentUser;
       var dato = null;
