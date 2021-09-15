@@ -1,69 +1,79 @@
 <template>
-  <nav class="ekteNav navbar sticky-top navbar-light navbar-expand-sm d-flex align-items-center">
-   
-    <div class="container-xl justify-content-center">
-      <div class = "d-flex justify-content-around navIndreContainer">
-
-      <!-- Logo -->
-      <router-link id="logo" class="mt-0 navbar-brand" to="/">&</router-link>
-
-      <!-- Toggle knappen ved expand -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#toggler"
-        aria-controls="toggler"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navbaren selv -->
-      <div class="collapse navbar-collapse" id="toggler">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item d-flex align-items-center">
-            <router-link class="nav-link gjørTilClickable titles logRegGreier" to="/">
-              HJEM
-            </router-link>
-          </li>
-          <li class="nav-item titles d-flex align-items-center">
-            <router-link class="nav-link logRegGreier" to="/stillinger">
-              STILLINGER
-            </router-link>
-            <span class="antallBadgeRød badge badge-danger">
-              {{ allJobs.length }} 
-            </span>
-          </li>
-          <li class="nav-item titles">
-            <router-link class="nav-link logRegGreier" to="/om">
-              HVA ER DETTE?
-            </router-link>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <account />
-          </li>
-        </ul>
+  <nav ref="nav" :class="{'fixed-top': $router.currentRoute.value.path == '/'}" class="zoom clean-navbar container-fluid m-0 p-0">
+    <div class="row w-100 d-flex justify-content-center m-0">
+      <div :class="{venstreSide: $router.currentRoute.value.path == '/dashboard'}" class="col-2 col-sm-2 col-md-2 col-lg-2 m-0 p-0">
+        <router-link to="/" class="d-flex align-items-center navbar-brand font-weight-bold justify-content-center" style="font-family: 'Dancing Script', cursive, serif; padding:0; margin:0;">
+          <span class="logo text-dark d-none d-lg-block">jobbifi</span>
+          <span class="logo text-dark d-block d-lg-none">j</span>
+        </router-link>
       </div>
-
+      <div class="col-10 col-sm-10 col-md-10 col-lg-10 d-flex justify-content-end m-0 p-0">
+        <div class="container-fluid m-0 p-0">
+          <div v-bind:style="{ visibility: $router.currentRoute.value.path == '/' ? 'hidden' : 'visible' }" class="col-2 d-flex align-items-center m-0">
+            <form class="m-0 d-flex align-items-center">
+              <div class="form-group m-0">
+              </div>
+            </form>
+          </div>
+          <div class="container col-11 m-0 p-0">
+            <div class="d-flex justify-content-end" id="navcol-1" style="font-family: Lato;letter-spacing: 1px;padding-left: 0;">
+              <ul class="py-3 navbar-nav" style="flex-direction:row; /*min-width: 100wh !important;*/">
+                <li class="nav-item d-flex align-items-center justify-content-end px-2" style="padding-right: 0px;">
+                  <router-link class="nav-link text-dark hitLinks d-flex align-items-center justify-content-end" to="/stillinger">
+                    Stillinger
+                  </router-link>
+                </li>
+                <li class="nav-item d-flex align-items-center justify-content-end px-2" style="padding-right: 0px;">
+                  <router-link class="nav-link hitLinks text-dark" to="/feed">FEED</router-link>
+                </li>
+                <li class="nav-item d-flex align-items-center justify-content-end px-0 " style="padding-right: 0px;">
+                  <account class="account"></account>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
-
   </nav>
 </template>
 
 <script>
-  var allJobs = require("../../../api/data/data.json").jobs;
+  import {
+    getInfo
+  } from "../views/Secret.vue";
+  import {
+    ref,
+    onUpdated,
+    watch
+  } from "vue";
   import account from "./account.vue";
-  import * as firebase from "firebase/app";
-	import router from '../router/index.js';
+  import router from '../router/index.js';
+  import søkeFelt from './søkeFelt.vue';
+  import notification from './notification.vue';
+  import firebaseApp from "firebase";
+  var user = ref("");
+  var nav = ref(null)
   export default {
     setup() {
+      onUpdated(() => {
+      })
+      getInfo().then(e => {
+        user.value = e;
+      }).catch(function(error) {
+      })
+      //Logg ut funksjon
+      function logOut() {
+        firebaseApp.auth().signOut();
+        window.location = window.location.origin + "/login";
+      }
       return {
-        allJobs,
         account,
-        firebase,
+        user,
+        logOut,
+        søkeFelt,
+        notification,
+        nav,
       }
     }
   }

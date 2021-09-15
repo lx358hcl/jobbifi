@@ -204,7 +204,7 @@
             `http://localhost:3000/api/events`
           )
           .then(function (response) {
-            console.log(response.data);
+            
             data.value = response.data;
           })
           .catch(function (error) {

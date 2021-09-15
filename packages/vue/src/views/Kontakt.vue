@@ -1,12 +1,13 @@
 <template>
-  <main class="pt-5 homepage container">
-    <div class="stackedit__html kontaktSkjema">
-      <h2>
+  <main class="container center">
+    <div class="row beholder center">
+      <div class="col-12">
+       <h2>
         <strong style="font-family: 'Goudy Bookletter 1911', serif !important">
           Send oss en melding
         </strong>
       </h2>
-      <form method="post" v-on:submit.prevent="sendEpost()">
+      <form class = "kontaktSkjema" method="post" v-on:submit.prevent="sendEpost()">
         <div>
           <div class="form-group">
             <hr>
@@ -23,44 +24,43 @@
           <div class="form-group">
             <textarea required class="form-control w-100" rows="12" id="melding" v-model="melding" placeholder="Melding"></textarea>
           </div>
-          <div class="form-check mt-4 mb-2">
-            <input type="checkbox" class="form-check-input" id="mottaKopi" v-model="mottaKopi">
-            <label class="gjørTilClickable form-check-label " for="mottaKopi">Motta kopi av meldingen til eposten din</label>
-          </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-12 p-0 w-100">
-              <button type="submit" class="btn btn-dark p-3 w-25 mt-3">
+              <button type="submit" class="btn btn-dark p-3 mt-3">
                   <span>Send Melding</span>
                 </button>
             </div>
           </div>
         </div>
       </form>
-      <br>
-      <br>
-      <br>
-      <br>
+    </div>
     </div>
   </main>
 </template>
 
 <script>
-  import axios from "axios";
-  import {
-    ref
-  } from "vue";
+  import { ref, onMounted, onUpdated } from "vue";
+  import emailjs from 'emailjs-com';
+  emailjs.init("user_vU0ggARxWces5A4Fc7z00");
+
   export default {
     setup() {
+      onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
       var [navn, emne, senderEpost, melding, mottaKopi] = [ref(""), ref(""), ref(""), ref(""), ref("")];
       async function sendEpost() {
-        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt og vi gleder oss til å lese den :)</p>";
-        await axios.post('http://localhost:3000/api/privat/sendEpost', {
-          "navn": navn.value,
-          "emne": emne.value,
-          "senderEpost": senderEpost.value,
-          "melding": melding.value,
-          "mottaKopi": mottaKopi.value,
-        });
+        document.querySelector(".kontaktSkjema").innerHTML = "<p>Din melding har blitt mottatt og en kopi har blitt sendt til din epost. </p>";
+          var templateParams = {
+            navn: navn.value,
+            emne: emne.value,
+            senderEpost: senderEpost.value,
+            melding: melding.value,
+          };
+          emailjs.send("service_99wwis5","template_9m7qrpx", templateParams);
       }
       return {
         sendEpost,

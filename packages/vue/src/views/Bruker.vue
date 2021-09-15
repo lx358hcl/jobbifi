@@ -1,161 +1,201 @@
-<template>
-<br><br><br><br><br>
-  <div class="homepage d-flex align-items-center justify-content-center">
-    <div class="my-5 container mx-5">
-      <div v-if="dbInfoRef" class="row d-flex justify-content-center">
-        <div class="col-lg-4 col-xl-4">
-          <div class="card-box text-center">
-            <img :src="profilbilde" class="profile-image gjørTilClickable rounded-circle avatar-xl img-thumbnail mt-1" alt="profile-image">
-            <h4 class="mb-0 mt-3 pt-1">{{ brukernavn }}</h4>
-            <div class="text-left mt-3 text-center">
-              <h4 class="h5 text-uppercase ommeg text-center mb-3">Om meg</h4>
-              <p class="text-muted font-13 mb-3 text-center">{{ dbInfoRef.omMeg }}</p>
-              <hr>
-
-              <p class="text-muted mb-2 font-13"><strong>Fullt navn:<br> </strong> <span class="ml-0">{{ dbInfoRef.fornavn + " " + dbInfoRef.etternavn }}</span></p>
-              <p class="text-muted mb-2 font-13"><strong>Epost: <br></strong> <span class="ml-0 ">{{ email }}</span></p>
+<template >
+<main class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 294px);">
+<div v-if="loading" class = "d-flex justify-content-center">
+    <spinner class = "d-flex justify-content-center"></spinner>
+</div>
+  <section v-else class="clean-block clean-form dark d-flex align-items-center w-100" style="padding-bottom: 0px;min-height: calc(100vh - 200px);background: rgb(255,255,255);">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1 justify-content-center" style="margin-top: 50px;margin-bottom: 50px;">
+            <div class="d-flex justify-content-center mt-0 col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6" id="profilSideBilde" style="padding-right: 20px;padding-left: 20px;border-radius: 5px;height: 100%;">
+                <div class="card m-0 p-0" style="border-style: none;">
+                    <div class="card-body m-0 p-0 d-flex flex-column justify-content-center text-center">
+                        <div class = "py-5 px-3">
+                            <div v-if="userInfo">
+                                <div class="d-flex justify-content-center">
+                                    <div class="img-fluid" id = "" data-bss-hover-animate="pulse" v-bind:style="{ backgroundImage: 'url(' + profilbilde + ')' }" style="background-repeat: no-repeat; background-size: cover; width:220px; height:220px; border-radius: 156px;box-shadow: 0px 0px 4px 1px rgba(82,82,82,0.87);border: 1px none rgb(79,79,79);"></div>
+                                </div>
+                                <span style = "margin-left:130px; margin-top:-50px; border:5px solid white; width:50px !important; height:50px;" :class = "{'badge-success': active, 'badge-danger': !active}" class="badge d-inline-block badge-pill">&nbsp;&nbsp;&nbsp;</span>
+                                <h4 class="text-center card-title" style="margin-top: 20px;font-weight: 900;margin-bottom: 20px;font-family: lato;">{{ brukernavn }}</h4>
+                                <!--<button v-if = "user" @click = "startChat()" type="button" class="btn font-weight-bold btn-dark px-4" style = "font-family:Lato;"><i class="far fa-comment-dots"></i> Chat </button>-->
+                                <h6 class="text-muted card-subtitle mb-2 mt-4" style="color: rgb(37,37,37) !important;font-weight: 600;text-align: center;font-family: Lato;">OM MEG</h6>
+                                <hr>
+                                <p class="pb-3 pr-3 pl-3 pt-0 card-text text-center" style="text-align: left;" v-html="omMeg"></p>
+                                <p style="display:block; margin: 12px 0px 16px;margin-top: 12px;font-size: 20px;font-family: Lato;font-weight: 900;margin-bottom: 12px;">Lenker og sånt</p>
+                                <hr>
+                                <div class="social-icons d-flex justify-content-center align-center">
+                                    <a v-if = "linkedIn" :href="linkedIn">
+                                        <i style = "color: #0a66c2;" class="icon ion-social-linkedin sosialKnapp d-flex align-items-center justify-content-center"></i>
+                                    </a>
+                                    <a v-if = "gitHub" :href="gitHub">
+                                        <i style = "color: #2f2f2f;" class="icon ion-social-github sosialKnapp d-flex align-items-center justify-content-center"></i>
+                                    </a>
+                                    <p v-if = "!gitHub && !linkedIn">Brukeren har ikke oppgitt noen sosiale lenker</p>
+                                </div>
+                            </div>
+                            <p v-else class = "d-flex justify-content-center">Denne brukeren finnes ikke/har blitt slettet. </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <!-- end card-box -->
         </div>
       </div>
-      <div v-else class = "d-flex justify-content-center w-100 h-100">
-      
-      <spinner></spinner>
-      
-      </div>
-    </div>
-  </div>
+  </section>
+</main>
+
 </template>
-
 <script>
-  import { ref } from "vue";
-  import firebase from "../main.js";
-  import firestore from 'firebase/firestore';
-  import spinner from "../components/spinner.vue";
-  import { settings } from "../settings.js";
-  
-  var toast = require('vue-izitoast');
-  var $ = require('jquery');
-  var email = ref("");
-  var brukernavn = ref("");
-  var fornavn = ref("");
-  var etternavn = ref("");
-  var profilbilde = ref("");
-  var sosialt = ref("");
-  var omMeg = ref("");
-  var linkedIn = ref("");
-  var gitHub = ref("");
-  var nettside = ref("");
-  var dbInfoRef = ref("");
-  var antallOrdIgjen = ref("250");
-  var reader = new FileReader();
-  var fil = null;
+    //Importer ting og sånn
+    import { ref, watch, onMounted, onUpdated } from "vue";
+    import firebaseApp from "../../../firebase/firebaseconfig.js";
+    import firestore from 'firebase/firestore';
+	import router from '../router/index.js';
+    import spinner from "../components/spinner.vue";
+    import firebase from 'firebase';
+    import commentSection from "../components/commentSection.vue";
+    import { settings } from "../settings.js";
 
-  async function getInfo() {
-    var user = await firebase.default.auth().currentUser;
-    var db = await firebase.firestore();
-    var dbInfo = await db.collection("users").doc(user.uid).get();
-    dbInfo = await dbInfo.data();
-    console.log(dbInfo);
-    dbInfoRef.value = dbInfo;
-    email.value = user.email;
-    brukernavn.value = dbInfo.username;
-    fornavn.value = dbInfo.fornavn;
-    etternavn.value = dbInfo.etternavn;
-    profilbilde.value = dbInfo.profilbilde;
-    sosialt.value = dbInfo.sosialt;
-    omMeg.value = dbInfo.omMeg;
-    linkedIn.value = dbInfo.linkedIn;
-    gitHub.value = dbInfo.gitHub;
-    nettside.value = dbInfo.nettside;
-    omMegTeller(dbInfo.omMeg);
-  }
+    //Reffer som trengs
+    var email = ref("");
+    var brukernavn = ref("");
+    var fornavn = ref("");
+    var etternavn = ref("");
+    var profilbilde = ref("");
+    var omMeg = ref("");
+    var linkedIn = ref("");
+    var gitHub = ref("");
+    var nettside = ref("");
+    var placeHolder = ref("");
+    var userInfo = ref(""); 
+    var user = ref("");
+    var loading = ref(true);
+    var db = firebaseApp.firestore();
+    var active = ref(false);
 
-  export default {
-    setup() { 
-      async function lagre(){
-          settings.value.loading = true;
-          var user = await firebase.default.auth().currentUser;
-          var db = await firebase.firestore();
-          // Create a storage reference from our storage service
-              var storageRef;
-              var upload;
-              var profilePicURL;
-              
-              if(fil != null){
-                storageRef = await firebase.storage().ref("/profilBilder/" + fil.name);
+    //Get info for the given user
+    async function getInfoForUser(){
+        //Start loadingspinner
+        loading.value = true;
 
-                await storageRef.put(fil).then((snapshot) => {
-                  snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    profilePicURL = downloadURL;
-                      console.log('File available at', downloadURL);
-                      db.collection("users").doc(user.uid).set({
-                        fornavn: fornavn.value,
-                        etternavn: etternavn.value,
-                        profilbilde: profilePicURL,
-                        sosialt: "",
-                        omMeg: omMeg.value, 
-                      }).then(function(){
-                        location.reload();
-                      })
-                  });
-                })
-              }
-              else{
-                await db.collection("users").doc(user.uid).update({
-                  fornavn: fornavn.value,
-                  etternavn: etternavn.value,
-                  sosialt: "",
-                  omMeg: omMeg.value, 
-                }).then(function(){
-                  location.reload();
-                })
-              }
-          settings.value.loading = false;
-      }
-      function readURL(input) {
-        fil = input;
-        console.log(input.files);
-          if (input.files && input.files[0]) {
-            reader.onload = function(e) {
-              console.log("OK");
-              $('#imagePreview').attr("src",e.target.result);
-              $('#imagePreview').hide();
-              $('#imagePreview').fadeIn(650);
-            }
-            console.log(reader);
-            fil = input.files[0];
-            reader.readAsDataURL(input.files[0]);
+        //Get user-info
+        user.value = await firebaseApp.auth().currentUser;
+        var users = await db.collection("users").where("brukernavn", "==", router.currentRoute.value.params.brukernavn).get();
+        
+        if(users.docs.length != 0){
+            userInfo.value = users.docs[0].data();
+
+            //Set reffene til verdiene
+            email.value = userInfo.value.epost;
+            brukernavn.value = userInfo.value.brukernavn;
+            fornavn.value = userInfo.value.fornavn;
+            etternavn.value = userInfo.value.etternavn;
+            profilbilde.value = userInfo.value.profilbilde;
+            omMeg.value = userInfo.value.omMeg;
+            linkedIn.value = userInfo.value.linkedIn;
+            gitHub.value = userInfo.value.gitHub;
+            nettside.value = userInfo.value.nettside;
+
+            //Er bruker pålogget?
+            var currentDate = new Date().getTime();
+            var lastActiveTime = userInfo.value.active.toDate().getTime();
+            var diff = currentDate - lastActiveTime;
+            if(diff < 60000) active.value = true;
+            else active.value = false;
+
         }
-      }
+        //Avslutt loading spinner
+        loading.value = false;
+    }
 
-      function omMegTeller(antall){
-        console.log(antall.length - 250);
-        antallOrdIgjen.value = 250 - antall.length;
-      }
-      
-      getInfo();
+    export default {
+    watch:{
+        $route (to, from){
+            getInfoForUser();
+        }
+    } ,
+    setup() {
+        onMounted(() => {
+        window.scrollTo(0, 0);
+      })
+      onUpdated(() => {
+        window.scrollTo(0, 0);
+      })
+        async function startChat(){
+            var senderID = user.value.uid;
+            var sender = await db.collection("users").doc(senderID).get();
+            var senderBrukernavn = sender.data().brukernavn;
+            var mottaker = await db.collection("users").where("brukernavn", "==", router.currentRoute.value.params.brukernavn).get();
+            var mottakerData = mottaker.docs[0].data();
+            var mottakerID = mottakerData.uid;
 
-      return {
-        email,
-        brukernavn,
-        readURL,
-        dbInfoRef,
-        spinner,
-        lagre,
-        omMegTeller,
-        antallOrdIgjen,
-        fornavn,
-        etternavn,
-        omMeg,
-        settings,
-        profilbilde,
-      }
-    },
-  }
+            //Først sjekker vi om chatten finnes fra før
+            
+            
+            var res = await db.collection("chats").where(`deltakere.${senderID}`, "==", true).where(`deltakere.${mottakerID}`, "==", true).get();
+            var res2 = await db.collection("chats").where(`deltakere.${senderID}`, "==", false).where(`deltakere.${mottakerID}`, "==", true).get();
+            var res3 = await db.collection("chats").where(`deltakere.${senderID}`, "==", false).where(`deltakere.${mottakerID}`, "==", false).get();
 
-  export {
-    getInfo
-  }
+            if(res.docs.length > 0 && res.docs[0].exists){
+                
+                router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res.docs[0].id }});
+            }
+            else if(res2.docs.length > 0 && res2.docs[0].exists){
+                await db.collection("chats").doc(res2.docs[0].id).update({
+                    [`deltakere.${senderID}`]:true,
+                    [`deltakere.${mottakerID}`]:true,
+                })
+                router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res2.docs[0].id }});
+            }
+            else if(res3.docs.length > 0 && res3.docs[0].exists){
+                await db.collection("chats").doc(res3.docs[0].id).update({
+                    [`deltakere.${senderID}`]:true,
+                    [`deltakere.${mottakerID}`]:true,
+                })
+                setTimeout(function(){
+                    router.push({ name: 'Dashboard', query: { side: 'meldinger', chatID: res3.docs[0].id }});
+                }, 300)
+            }
+            else{
+                //Start chat
+                var nyChat = await db.collection("chats").doc();
+                await nyChat.set({
+                    starter: senderID,
+                    starterBrukernavn: senderBrukernavn,
+                    mottaker: mottakerID,
+                    mottakerBrukernavn: mottakerData.brukernavn,
+                    deltakere: {
+                        [senderID]: true,
+                        [mottakerID]: true,
+                    },
+                    lastSentMessage: firebase.firestore.FieldValue.serverTimestamp(),
+                    lastMessage: "",
+                    lastMessageID: "",
+                    lastMessageUser:"",
+                    lastMessageChatID:nyChat.id,
+                });
+                router.push({ name: 'Dashboard', query: { side: 'meldinger'}})
+            }
+        }
+
+        getInfoForUser();
+
+        return {
+            email,
+            brukernavn,
+            fornavn,
+            etternavn,
+            profilbilde,
+            omMeg,
+            linkedIn,
+            gitHub,
+            nettside,
+            userInfo,
+            spinner,
+            commentSection,
+            user,
+            loading,
+            startChat,
+            active,
+        }
+    }
+}
 </script>

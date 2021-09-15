@@ -1,5 +1,5 @@
 <template>
-    <main class = "homepage container">
+    <main class = "center d-flex align-items-center justify-content-center">
       Denne siden eksisterer ikke
     </main>
 </template>

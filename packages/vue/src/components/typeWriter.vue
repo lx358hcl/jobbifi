@@ -1,8 +1,10 @@
 <!-- Dette skriver teksten på velkommen-siden -->
 
 <template>
-    <div class="skrivUtContainer d-flex justify-content-center align-items-center row">
-        <p id="skrivUt"></p>
+    <div class = "d-flex align-items-center">
+        <p id="skrivUt">
+        
+        </p>
     </div>
 </template>
 
@@ -19,13 +21,13 @@
                     loop: true,
                 });
                 typewriter
-                    .typeString('Trenger du jobb?')
-                    .pauseFor(1000)
-                    .deleteAll(20)
                     .typeString('Er du utvikler/designer?')
                     .pauseFor(1000)
                     .deleteAll(20)
-                    .typeString('Jobbifi aggregerer finn, nav og ifinavet daglig')
+                    .typeString('Studerer du informatikk/design?')
+                    .pauseFor(1000)
+                    .deleteAll(20)
+                    .typeString('Jobbifi aggregerer IT-stillinger fra finn, nav og ifinavet daglig')
                     .pauseFor(1000)
                     .deleteAll(20)
                     .typeString('Da blir det lettere for deg å søke jobb')
@@ -36,9 +38,7 @@
                     .deleteAll(20)
                     .start();
             });
-            return {
-
-            }
+            return {  }
         }
     }
 </script>

@@ -15,14 +15,17 @@ import Stilling from "@/views/Stilling.vue";
 
 import Secret from "../views/Secret.vue";
 import Bruker from "../views/Bruker.vue";
-import About from "../views/About.vue";
 import Logout from "../views/Logout.vue";
-import Lagrede from "../views/Lagrede.vue";
+import Dashboard from "../views/Dashboard.vue";
 import Innstillinger from "../views/Innstillinger.vue";
 import Meldinger from "../views/Meldinger.vue";
 import Varsler from "../views/Varsler.vue";
+import GlemtPassord from "../views/GlemtPassord.vue";
+import Feed from "../views/Feed.vue";
+import BesteSelskaper from "../views/BesteSelskaper.vue";
+import Selskap from "../views/Selskap.vue";
 
-import * as firebase from "firebase";
+import firebaseApp from "../../../firebase/firebaseconfig.js";
 
 const routes = [
   {
@@ -34,6 +37,20 @@ const routes = [
     path: "/kontakt",
     name: "Kontakt",
     component: Kontakt,
+  },
+  {
+    path: "/feed",
+    name: "Feed",
+    component: Feed,
+  },
+  {
+    path: "/glemtpassord",
+    name: "GlemtPassord",
+    component: GlemtPassord,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/retningslinjer",
@@ -51,7 +68,7 @@ const routes = [
     component: Om,
   },
   {
-    path: "/stillinger",
+    path: "/stillinger/:searchQuery?",
     name: "Stillinger",
     component: Stillinger,
   },
@@ -64,15 +81,16 @@ const routes = [
     path: "/blimedlem",
     name: "Bli Medlem",
     component: BliMedlem,
-    beforeEnter: async (to, from, next) => {
-      if(firebase.default.auth().currentUser) next("secret");
-      else next(); 
-    }
   },
   {
-    path: "/bedrifter",
-    name: "Bedrifter",
-    component: Bedrifter,
+    path: "/besteselskaper",
+    name: "BesteSelskaper",
+    component: BesteSelskaper,
+  },
+  {
+    path: "/selskap/:navn",
+    name: "Selskap",
+    component: Selskap,
   },
   {
     path: "/api/:query",
@@ -88,36 +106,44 @@ const routes = [
     path: "/konto",
     name: "konto",
     component: Secret,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
-    path: "/bruker/",
+    path: "/bruker/:brukernavn",
     name: "Bruker",
     component: Bruker,
+    props: true,
   },
   {
     path: "/login",
     name: "login",
     component: Login,
     beforeEnter: async (to, from, next) => {
-        if(firebase.default.auth().currentUser) next("secret");
-        else next(); 
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
     }
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: About
   },
   {
     path: "/logout",
     name: "Logout",
     component: Logout,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next("konto");
+      else next(); 
+    }
   },
   {
-    path: "/lagrede",
-    name: "Lagrede",
-    component: Lagrede,
+    path: "/dashboard/:query?",
+    name: "Dashboard",
+    component: Dashboard,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/innstillinger",
@@ -125,9 +151,13 @@ const routes = [
     component: Innstillinger,
   },
   {
-    path: "/meldinger",
+    path: "/dashboard/meldinger",
     name: "Meldinger",
     component: Meldinger,
+    beforeEnter: async (to, from, next) => {
+      if(firebaseApp.auth().currentUser) next();
+      else next(); 
+    }
   },
   {
     path: "/varsler",
@@ -149,7 +179,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const isAuthenticated = firebase.default.auth().currentUser;
+  const isAuthenticated = firebaseApp.auth().currentUser;
   if (requiresAuth && !isAuthenticated) {
     next("/login");
   } 

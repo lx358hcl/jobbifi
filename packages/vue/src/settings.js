@@ -17,6 +17,7 @@ var settings = ref({
     "data": "",
     "entireResponse": "",
     "source": ["ifijobs", "arbeidsplassen", "finn"],
+    "nyttBildeOpplastet": false,
 });
 
 //Last inn fra localStorage
@@ -27,8 +28,8 @@ else localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
 
 //Lagr settingsene i settings i localStorage
 var lagreEndringer = () => {
-    localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
-    console.log(settings.value)
+    // localStorage.setItem("ifijobbSettings", JSON.stringify(settings.value));
+    
 }
 
 //Lytt etter endringer i settings
