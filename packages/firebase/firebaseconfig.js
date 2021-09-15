@@ -1,13 +1,13 @@
 import firebase from "firebase";
 
 var firebaseConfig = {
-    apiKey: "AIzaSyAh0HDRFkHxT5rg1axASthIAEkWfyUuR3Y",
-    authDomain: "nevet-9e3ed.firebaseapp.com",
-    databaseURL: "https://nevet-9e3ed-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "nevet-9e3ed",
-    storageBucket: "nevet-9e3ed.appspot.com",
-    messagingSenderId: "108502587373",
-    appId: "1:108502587373:web:5cd48d209d9171076379e4"
+    apiKey: process.env.VUE_APP_APIKEY,
+    authDomain: process.env.VUE_APP_AUTHDOMAIN,
+    databaseURL: process.env.VUE_APP_DATABASE_URL,
+    projectId: process.env.VUE_APP_PROJECT_ID,
+    storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.VUE_APP_MESSAGESENDERID,
+    appId: process.env.VUE_APP_APPID,
 };
 
 //Initialiser firebase
