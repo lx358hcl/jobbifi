@@ -12,3 +12,6 @@ Crawler:
 - finn.no
 - arbeidsplassen.no
 - ifinavnet.no
+
+## Project status:
+- Discontinued.
