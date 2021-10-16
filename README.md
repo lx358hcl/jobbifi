@@ -1,6 +1,6 @@
 ## Jobbifi - Jobbannonse aggregator nettisde for informatikere | designere
 
-## Demo:
+## Demo (the demo works 50% due to switching to firebase free-plan)
 - [Demo](https://www.jobbifi.no/)
 
 ## Info:
