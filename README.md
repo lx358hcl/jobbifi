@@ -1,4 +1,4 @@
-## Jobbifi - Jobbannonse aggregator nettisde for informatikere | designere
+## Jobbifi - Automatisert annonseinnsamler
 
 ## Demo
 - [Demo](https://www.jobbifi.no/)
