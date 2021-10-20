@@ -15,5 +15,5 @@ Crawler:
 - arbeidsplassen.no
 - ifinavnet.no
 
-## Project status:
-- Discontinued.
+## Prosjekt status:
+- Vedlikeholdes ikke lenger.
