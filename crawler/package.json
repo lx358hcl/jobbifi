@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "> TODO: description",
     "author": "Luka Momcilovic <52632596+lukasinos@users.noreply.github.com>",
+    "__comment":"author2: Igor Momcilovic <igormomc@github.com>",
     "homepage": "",
     "type": "module",
     "license": "ISC",
