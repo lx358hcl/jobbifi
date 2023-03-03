@@ -1,6 +1,6 @@
 ## Jobbifi - Automatisert annonseinnsamler
 
-## Demo(not fully functional due to database-error, but representative nonetheless)
+## Demo(doesn't work now)
 - [Demo](https://www.jobbifi.no/)
 
 ![GitHub Logo](./jobbifi.png)
